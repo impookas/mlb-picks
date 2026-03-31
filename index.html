@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Today's Picks — MLB Picks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
 :root {
     --bg: #0a0e17;
@@ -18,52 +18,47 @@
     --text-dim: #94a3b8;
     --text-muted: #64748b;
     --accent: #3b82f6;
-    --accent-glow: rgba(59, 130, 246, 0.12);
-    --green: #22c55e;
-    --green-dim: rgba(34, 197, 94, 0.12);
+    --accent-hover: #2563eb;
+    --green: #10b981;
+    --green-dim: #059669;
     --red: #ef4444;
-    --red-dim: rgba(239, 68, 68, 0.12);
     --amber: #f59e0b;
-    --high: #f97316;
-    --medium: #3b82f6;
-    --low: #64748b;
+    --purple: #a855f7;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+body { 
+    font-family: 'Inter', -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
-    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
 
-/* Nav */
-.nav {
+/* Header */
+.header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(12px);
-    background: rgba(17, 24, 39, 0.92);
+    backdrop-filter: blur(10px);
 }
 
-.nav-inner {
-    max-width: 960px;
-    margin: 0 auto;
+.header-inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0.8rem 1.5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-.nav-brand {
-    font-size: 1.15rem;
+.logo {
+    font-size: 1.25rem;
     font-weight: 800;
     color: var(--text);
     text-decoration: none;
@@ -72,485 +67,851 @@ a:hover { text-decoration: underline; }
     gap: 0.5rem;
 }
 
-.nav-brand:hover { text-decoration: none; }
-.nav-brand span { color: var(--accent); }
+.logo-emoji { font-size: 1.5rem; }
 
-.nav-links {
+.nav {
     display: flex;
-    gap: 0.25rem;
+    gap: 1.5rem;
 }
 
-.nav-links a {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.88rem;
-    font-weight: 500;
+.nav a {
     color: var(--text-dim);
-    transition: all 0.15s;
-}
-
-.nav-links a:hover {
-    background: var(--surface2);
-    color: var(--text);
     text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s;
 }
 
-.nav-links a.active {
-    background: var(--accent-glow);
-    color: var(--accent);
+.nav a:hover, .nav a.active { color: var(--accent); }
+
+/* Hero Stats */
+.hero {
+    padding: 3rem 0 2rem;
+    text-align: center;
 }
 
-/* Container */
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Page header */
-.page-header {
+.hero-subtitle {
+    color: var(--text-dim);
+    font-size: 1rem;
     margin-bottom: 2rem;
 }
 
-.page-header h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.3rem;
-}
-
-.page-header .subtitle {
-    color: var(--text-dim);
-    font-size: 0.95rem;
-}
-
-/* Stats row */
-.stats-row {
+.stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
-.stat-box {
-    background: var(--surface);
+.stat-card {
+    background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.1rem 1rem;
-    text-align: center;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s, border-color 0.2s;
 }
 
-.stat-val {
-    font-size: 1.7rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
 }
 
 .stat-label {
-    font-size: 0.7rem;
-    color: var(--text-dim);
+    color: var(--text-muted);
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 0.2rem;
+    letter-spacing: 0.5px;
+    margin-top: 0.5rem;
 }
 
-.c-green { color: var(--green); }
-.c-red { color: var(--red); }
-.c-amber { color: var(--amber); }
-.c-blue { color: var(--accent); }
-
-/* Section */
-.section {
-    margin-bottom: 2.5rem;
+/* Streak Badges */
+.streak-badges {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
 }
 
-.section-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+.badge {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.badge {
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.15rem 0.55rem;
-    border-radius: 5px;
-    background: var(--accent);
-    color: white;
+.badge.win { border-color: var(--green); color: var(--green); }
+.badge.hot { border-color: var(--amber); color: var(--amber); }
+
+/* Betting Calculator */
+.calculator {
+    background: linear-gradient(135deg, var(--surface2) 0%, var(--surface3) 100%);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    text-align: center;
 }
 
-/* Pick cards */
-.pick-card {
-    background: var(--surface);
+.calculator h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.calc-result {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--green);
+    margin: 0.5rem 0;
+}
+
+.calc-detail {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+}
+
+/* Game Cards */
+.picks {
+    padding: 2rem 0;
+}
+
+.game-card {
+    background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 12px;
-    margin-bottom: 0.85rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s;
+    position: relative;
     overflow: hidden;
-    transition: border-color 0.2s;
 }
-.pick-card:hover { border-color: var(--border-hover); }
-.pick-card.high { border-left: 3px solid var(--high); }
-.pick-card.medium { border-left: 3px solid var(--medium); }
-.pick-card.low { border-left: 3px solid var(--low); }
 
-.pick-top {
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+}
+
+.game-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+}
+
+.game-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.2rem 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.matchup-name {
-    font-size: 1.05rem;
+.matchup {
+    font-size: 1.125rem;
     font-weight: 700;
 }
 
-.matchup-name .at { color: var(--text-muted); font-weight: 400; margin: 0 0.25rem; }
-
-.conf-tag {
+.confidence {
+    background: var(--amber);
+    color: var(--bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
     font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.15rem 0.55rem;
-    border-radius: 5px;
-}
-.conf-tag.high { background: rgba(249,115,22,0.15); color: var(--high); }
-.conf-tag.medium { background: var(--accent-glow); color: var(--medium); }
-.conf-tag.low { background: rgba(100,116,139,0.15); color: var(--low); }
-
-.pick-body {
-    padding: 0.5rem 1.2rem 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-.pitcher-row {
-    display: flex;
+.timestamp {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-left: auto;
+}
+
+.pitchers {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.85rem;
-    background: var(--surface2);
-    border-radius: 8px;
-    margin-bottom: 0.85rem;
+    margin: 1.5rem 0;
 }
 
-.p-side { flex: 1; }
-.p-name { font-weight: 600; font-size: 0.9rem; }
-.p-stats { font-size: 0.75rem; color: var(--text-dim); }
-.p-vs { color: var(--text-muted); font-size: 0.78rem; font-weight: 600; }
-
-.pick-result-row {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-}
-
-.pick-box {
-    background: var(--accent-glow);
-    border: 1px solid rgba(59,130,246,0.18);
-    border-radius: 8px;
-    padding: 0.6rem 1.4rem;
+.pitcher {
     text-align: center;
-    flex-shrink: 0;
 }
 
-.pick-box .lbl { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
-.pick-box .team { font-size: 0.95rem; font-weight: 800; }
-.pick-box .prob { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
-.pick-box .edge { font-size: 0.72rem; color: var(--green); font-weight: 600; }
-
-.factors-col { flex: 1; }
-
-.factor-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+.pitcher-name {
+    font-weight: 600;
     margin-bottom: 0.25rem;
 }
 
-.f-label { font-size: 0.7rem; color: var(--text-dim); width: 95px; flex-shrink: 0; }
-.f-bar { height: 3px; border-radius: 2px; }
-.f-bar.pos { background: var(--green); }
-.f-bar.neg { background: var(--red); }
-.f-val { font-size: 0.7rem; font-weight: 600; width: 40px; text-align: right; flex-shrink: 0; }
+.pitcher-stats {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
 
-.pick-footer {
-    display: flex;
-    gap: 0.85rem;
-    padding: 0.5rem 1.2rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.7rem;
+.vs {
     color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.pick-box {
+    background: linear-gradient(135deg, var(--surface3) 0%, var(--surface) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.pick-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pick-team {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text);
+    margin: 0.25rem 0;
+}
+
+.pick-prob {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--green);
+}
+
+.edge {
+    font-size: 0.875rem;
+    color: var(--green-dim);
+    margin-top: 0.25rem;
+}
+
+/* Vegas Comparison */
+.vegas-compare {
+    background: var(--surface3);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.vegas-label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.vegas-odds {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+}
+
+.market-edge {
+    background: var(--green);
+    color: var(--bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.market-edge.negative {
+    background: var(--red);
+}
+
+/* Factors */
+.factors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.factor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.factor-label {
+    color: var(--text-dim);
+}
+
+.factor-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 0.75rem;
+    position: relative;
+}
+
+.factor-fill {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+}
+
+.factor-fill.negative {
+    right: 50%;
+    left: auto;
+    background: var(--red);
+}
+
+.factor-value {
+    font-weight: 600;
+    min-width: 50px;
+    text-align: right;
+}
+
+.factor-value.positive { color: var(--green); }
+.factor-value.negative { color: var(--red); }
+
+/* Venue */
+.venue {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.875rem;
 }
 
 /* Footer */
-.site-footer {
+.footer {
     margin-top: 4rem;
     padding: 2rem 0;
     border-top: 1px solid var(--border);
     text-align: center;
-    font-size: 0.78rem;
     color: var(--text-muted);
+    font-size: 0.75rem;
 }
 
-/* Day result rows */
-.day-row {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    overflow: hidden;
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 1.75rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .pitchers { grid-template-columns: 1fr; }
+    .vs { display: none; }
+    .nav { gap: 1rem; }
+    .nav a { font-size: 0.8rem; }
+    .game-header { flex-direction: column; align-items: flex-start; }
+    .timestamp { margin-left: 0; }
 }
 
-.day-summary {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1.2rem;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s;
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .factors { grid-template-columns: 1fr; }
 }
-.day-summary:hover { background: var(--surface2); }
-
-.day-date { font-weight: 700; width: 65px; }
-.day-rec { font-weight: 600; width: 45px; }
-.day-pct { font-weight: 700; width: 50px; }
-.day-brier { font-size: 0.8rem; color: var(--text-dim); flex: 1; }
-.day-arrow { color: var(--text-muted); transition: transform 0.2s; font-size: 0.8rem; }
-
-.day-row.open .day-arrow { transform: rotate(90deg); }
-
-.day-picks {
-    display: none;
-    padding: 0 1.2rem 0.85rem;
-}
-.day-row.open .day-picks { display: block; }
-
-.dp-line {
-    padding: 0.35rem 0;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border);
-}
-.dp-line:last-child { border-bottom: none; }
-.dp-line.wrong { color: var(--text-dim); }
-
-/* Calibration chart */
-.cal-row {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.4rem;
-}
-.cal-label { font-size: 0.78rem; font-weight: 600; width: 42px; text-align: right; }
-.cal-bar-wrap {
-    flex: 1;
-    height: 22px;
-    background: var(--surface2);
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-}
-.cal-pred-bar { position: absolute; top: 0; left: 0; height: 100%; background: rgba(59,130,246,0.2); border-right: 2px solid var(--accent); }
-.cal-act-bar { position: absolute; top: 0; left: 0; height: 100%; background: rgba(34,197,94,0.25); border-right: 2px solid var(--green); }
-.cal-actual { font-size: 0.78rem; color: var(--green); font-weight: 600; width: 42px; }
-.cal-n { font-size: 0.7rem; color: var(--text-muted); width: 38px; }
-
-/* Tier boxes */
-.tier-box {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.7rem 1rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 0.4rem;
-}
-.tier-name { font-weight: 600; width: 90px; }
-.tier-rec { color: var(--text-dim); }
-.tier-pct { font-weight: 700; color: var(--green); }
-
-/* How it works */
-.info-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
-.info-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-.info-card p, .info-card li {
-    font-size: 0.88rem;
-    color: var(--text-dim);
-    margin-bottom: 0.4rem;
-}
-.info-card ul { padding-left: 1.2rem; }
-.info-card .weight-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.3rem;
-}
-.info-card .wb-label { font-size: 0.78rem; width: 140px; flex-shrink: 0; }
-.info-card .wb-fill { height: 6px; border-radius: 3px; background: var(--accent); }
-.info-card .wb-val { font-size: 0.72rem; color: var(--text-dim); width: 35px; }
-
-/* Mobile */
-@media (max-width: 640px) {
-    .container { padding: 1.2rem 1rem 3rem; }
-    .page-header h1 { font-size: 1.4rem; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .stat-val { font-size: 1.3rem; }
-    .pick-result-row { flex-direction: column; }
-    .pitcher-row { flex-direction: column; gap: 0.4rem; }
-    .p-vs { display: none; }
-    .nav-inner { flex-direction: column; gap: 0.5rem; }
-    .day-summary { gap: 0.5rem; font-size: 0.88rem; }
-    .pick-footer { flex-wrap: wrap; }
-}
-</style>
+    </style>
 </head>
 <body>
-<nav class="nav">
-    <div class="nav-inner">
-        <a href="index.html" class="nav-brand">&#9918; MLB <span>Picks</span></a>
-        <div class="nav-links"><a href="index.html" class="active">Today</a><a href="track-record.html">Track Record</a><a href="how-it-works.html">How It Works</a></div>
-    </div>
-</nav>
-<div class="container">
 
-    <div class="page-header">
-        <h1>Today&#39;s Picks <span class="badge">2026-03-31</span></h1>
-        <div class="subtitle">4 premium picks &middot; 64%+ confidence only &middot; Timestamped before first pitch</div>
+<div class="header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <span class="logo-emoji">⚾</span>
+            <span>MLB Picks</span>
+        </a>
+        <nav class="nav">
+            <a href="index.html" class="active">Today</a>
+            <a href="track-record.html">Track Record</a>
+            <a href="how-it-works.html">How It Works</a>
+        </nav>
     </div>
-    <div class="stats-row">
-        <div class="stat-box"><div class="stat-val c-green">9-3</div><div class="stat-label">Season Record</div></div>
-        <div class="stat-box"><div class="stat-val c-green">75.0%</div><div class="stat-label">Win Rate</div></div>
-        <div class="stat-box"><div class="stat-val c-green">37.5%</div><div class="stat-label">Brier Skill</div></div>
-        <div class="stat-box"><div class="stat-val c-green">+43.2%</div><div class="stat-label">Flat-Bet ROI</div></div>
-    </div>
-    <div class="section"><div class="pick-card high">
-    <div class="pick-top">
-        <div class="matchup-name">Cleveland Guardians <span class="at">@</span> Los Angeles Dodgers</div>
-        <div class="conf-tag high">&#128293; High</div>
-    </div>
-    <div class="pick-body">
-        <div class="pitcher-row">
-            <div class="p-side"><div class="p-name">Tanner Bibee</div><div class="p-stats">4.24 ERA &middot; Score 58.4 &middot; L5: 2.16</div></div>
-            <div class="p-vs">vs</div>
-            <div class="p-side"><div class="p-name">Shohei Ohtani</div><div class="p-stats">2.87 ERA &middot; Score 68.5 &middot; L5: 2.33</div></div>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <h1>Today's Picks</h1>
+        <p class="hero-subtitle">4 premium picks · 64%+ confidence only · Timestamped before first pitch</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">9-3</div>
+                <div class="stat-label">Season Record</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">75.0%</div>
+                <div class="stat-label">Win Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">37.5%</div>
+                <div class="stat-label">Brier Skill</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">+43.2%</div>
+                <div class="stat-label">Flat-Bet ROI</div>
+            </div>
         </div>
-        <div class="pick-result-row">
+    </div>
+
+    <div class="calculator">
+        <h3>💵 Betting Calculator</h3>
+        <div class="calc-detail">If you bet $10 on each HIGH pick:</div>
+        <div class="calc-result">+$51.80</div>
+        <div class="calc-detail">Wagered: $120.00 | Profit: $51.80 | 12 picks</div>
+    </div>
+
+    <div class="picks">
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="matchup">Cleveland Guardians @ Los Angeles Dodgers</div>
+                <span class="confidence">🔥 High</span>
+                <span class="timestamp">Pick made: 04:53 PM ET | First pitch: 02:10 AM ET</span>
+            </div>
+            
+            <div class="pitchers">
+                <div class="pitcher">
+                    <div class="pitcher-name">Tanner Bibee</div>
+                    <div class="pitcher-stats">4.24 ERA · Score 58.4 · L5: 84.70</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="pitcher">
+                    <div class="pitcher-name">Shohei Ohtani</div>
+                    <div class="pitcher-stats">2.87 ERA · Score 68.5 · L5: 92.30</div>
+                </div>
+            </div>
+            
             <div class="pick-box">
-                <div class="lbl">Pick</div>
-                <div class="team">Los Angeles Dodgers</div>
-                <div class="prob">67%</div>
+                <div class="pick-label">Pick</div>
+                <div class="pick-team">Los Angeles Dodgers</div>
+                <div class="pick-prob">67%</div>
                 <div class="edge">+16.6% edge</div>
             </div>
-            <div class="factors-col"><div class="factor-row"><span class="f-label">Home Field</span><div class="f-bar pos" style="width:47.699999999999996%"></div><span class="f-val">+5.3%</span></div><div class="factor-row"><span class="f-label">Offense</span><div class="f-bar pos" style="width:28.8%"></div><span class="f-val">+3.2%</span></div><div class="factor-row"><span class="f-label">Pitcher Matchup</span><div class="f-bar pos" style="width:19.8%"></div><span class="f-val">+2.2%</span></div><div class="factor-row"><span class="f-label">True Talent</span><div class="f-bar pos" style="width:9.9%"></div><span class="f-val">+1.1%</span></div></div>
+            
+            <div class="vegas-compare">
+                <div>
+                    <span class="vegas-label">Our Model:</span>
+                    <span class="vegas-odds">66.6%</span>
+                </div>
+                <div>
+                    <span class="vegas-label">Vegas Line:</span>
+                    <span class="vegas-odds">-271 (73.0%)</span>
+                </div>
+                <span class="market-edge negative">-6.4% vs market</span>
+            </div>
+            
+            <div class="factors">
+
+                <div class="factor">
+                    <span class="factor-label">Pitcher Matchup</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 22.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+2.2%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Offense</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 32.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+3.2%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Bullpen</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill negative" style="width: 1.0%"></div>
+                    </div>
+                    <span class="factor-value negative">-0.1%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Home Field</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 50%"></div>
+                    </div>
+                    <span class="factor-value positive">+5.3%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">True Talent</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 11.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+1.1%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Weather</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 0.0%"></div>
+                    </div>
+                    <span class="factor-value negative">+0.0%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Rest</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 10.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+1.0%</span>
+                </div>
+
+            </div>
+            
+            <div class="venue">
+                📍 UNIQLO Field at Dodger Stadium · Park Factor: 1.0
+            </div>
         </div>
-    </div>
-    <div class="pick-footer">
-        <span>UNIQLO Field at Dodger Stadium</span>
-        <span>Park Factor: 1.0</span>
-        <span></span>
-    </div>
-</div><div class="pick-card high">
-    <div class="pick-top">
-        <div class="matchup-name">Chicago White Sox <span class="at">@</span> Miami Marlins</div>
-        <div class="conf-tag high">&#128293; High</div>
-    </div>
-    <div class="pick-body">
-        <div class="pitcher-row">
-            <div class="p-side"><div class="p-name">Erick Fedde</div><div class="p-stats">5.49 ERA &middot; Score 40.2 &middot; L5: 3.50</div></div>
-            <div class="p-vs">vs</div>
-            <div class="p-side"><div class="p-name">Janson Junk</div><div class="p-stats">4.17 ERA &middot; Score 68.3 &middot; L5: 4.75</div></div>
-        </div>
-        <div class="pick-result-row">
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="matchup">Chicago White Sox @ Miami Marlins</div>
+                <span class="confidence">🔥 High</span>
+                <span class="timestamp">Pick made: 04:53 PM ET | First pitch: 10:40 PM ET</span>
+            </div>
+            
+            <div class="pitchers">
+                <div class="pitcher">
+                    <div class="pitcher-name">Erick Fedde</div>
+                    <div class="pitcher-stats">5.49 ERA · Score 40.2 · L5: 70.40</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="pitcher">
+                    <div class="pitcher-name">Janson Junk</div>
+                    <div class="pitcher-stats">4.17 ERA · Score 68.3 · L5: 55.50</div>
+                </div>
+            </div>
+            
             <div class="pick-box">
-                <div class="lbl">Pick</div>
-                <div class="team">Miami Marlins</div>
-                <div class="prob">65%</div>
+                <div class="pick-label">Pick</div>
+                <div class="pick-team">Miami Marlins</div>
+                <div class="pick-prob">65%</div>
                 <div class="edge">+15.1% edge</div>
             </div>
-            <div class="factors-col"><div class="factor-row"><span class="f-label">Home Field</span><div class="f-bar pos" style="width:42.300000000000004%"></div><span class="f-val">+4.7%</span></div><div class="factor-row"><span class="f-label">Pitcher Matchup</span><div class="f-bar pos" style="width:23.400000000000002%"></div><span class="f-val">+2.6%</span></div><div class="factor-row"><span class="f-label">Offense</span><div class="f-bar pos" style="width:5.3999999999999995%"></div><span class="f-val">+0.6%</span></div><div class="factor-row"><span class="f-label">Bullpen</span><div class="f-bar pos" style="width:0.9%"></div><span class="f-val">+0.1%</span></div></div>
+            
+            <div class="vegas-compare">
+                <div>
+                    <span class="vegas-label">Our Model:</span>
+                    <span class="vegas-odds">65.1%</span>
+                </div>
+                <div>
+                    <span class="vegas-label">Vegas Line:</span>
+                    <span class="vegas-odds">-156 (60.9%)</span>
+                </div>
+                <span class="market-edge positive">+4.2% vs market</span>
+            </div>
+            
+            <div class="factors">
+
+                <div class="factor">
+                    <span class="factor-label">Pitcher Matchup</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 26.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+2.6%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Offense</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 6.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+0.6%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Bullpen</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 1.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+0.1%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Home Field</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 47.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+4.7%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">True Talent</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 1.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+0.1%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Weather</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 0.0%"></div>
+                    </div>
+                    <span class="factor-value negative">+0.0%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Rest</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 0.0%"></div>
+                    </div>
+                    <span class="factor-value negative">+0.0%</span>
+                </div>
+
+            </div>
+            
+            <div class="venue">
+                📍 loanDepot park · Park Factor: 0.97
+            </div>
         </div>
-    </div>
-    <div class="pick-footer">
-        <span>loanDepot park</span>
-        <span>Park Factor: 0.97</span>
-        <span></span>
-    </div>
-</div><div class="pick-card high">
-    <div class="pick-top">
-        <div class="matchup-name">Los Angeles Angels <span class="at">@</span> Chicago Cubs</div>
-        <div class="conf-tag high">&#128293; High</div>
-    </div>
-    <div class="pick-body">
-        <div class="pitcher-row">
-            <div class="p-side"><div class="p-name">José Soriano</div><div class="p-stats">4.26 ERA &middot; Score 55.3 &middot; L5: 6.49</div></div>
-            <div class="p-vs">vs</div>
-            <div class="p-side"><div class="p-name">Jameson Taillon</div><div class="p-stats">3.68 ERA &middot; Score 60.8 &middot; L5: 1.60</div></div>
-        </div>
-        <div class="pick-result-row">
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="matchup">Los Angeles Angels @ Chicago Cubs</div>
+                <span class="confidence">🔥 High</span>
+                <span class="timestamp">Pick made: 04:53 PM ET | First pitch: 11:40 PM ET</span>
+            </div>
+            
+            <div class="pitchers">
+                <div class="pitcher">
+                    <div class="pitcher-name">José Soriano</div>
+                    <div class="pitcher-stats">4.26 ERA · Score 55.3 · L5: 39.80</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="pitcher">
+                    <div class="pitcher-name">Jameson Taillon</div>
+                    <div class="pitcher-stats">3.68 ERA · Score 60.8 · L5: 81.70</div>
+                </div>
+            </div>
+            
             <div class="pick-box">
-                <div class="lbl">Pick</div>
-                <div class="team">Chicago Cubs</div>
-                <div class="prob">65%</div>
+                <div class="pick-label">Pick</div>
+                <div class="pick-team">Chicago Cubs</div>
+                <div class="pick-prob">65%</div>
                 <div class="edge">+14.9% edge</div>
             </div>
-            <div class="factors-col"><div class="factor-row"><span class="f-label">Home Field</span><div class="f-bar pos" style="width:55.800000000000004%"></div><span class="f-val">+6.2%</span></div><div class="factor-row"><span class="f-label">Pitcher Matchup</span><div class="f-bar pos" style="width:43.199999999999996%"></div><span class="f-val">+4.8%</span></div><div class="factor-row"><span class="f-label">True Talent</span><div class="f-bar pos" style="width:20.7%"></div><span class="f-val">+2.3%</span></div><div class="factor-row"><span class="f-label">Offense</span><div class="f-bar pos" style="width:15.299999999999999%"></div><span class="f-val">+1.7%</span></div></div>
+            
+            <div class="vegas-compare">
+                <div>
+                    <span class="vegas-label">Our Model:</span>
+                    <span class="vegas-odds">64.9%</span>
+                </div>
+                <div>
+                    <span class="vegas-label">Vegas Line:</span>
+                    <span class="vegas-odds">-143 (58.8%)</span>
+                </div>
+                <span class="market-edge positive">+6.1% vs market</span>
+            </div>
+            
+            <div class="factors">
+
+                <div class="factor">
+                    <span class="factor-label">Pitcher Matchup</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 48.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+4.8%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Offense</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 17.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+1.7%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Bullpen</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 14.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+1.4%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Home Field</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 50%"></div>
+                    </div>
+                    <span class="factor-value positive">+6.2%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">True Talent</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 23.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+2.3%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Weather</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 0.0%"></div>
+                    </div>
+                    <span class="factor-value negative">+0.0%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Rest</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 0.0%"></div>
+                    </div>
+                    <span class="factor-value negative">+0.0%</span>
+                </div>
+
+            </div>
+            
+            <div class="venue">
+                📍 Wrigley Field · Park Factor: 1.04
+            </div>
         </div>
-    </div>
-    <div class="pick-footer">
-        <span>Wrigley Field</span>
-        <span>Park Factor: 1.04</span>
-        <span></span>
-    </div>
-</div><div class="pick-card high">
-    <div class="pick-top">
-        <div class="matchup-name">Athletics <span class="at">@</span> Atlanta Braves</div>
-        <div class="conf-tag high">&#128293; High</div>
-    </div>
-    <div class="pick-body">
-        <div class="pitcher-row">
-            <div class="p-side"><div class="p-name">Aaron Civale</div><div class="p-stats">4.85 ERA &middot; Score 52.7 &middot; L5: 2.08</div></div>
-            <div class="p-vs">vs</div>
-            <div class="p-side"><div class="p-name">José Suarez</div><div class="p-stats">1.86 ERA &middot; Score 56.1 &middot; L5: 1.38</div></div>
-        </div>
-        <div class="pick-result-row">
+
+        <div class="game-card">
+            <div class="game-header">
+                <div class="matchup">Athletics @ Atlanta Braves</div>
+                <span class="confidence">🔥 High</span>
+                <span class="timestamp">Pick made: 04:53 PM ET | First pitch: 11:15 PM ET</span>
+            </div>
+            
+            <div class="pitchers">
+                <div class="pitcher">
+                    <div class="pitcher-name">Aaron Civale</div>
+                    <div class="pitcher-stats">4.85 ERA · Score 52.7 · L5: 83.80</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="pitcher">
+                    <div class="pitcher-name">José Suarez</div>
+                    <div class="pitcher-stats">1.86 ERA · Score 56.1 · L5: 75.70</div>
+                </div>
+            </div>
+            
             <div class="pick-box">
-                <div class="lbl">Pick</div>
-                <div class="team">Atlanta Braves</div>
-                <div class="prob">65%</div>
+                <div class="pick-label">Pick</div>
+                <div class="pick-team">Atlanta Braves</div>
+                <div class="pick-prob">65%</div>
                 <div class="edge">+14.7% edge</div>
             </div>
-            <div class="factors-col"><div class="factor-row"><span class="f-label">Home Field</span><div class="f-bar pos" style="width:29.7%"></div><span class="f-val">+3.3%</span></div><div class="factor-row"><span class="f-label">Weather</span><div class="f-bar pos" style="width:9.0%"></div><span class="f-val">+1.0%</span></div><div class="factor-row"><span class="f-label">Offense</span><div class="f-bar neg" style="width:4.5%"></div><span class="f-val">-0.5%</span></div><div class="factor-row"><span class="f-label">True Talent</span><div class="f-bar pos" style="width:4.5%"></div><span class="f-val">+0.5%</span></div></div>
+            
+            <div class="vegas-compare">
+                <div>
+                    <span class="vegas-label">Our Model:</span>
+                    <span class="vegas-odds">64.7%</span>
+                </div>
+                <div>
+                    <span class="vegas-label">Vegas Line:</span>
+                    <span class="vegas-odds">-163 (62.0%)</span>
+                </div>
+                <span class="market-edge positive">+2.7% vs market</span>
+            </div>
+            
+            <div class="factors">
+
+                <div class="factor">
+                    <span class="factor-label">Pitcher Matchup</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill negative" style="width: 3.0%"></div>
+                    </div>
+                    <span class="factor-value negative">-0.3%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Offense</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill negative" style="width: 5.0%"></div>
+                    </div>
+                    <span class="factor-value negative">-0.5%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Bullpen</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 4.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+0.4%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Home Field</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 33.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+3.3%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">True Talent</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 5.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+0.5%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Weather</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 10.0%"></div>
+                    </div>
+                    <span class="factor-value positive">+1.0%</span>
+                </div>
+
+                <div class="factor">
+                    <span class="factor-label">Rest</span>
+                    <div class="factor-bar">
+                        <div class="factor-fill " style="width: 0.0%"></div>
+                    </div>
+                    <span class="factor-value negative">+0.0%</span>
+                </div>
+
+            </div>
+            
+            <div class="venue">
+                📍 Truist Park · Park Factor: 1.0
+            </div>
         </div>
+
     </div>
-    <div class="pick-footer">
-        <span>Truist Park</span>
-        <span>Park Factor: 1.0</span>
-        <span></span>
-    </div>
-</div></div>
 </div>
-<footer class="site-footer">
+
+<div class="footer">
     <p>Picks are for informational and entertainment purposes only.</p>
-    <p style="margin-top:0.4rem;">&copy; 2026 MLB Picks &middot; Updated March 31, 2026 at 03:19 PM ET</p>
-</footer>
-<script>
-document.querySelectorAll('.day-summary').forEach(el => {
-    el.addEventListener('click', () => el.parentElement.classList.toggle('open'));
-});
-</script>
+    <p>© 2026 MLB Picks · Updated March 31, 2026 at 04:53 PM ET</p>
+</div>
+
 </body>
 </html>
