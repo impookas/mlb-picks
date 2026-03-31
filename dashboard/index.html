@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚾ MLB Prediction Bot</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --card: #131a2b;
+    --card-hover: #1a2340;
+    --accent: #4f8cff;
+    --green: #34d399;
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: #1e293b;
+    --dim: #334155;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #131a2b 0%, #1a2340 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--muted); font-size: 13px; }
+  .header .model-tag {
+    display: inline-block;
+    margin-top: 8px;
+    background: rgba(79,140,255,0.12);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .stats-bar {
+    display: flex; gap: 12px; justify-content: center;
+    padding: 20px 20px; flex-wrap: wrap;
+  }
+  .stat-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 20px; text-align: center; min-width: 120px;
+  }
+  .stat-box .num { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .stat-box .num.green { color: var(--green); }
+  .stat-box .num.red { color: var(--red); }
+  .stat-box .num.yellow { color: var(--yellow); }
+  .stat-box .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+
+  .content { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; }
+
+  .date-nav {
+    display: flex; align-items: center; justify-content: center; gap: 16px; padding: 16px 0;
+  }
+  .date-nav button {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px;
+  }
+  .date-nav button:hover { background: var(--card-hover); }
+  .date-nav .current-date { font-size: 18px; font-weight: 600; min-width: 200px; text-align: center; }
+
+  /* ── Game Card ── */
+  .game-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    margin-bottom: 14px; overflow: hidden; transition: background 0.15s;
+  }
+  .game-card:hover { background: var(--card-hover); }
+  .game-card.high { border-left: 4px solid var(--green); }
+  .game-card.medium { border-left: 4px solid var(--yellow); }
+  .game-card.low { border-left: 4px solid var(--dim); }
+
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px 12px;
+  }
+  .matchup { font-size: 17px; font-weight: 600; }
+  .matchup .at { color: var(--muted); margin: 0 6px; font-weight: 400; }
+  .conf-badge {
+    font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .conf-badge.high { background: rgba(52,211,153,0.15); color: var(--green); }
+  .conf-badge.medium { background: rgba(251,191,36,0.15); color: var(--yellow); }
+  .conf-badge.low { background: rgba(100,116,139,0.15); color: var(--muted); }
+
+  .card-body { padding: 0 20px 16px; }
+
+  /* Pitcher comparison */
+  .pitcher-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;
+  }
+  .pitcher-card {
+    background: rgba(0,0,0,0.25); border-radius: 10px; padding: 12px 14px;
+  }
+  .pitcher-card .side-label {
+    font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .pitcher-card .name-row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pitcher-card .p-name { font-weight: 600; font-size: 15px; }
+  .pitcher-card .p-score {
+    font-size: 24px; font-weight: 700;
+  }
+  .pitcher-card .p-score.s-great { color: var(--green); }
+  .pitcher-card .p-score.s-good { color: #6ee7b7; }
+  .pitcher-card .p-score.s-avg { color: var(--yellow); }
+  .pitcher-card .p-score.s-bad { color: var(--orange); }
+  .pitcher-card .p-score.s-terrible { color: var(--red); }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 8px;
+  }
+  .mini-stat {
+    text-align: center; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 4px 2px;
+  }
+  .mini-stat .val { font-weight: 600; font-size: 13px; }
+  .mini-stat .lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; }
+
+  .recent-form {
+    margin-top: 8px; font-size: 12px; color: var(--muted);
+  }
+  .trend-up { color: var(--green); }
+  .trend-down { color: var(--red); }
+  .trend-flat { color: var(--muted); }
+
+  /* Team stats row */
+  .team-compare {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px;
+    margin-bottom: 12px; font-size: 13px;
+  }
+  .team-compare .vs { color: var(--muted); align-self: center; text-align: center; font-size: 11px; }
+  .team-stat-box {
+    background: rgba(0,0,0,0.15); border-radius: 8px; padding: 8px 10px;
+  }
+  .team-stat-box .team-name { font-weight: 600; font-size: 12px; margin-bottom: 4px; color: var(--muted); }
+  .team-stat-box .stat-line { display: flex; justify-content: space-between; padding: 1px 0; }
+  .team-stat-box .stat-label { color: var(--muted); font-size: 11px; }
+  .team-stat-box .stat-val { font-weight: 500; font-size: 12px; }
+
+  /* Probability bar */
+  .prob-section { margin: 10px 0; }
+  .prob-bar-bg {
+    height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px;
+    overflow: hidden; display: flex;
+  }
+  .prob-bar-away { height: 100%; background: linear-gradient(90deg, var(--red), #ef4444); transition: width 0.5s; }
+  .prob-bar-home { height: 100%; background: linear-gradient(90deg, #10b981, var(--green)); transition: width 0.5s; }
+  .prob-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Pick bar */
+  .pick-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(79,140,255,0.08); border: 1px solid rgba(79,140,255,0.15);
+    border-radius: 10px; padding: 12px 16px; margin-top: 8px;
+  }
+  .pick-bar .pick-team { font-weight: 700; font-size: 16px; color: var(--accent); }
+  .pick-bar .pick-detail { text-align: right; }
+  .pick-bar .pick-prob { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .pick-bar .pick-edge { font-size: 12px; color: var(--green); }
+
+  /* Factor breakdown (collapsible) */
+  .factors-toggle {
+    font-size: 12px; color: var(--accent); cursor: pointer; margin-top: 10px;
+    user-select: none;
+  }
+  .factors-toggle:hover { text-decoration: underline; }
+  .factors-list {
+    display: none; margin-top: 8px;
+  }
+  .factors-list.open { display: block; }
+  .factor-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .factor-row .f-desc { color: var(--muted); flex: 1; }
+  .factor-row .f-impact {
+    font-weight: 600; min-width: 50px; text-align: right;
+  }
+  .f-impact.positive { color: var(--green); }
+  .f-impact.negative { color: var(--red); }
+  .f-impact.neutral { color: var(--muted); }
+
+  /* Venue/weather footer */
+  .card-footer {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 11px; color: var(--muted); margin-top: 10px;
+    padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Tracker */
+  .tracker-section { margin-top: 32px; }
+  .tracker-section h2 { font-size: 20px; margin-bottom: 16px; }
+  .tracker-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tracker-table th {
+    text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border);
+    color: var(--muted); text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px;
+  }
+  .tracker-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .tracker-table .win { color: var(--green); font-weight: 600; }
+  .tracker-table .loss { color: var(--red); font-weight: 600; }
+
+  .empty-state {
+    text-align: center; padding: 60px 20px; color: var(--muted);
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+
+  .footer {
+    text-align: center; padding: 24px; color: var(--muted); font-size: 11px;
+    border-top: 1px solid var(--border); margin-top: 40px;
+  }
+
+  @media (max-width: 640px) {
+    .header { padding: 20px 16px; }
+    .header h1 { font-size: 22px; }
+    .stat-box { min-width: 90px; padding: 10px 12px; }
+    .stat-box .num { font-size: 20px; }
+    .pitcher-row { grid-template-columns: 1fr; }
+    .team-compare { grid-template-columns: 1fr; }
+    .team-compare .vs { display: none; }
+    .matchup { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚾ <span>MLB Prediction Bot</span></h1>
+  <div class="subtitle">Every factor. Maximum accuracy. Daily picks.</div>
+  <div class="model-tag">v2 — Pitcher + Offense + Bullpen + Home/Away + Pythagorean + Park + Weather + Rest</div>
+</div>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-box"><div class="num" id="totalPicks">—</div><div class="label">Total Picks</div></div>
+  <div class="stat-box"><div class="num green" id="winRate">—</div><div class="label">Win Rate</div></div>
+  <div class="stat-box"><div class="num yellow" id="highConf">—</div><div class="label">High Conf %</div></div>
+  <div class="stat-box"><div class="num" id="roi">—</div><div class="label">ROI</div></div>
+  <div class="stat-box"><div class="num" id="todayGames">—</div><div class="label">Today's Games</div></div>
+</div>
+
+<div class="content">
+  <div class="date-nav">
+    <button onclick="changeDate(-1)">← Prev</button>
+    <div class="current-date" id="currentDate"></div>
+    <button onclick="changeDate(1)">Next →</button>
+  </div>
+
+  <div id="gameCards"></div>
+
+  <div class="tracker-section" id="trackerSection" style="display:none">
+    <h2>📊 Season Tracker</h2>
+    <table class="tracker-table">
+      <thead><tr><th>Date</th><th>Game</th><th>Pick</th><th>Prob</th><th>Conf</th><th>Result</th></tr></thead>
+      <tbody id="trackerBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  MLB Prediction Bot v2<br>
+  Factors: Starting Pitcher (season + last 5 + vs team) • Team Offense (OPS/OBP/SLG/R/G) • Bullpen Quality • Home/Away Splits • Pythagorean Win% • Park Factors • Weather • Rest/Travel<br>
+  Data: MLB Stats API (free, public) • Not financial advice • Paper trading
+</div>
+
+<script>
+let currentDate = new Date();
+let allPicks = {};
+let results = [];
+
+const PICKS_DATA = /*PICKS_JSON*/null/*END_PICKS_JSON*/;
+const RESULTS_DATA = /*RESULTS_JSON*/null/*END_RESULTS_JSON*/;
+if (PICKS_DATA) allPicks = PICKS_DATA;
+if (RESULTS_DATA) results = RESULTS_DATA;
+
+function formatDate(d) { return d.toISOString().split('T')[0]; }
+function displayDate(d) { return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }); }
+
+function scoreClass(s) {
+  if (s >= 80) return 's-great';
+  if (s >= 65) return 's-good';
+  if (s >= 50) return 's-avg';
+  if (s >= 35) return 's-bad';
+  return 's-terrible';
+}
+
+function trendIcon(t) {
+  if (t === 'improving') return '<span class="trend-up">📈 Improving</span>';
+  if (t === 'declining') return '<span class="trend-down">📉 Declining</span>';
+  return '<span class="trend-flat">➡️ Stable</span>';
+}
+
+function renderGames() {
+  const dateStr = formatDate(currentDate);
+  document.getElementById('currentDate').textContent = displayDate(currentDate);
+  const picks = allPicks[dateStr] || [];
+  const container = document.getElementById('gameCards');
+  document.getElementById('todayGames').textContent = picks.length;
+
+  if (!picks.length) {
+    container.innerHTML = '<div class="empty-state"><div class="emoji">⚾</div><p>No predictions for this date.</p></div>';
+    return;
+  }
+
+  container.innerHTML = picks.map((p, idx) => {
+    const factors = p.factors || {};
+    const sortedFactors = Object.entries(factors).sort((a,b) => Math.abs(b[1].impact) - Math.abs(a[1].impact));
+
+    return `
+    <div class="game-card ${p.confidence.toLowerCase()}">
+      <div class="card-header">
+        <div class="matchup">${p.away_team}<span class="at">@</span>${p.home_team}</div>
+        <span class="conf-badge ${p.confidence.toLowerCase()}">${p.confidence}</span>
+      </div>
+      <div class="card-body">
+        <!-- Pitcher Comparison -->
+        <div class="pitcher-row">
+          <div class="pitcher-card">
+            <div class="side-label">Away Pitcher</div>
+            <div class="name-row">
+              <span class="p-name">${p.away_pitcher}</span>
+              <span class="p-score ${scoreClass(p.away_pitcher_score)}">${p.away_pitcher_score}</span>
+            </div>
+            <div class="stat-grid">
+              <div class="mini-stat"><div class="val">${p.away_pitcher_era}</div><div class="lbl">ERA</div></div>
+              <div class="mini-stat"><div class="val">${p.away_pitcher_whip}</div><div class="lbl">WHIP</div></div>
+              <div class="mini-stat"><div class="val">${p.away_pitcher_k9 || 'N/A'}</div><div class="lbl">K/9</div></div>
+            </div>
+            <div class="recent-form">
+              Last 5: <strong>${p.away_pitcher_recent?.recent_era || 'N/A'}</strong> ERA / 
+              <strong>${p.away_pitcher_recent?.recent_whip || 'N/A'}</strong> WHIP
+              ${p.away_pitcher_recent ? trendIcon(p.away_pitcher_recent.trend) : ''}
+            </div>
+            ${p.away_p_vs_team_era !== 'N/A' ? `<div class="recent-form">vs ${p.home_team}: <strong>${p.away_p_vs_team_era}</strong> ERA (${p.away_p_vs_team_ip} IP)</div>` : ''}
+          </div>
+          <div class="pitcher-card">
+            <div class="side-label">Home Pitcher</div>
+            <div class="name-row">
+              <span class="p-name">${p.home_pitcher}</span>
+              <span class="p-score ${scoreClass(p.home_pitcher_score)}">${p.home_pitcher_score}</span>
+            </div>
+            <div class="stat-grid">
+              <div class="mini-stat"><div class="val">${p.home_pitcher_era}</div><div class="lbl">ERA</div></div>
+              <div class="mini-stat"><div class="val">${p.home_pitcher_whip}</div><div class="lbl">WHIP</div></div>
+              <div class="mini-stat"><div class="val">${p.home_pitcher_k9 || 'N/A'}</div><div class="lbl">K/9</div></div>
+            </div>
+            <div class="recent-form">
+              Last 5: <strong>${p.home_pitcher_recent?.recent_era || 'N/A'}</strong> ERA / 
+              <strong>${p.home_pitcher_recent?.recent_whip || 'N/A'}</strong> WHIP
+              ${p.home_pitcher_recent ? trendIcon(p.home_pitcher_recent.trend) : ''}
+            </div>
+            ${p.home_p_vs_team_era !== 'N/A' ? `<div class="recent-form">vs ${p.away_team}: <strong>${p.home_p_vs_team_era}</strong> ERA (${p.home_p_vs_team_ip} IP)</div>` : ''}
+          </div>
+        </div>
+
+        <!-- Team Comparison -->
+        <div class="team-compare">
+          <div class="team-stat-box">
+            <div class="team-name">${p.away_team}</div>
+            <div class="stat-line"><span class="stat-label">Record</span><span class="stat-val">${p.away_record}</span></div>
+            <div class="stat-line"><span class="stat-label">OPS</span><span class="stat-val">${p.away_offense?.ops || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">R/G</span><span class="stat-val">${p.away_offense?.runs_per_game || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Bullpen ERA</span><span class="stat-val">${p.away_staff?.team_era || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Pyth W%</span><span class="stat-val">${p.away_pyth ? (p.away_pyth * 100).toFixed(1) + '%' : 'N/A'}</span></div>
+          </div>
+          <div class="vs">VS</div>
+          <div class="team-stat-box">
+            <div class="team-name">${p.home_team}</div>
+            <div class="stat-line"><span class="stat-label">Record</span><span class="stat-val">${p.home_record}</span></div>
+            <div class="stat-line"><span class="stat-label">OPS</span><span class="stat-val">${p.home_offense?.ops || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">R/G</span><span class="stat-val">${p.home_offense?.runs_per_game || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Bullpen ERA</span><span class="stat-val">${p.home_staff?.team_era || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Pyth W%</span><span class="stat-val">${p.home_pyth ? (p.home_pyth * 100).toFixed(1) + '%' : 'N/A'}</span></div>
+          </div>
+        </div>
+
+        <!-- Probability bar -->
+        <div class="prob-section">
+          <div class="prob-bar-bg">
+            <div class="prob-bar-away" style="width:${p.away_win_prob*100}%"></div>
+            <div class="prob-bar-home" style="width:${p.home_win_prob*100}%"></div>
+          </div>
+          <div class="prob-labels">
+            <span>${p.away_team} ${(p.away_win_prob*100).toFixed(1)}%</span>
+            <span>${p.home_team} ${(p.home_win_prob*100).toFixed(1)}%</span>
+          </div>
+        </div>
+
+        <!-- Pick -->
+        <div class="pick-bar">
+          <div class="pick-team">📈 ${p.pick}</div>
+          <div class="pick-detail">
+            <div class="pick-prob">${(p.pick_prob*100).toFixed(1)}%</div>
+            <div class="pick-edge">Edge +${(p.edge*100).toFixed(1)}%</div>
+          </div>
+        </div>
+
+        <!-- Factor Breakdown -->
+        <div class="factors-toggle" onclick="this.nextElementSibling.classList.toggle('open')">
+          ▸ Factor breakdown (${sortedFactors.length} factors)
+        </div>
+        <div class="factors-list">
+          ${sortedFactors.map(([name, f]) => `
+            <div class="factor-row">
+              <span class="f-desc">${f.desc}</span>
+              <span class="f-impact ${f.impact > 0.05 ? 'positive' : f.impact < -0.05 ? 'negative' : 'neutral'}">
+                ${f.impact > 0 ? '+' : ''}${f.impact.toFixed(1)}%
+              </span>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer">
+          <span>📍 ${p.venue} (PF: ${p.park_factor})</span>
+          <span>🌤️ ${p.weather?.condition || '?'} ${p.weather?.temp || '?'}°F ${p.weather?.wind || ''}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStats() {
+  const all = Object.values(allPicks).flat();
+  const resolved = results.filter(r => r.result);
+  const wins = resolved.filter(r => r.result === 'win');
+  const high = resolved.filter(r => r.confidence === 'HIGH');
+  const highW = high.filter(r => r.result === 'win');
+
+  document.getElementById('totalPicks').textContent = all.length || '—';
+  document.getElementById('winRate').textContent = resolved.length ? `${(wins.length/resolved.length*100).toFixed(1)}%` : '—';
+  document.getElementById('highConf').textContent = high.length ? `${(highW.length/high.length*100).toFixed(1)}%` : '—';
+  document.getElementById('roi').textContent = '—';
+
+  if (resolved.length) {
+    document.getElementById('trackerSection').style.display = 'block';
+    document.getElementById('trackerBody').innerHTML = resolved.slice(-20).reverse().map(r => `
+      <tr>
+        <td>${r.date}</td>
+        <td>${r.away_team} @ ${r.home_team}</td>
+        <td>${r.pick}</td>
+        <td>${(r.pick_prob*100).toFixed(0)}%</td>
+        <td>${r.confidence}</td>
+        <td class="${r.result}">${r.result.toUpperCase()}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+function changeDate(d) { currentDate.setDate(currentDate.getDate() + d); renderGames(); }
+
+const avail = Object.keys(allPicks).sort();
+if (avail.length) currentDate = new Date(avail[avail.length - 1] + 'T12:00:00');
+renderGames();
+updateStats();
+</script>
+</body>
+</html>

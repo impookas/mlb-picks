@@ -1,0 +1,66 @@
+{
+  "start_date": "2025-03-27",
+  "end_date": "2025-09-28",
+  "prior_season": 2024,
+  "test_season": 2025,
+  "total_games": 2426,
+  "correct": 1350,
+  "accuracy": 0.5565,
+  "avg_brier": 0.2436,
+  "brier_skill": 0.0258,
+  "avg_logloss": 0.68,
+  "roi_pct": 6.2,
+  "roi_units": 151.2,
+  "by_confidence": {
+    "HIGH": {
+      "total": 361,
+      "correct": 239,
+      "pct": 0.662
+    },
+    "MEDIUM": {
+      "total": 594,
+      "correct": 336,
+      "pct": 0.566
+    },
+    "LOW": {
+      "total": 1471,
+      "correct": 775,
+      "pct": 0.527
+    }
+  },
+  "calibration": {
+    "0.50": {
+      "n": 602,
+      "predicted": 0.513,
+      "actual": 0.495,
+      "gap": -0.018
+    },
+    "0.55": {
+      "n": 936,
+      "predicted": 0.549,
+      "actual": 0.542,
+      "gap": -0.007
+    },
+    "0.60": {
+      "n": 581,
+      "predicted": 0.598,
+      "actual": 0.583,
+      "gap": -0.014
+    },
+    "0.65": {
+      "n": 236,
+      "predicted": 0.645,
+      "actual": 0.644,
+      "gap": -0.001
+    },
+    "0.70": {
+      "n": 71,
+      "predicted": 0.694,
+      "actual": 0.761,
+      "gap": 0.066
+    }
+  },
+  "games_skipped": 6,
+  "days_processed": 182,
+  "api_requests": 5013
+}

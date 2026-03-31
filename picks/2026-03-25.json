@@ -1,0 +1,138 @@
+[
+  {
+    "game_id": 823244,
+    "game_date": "2026-03-25",
+    "game_time": "2026-03-26T00:05:00Z",
+    "away_team": "New York Yankees",
+    "home_team": "San Francisco Giants",
+    "away_id": 147,
+    "home_id": 137,
+    "away_pitcher": "Max Fried",
+    "home_pitcher": "Logan Webb",
+    "away_pitcher_score": 71.6,
+    "home_pitcher_score": 74.9,
+    "away_pitcher_era": "2.86",
+    "home_pitcher_era": "3.22",
+    "away_pitcher_whip": "1.10",
+    "home_pitcher_whip": "1.24",
+    "away_pitcher_k9": "8.71",
+    "home_pitcher_k9": "9.74",
+    "away_pitcher_recent": {
+      "recent_score": 85.8,
+      "trend": "improving",
+      "recent_era": "1.90",
+      "recent_whip": "1.06",
+      "recent_k9": "9.5",
+      "avg_ip": "6.6",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 68.0,
+      "trend": "improving",
+      "recent_era": "3.52",
+      "recent_whip": "1.32",
+      "recent_k9": "9.6",
+      "avg_ip": "5.6",
+      "starts": 5
+    },
+    "away_p_vs_team_era": "N/A",
+    "home_p_vs_team_era": "N/A",
+    "away_p_vs_team_ip": "0",
+    "home_p_vs_team_ip": "0",
+    "away_offense": {
+      "offense_score": 60.0,
+      "ops": ".787",
+      "obp": ".332",
+      "slg": ".455",
+      "avg": ".251",
+      "runs_per_game": "5.24",
+      "hr_per_game": "1.69",
+      "stolen_bases": 134
+    },
+    "home_offense": {
+      "offense_score": 41.6,
+      "ops": ".697",
+      "obp": ".311",
+      "slg": ".386",
+      "avg": ".235",
+      "runs_per_game": "4.35",
+      "hr_per_game": "1.07",
+      "stolen_bases": 68
+    },
+    "away_staff": {
+      "pitching_score": 69.8,
+      "team_era": "3.91",
+      "team_whip": "1.25",
+      "team_k9": "9.00",
+      "save_pct": "67%",
+      "blown_saves": 21
+    },
+    "home_staff": {
+      "pitching_score": 68.3,
+      "team_era": "3.82",
+      "team_whip": "1.30",
+      "team_k9": "8.52",
+      "save_pct": "65%",
+      "blown_saves": 22
+    },
+    "away_record": "94-68",
+    "home_record": "81-81",
+    "away_pyth": 0.597,
+    "home_pyth": 0.514,
+    "venue": "Oracle Park",
+    "park_factor": 0.92,
+    "weather": {
+      "adjustment": 0.0,
+      "note": "Normal conditions",
+      "temp": "72",
+      "wind": "0 mph",
+      "condition": "Clear"
+    },
+    "away_rest": {
+      "adjustment": 0.01,
+      "note": "Well-rested (no games in 3 days)",
+      "games_last_3d": 0
+    },
+    "home_rest": {
+      "adjustment": 0.01,
+      "note": "Well-rested (no games in 3 days)",
+      "games_last_3d": 0
+    },
+    "home_win_prob": 0.472,
+    "away_win_prob": 0.528,
+    "pick": "New York Yankees",
+    "pick_prob": 0.528,
+    "confidence": "LOW",
+    "edge": 0.028,
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -1.2,
+        "desc": "Pitcher: Home 72 vs Away 77"
+      },
+      "offense": {
+        "impact": -2.9,
+        "desc": "Offense: Home 41.6 vs Away 60.0"
+      },
+      "bullpen": {
+        "impact": -0.1,
+        "desc": "Bullpen: Home 68.3 vs Away 69.8"
+      },
+      "home_field": {
+        "impact": 3.3,
+        "desc": "Home record: 42-39"
+      },
+      "true_talent": {
+        "impact": -1.0,
+        "desc": "Pyth: Home 0.514 vs Away 0.597"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"
+      }
+    }
+  }
+]

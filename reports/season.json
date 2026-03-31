@@ -1,0 +1,120 @@
+{
+  "dates_tracked": 4,
+  "total_picks": 12,
+  "correct": 9,
+  "wrong": 3,
+  "accuracy": 0.75,
+  "avg_brier": 0.1562,
+  "avg_logloss": 0.4831,
+  "baseline_brier": 0.25,
+  "brier_skill": 0.3752,
+  "by_confidence": {
+    "HIGH": {
+      "total": 12,
+      "correct": 9,
+      "pct": 0.75,
+      "avg_brier": 0.1562,
+      "avg_edge": 0.221
+    },
+    "MEDIUM": {
+      "total": 10,
+      "correct": 4,
+      "pct": 0.4,
+      "avg_brier": 0.2929,
+      "avg_edge": 0.131
+    },
+    "LOW": {
+      "total": 11,
+      "correct": 8,
+      "pct": 0.727,
+      "avg_brier": 0.2333,
+      "avg_edge": 0.033
+    }
+  },
+  "calibration": {
+    "0.60": {
+      "n": 1,
+      "avg_predicted": 0.609,
+      "avg_actual": 1.0,
+      "gap": 0.391
+    },
+    "0.65": {
+      "n": 4,
+      "avg_predicted": 0.651,
+      "avg_actual": 0.25,
+      "gap": -0.401
+    },
+    "0.70": {
+      "n": 1,
+      "avg_predicted": 0.716,
+      "avg_actual": 1.0,
+      "gap": 0.284
+    },
+    "0.75": {
+      "n": 1,
+      "avg_predicted": 0.765,
+      "avg_actual": 1.0,
+      "gap": 0.235
+    },
+    "0.80": {
+      "n": 5,
+      "avg_predicted": 0.793,
+      "avg_actual": 1.0,
+      "gap": 0.207
+    }
+  },
+  "roi_units": 5.18,
+  "roi_pct": 43.2,
+  "best_wins": [
+    {
+      "matchup": "Chicago White Sox @ Milwaukee Brewers",
+      "pick": "Milwaukee Brewers",
+      "prob": 0.8,
+      "score": "1-6"
+    },
+    {
+      "matchup": "Kansas City Royals @ Atlanta Braves",
+      "pick": "Atlanta Braves",
+      "prob": 0.8,
+      "score": "2-6"
+    },
+    {
+      "matchup": "Arizona Diamondbacks @ Los Angeles Dodgers",
+      "pick": "Los Angeles Dodgers",
+      "prob": 0.8,
+      "score": "2-3"
+    },
+    {
+      "matchup": "Pittsburgh Pirates @ New York Mets",
+      "pick": "New York Mets",
+      "prob": 0.787,
+      "score": "2-4"
+    },
+    {
+      "matchup": "Colorado Rockies @ Miami Marlins",
+      "pick": "Miami Marlins",
+      "prob": 0.776,
+      "score": "3-4"
+    }
+  ],
+  "worst_misses": [
+    {
+      "matchup": "Tampa Bay Rays @ Milwaukee Brewers",
+      "pick": "Milwaukee Brewers",
+      "prob": 0.653,
+      "score": "3-2"
+    },
+    {
+      "matchup": "Chicago White Sox @ Miami Marlins",
+      "pick": "Miami Marlins",
+      "prob": 0.647,
+      "score": "9-4"
+    },
+    {
+      "matchup": "Los Angeles Angels @ Houston Astros",
+      "pick": "Houston Astros",
+      "prob": 0.641,
+      "score": "3-0"
+    }
+  ]
+}
