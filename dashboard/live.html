@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚾ MLB Prediction Bot</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --card: #131a2b;
+    --card-hover: #1a2340;
+    --accent: #4f8cff;
+    --green: #34d399;
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: #1e293b;
+    --dim: #334155;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #131a2b 0%, #1a2340 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--muted); font-size: 13px; }
+  .header .model-tag {
+    display: inline-block;
+    margin-top: 8px;
+    background: rgba(79,140,255,0.12);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .stats-bar {
+    display: flex; gap: 12px; justify-content: center;
+    padding: 20px 20px; flex-wrap: wrap;
+  }
+  .stat-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 20px; text-align: center; min-width: 120px;
+  }
+  .stat-box .num { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .stat-box .num.green { color: var(--green); }
+  .stat-box .num.red { color: var(--red); }
+  .stat-box .num.yellow { color: var(--yellow); }
+  .stat-box .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+
+  .content { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; }
+
+  .date-nav {
+    display: flex; align-items: center; justify-content: center; gap: 16px; padding: 16px 0;
+  }
+  .date-nav button {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px;
+  }
+  .date-nav button:hover { background: var(--card-hover); }
+  .date-nav .current-date { font-size: 18px; font-weight: 600; min-width: 200px; text-align: center; }
+
+  /* ── Game Card ── */
+  .game-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    margin-bottom: 14px; overflow: hidden; transition: background 0.15s;
+  }
+  .game-card:hover { background: var(--card-hover); }
+  .game-card.high { border-left: 4px solid var(--green); }
+  .game-card.medium { border-left: 4px solid var(--yellow); }
+  .game-card.low { border-left: 4px solid var(--dim); }
+
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px 12px;
+  }
+  .matchup { font-size: 17px; font-weight: 600; }
+  .matchup .at { color: var(--muted); margin: 0 6px; font-weight: 400; }
+  .conf-badge {
+    font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .conf-badge.high { background: rgba(52,211,153,0.15); color: var(--green); }
+  .conf-badge.medium { background: rgba(251,191,36,0.15); color: var(--yellow); }
+  .conf-badge.low { background: rgba(100,116,139,0.15); color: var(--muted); }
+
+  .card-body { padding: 0 20px 16px; }
+
+  /* Pitcher comparison */
+  .pitcher-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;
+  }
+  .pitcher-card {
+    background: rgba(0,0,0,0.25); border-radius: 10px; padding: 12px 14px;
+  }
+  .pitcher-card .side-label {
+    font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .pitcher-card .name-row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pitcher-card .p-name { font-weight: 600; font-size: 15px; }
+  .pitcher-card .p-score {
+    font-size: 24px; font-weight: 700;
+  }
+  .pitcher-card .p-score.s-great { color: var(--green); }
+  .pitcher-card .p-score.s-good { color: #6ee7b7; }
+  .pitcher-card .p-score.s-avg { color: var(--yellow); }
+  .pitcher-card .p-score.s-bad { color: var(--orange); }
+  .pitcher-card .p-score.s-terrible { color: var(--red); }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 8px;
+  }
+  .mini-stat {
+    text-align: center; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 4px 2px;
+  }
+  .mini-stat .val { font-weight: 600; font-size: 13px; }
+  .mini-stat .lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; }
+
+  .recent-form {
+    margin-top: 8px; font-size: 12px; color: var(--muted);
+  }
+  .trend-up { color: var(--green); }
+  .trend-down { color: var(--red); }
+  .trend-flat { color: var(--muted); }
+
+  /* Team stats row */
+  .team-compare {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px;
+    margin-bottom: 12px; font-size: 13px;
+  }
+  .team-compare .vs { color: var(--muted); align-self: center; text-align: center; font-size: 11px; }
+  .team-stat-box {
+    background: rgba(0,0,0,0.15); border-radius: 8px; padding: 8px 10px;
+  }
+  .team-stat-box .team-name { font-weight: 600; font-size: 12px; margin-bottom: 4px; color: var(--muted); }
+  .team-stat-box .stat-line { display: flex; justify-content: space-between; padding: 1px 0; }
+  .team-stat-box .stat-label { color: var(--muted); font-size: 11px; }
+  .team-stat-box .stat-val { font-weight: 500; font-size: 12px; }
+
+  /* Probability bar */
+  .prob-section { margin: 10px 0; }
+  .prob-bar-bg {
+    height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px;
+    overflow: hidden; display: flex;
+  }
+  .prob-bar-away { height: 100%; background: linear-gradient(90deg, var(--red), #ef4444); transition: width 0.5s; }
+  .prob-bar-home { height: 100%; background: linear-gradient(90deg, #10b981, var(--green)); transition: width 0.5s; }
+  .prob-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Pick bar */
+  .pick-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(79,140,255,0.08); border: 1px solid rgba(79,140,255,0.15);
+    border-radius: 10px; padding: 12px 16px; margin-top: 8px;
+  }
+  .pick-bar .pick-team { font-weight: 700; font-size: 16px; color: var(--accent); }
+  .pick-bar .pick-detail { text-align: right; }
+  .pick-bar .pick-prob { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .pick-bar .pick-edge { font-size: 12px; color: var(--green); }
+
+  /* Factor breakdown (collapsible) */
+  .factors-toggle {
+    font-size: 12px; color: var(--accent); cursor: pointer; margin-top: 10px;
+    user-select: none;
+  }
+  .factors-toggle:hover { text-decoration: underline; }
+  .factors-list {
+    display: none; margin-top: 8px;
+  }
+  .factors-list.open { display: block; }
+  .factor-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 4px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .factor-row .f-desc { color: var(--muted); flex: 1; }
+  .factor-row .f-impact {
+    font-weight: 600; min-width: 50px; text-align: right;
+  }
+  .f-impact.positive { color: var(--green); }
+  .f-impact.negative { color: var(--red); }
+  .f-impact.neutral { color: var(--muted); }
+
+  /* Venue/weather footer */
+  .card-footer {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 11px; color: var(--muted); margin-top: 10px;
+    padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* Tracker */
+  .tracker-section { margin-top: 32px; }
+  .tracker-section h2 { font-size: 20px; margin-bottom: 16px; }
+  .tracker-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tracker-table th {
+    text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border);
+    color: var(--muted); text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px;
+  }
+  .tracker-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  .tracker-table .win { color: var(--green); font-weight: 600; }
+  .tracker-table .loss { color: var(--red); font-weight: 600; }
+
+  .empty-state {
+    text-align: center; padding: 60px 20px; color: var(--muted);
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+
+  .footer {
+    text-align: center; padding: 24px; color: var(--muted); font-size: 11px;
+    border-top: 1px solid var(--border); margin-top: 40px;
+  }
+
+  @media (max-width: 640px) {
+    .header { padding: 20px 16px; }
+    .header h1 { font-size: 22px; }
+    .stat-box { min-width: 90px; padding: 10px 12px; }
+    .stat-box .num { font-size: 20px; }
+    .pitcher-row { grid-template-columns: 1fr; }
+    .team-compare { grid-template-columns: 1fr; }
+    .team-compare .vs { display: none; }
+    .matchup { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚾ <span>MLB Prediction Bot</span></h1>
+  <div class="subtitle">Every factor. Maximum accuracy. Daily picks.</div>
+  <div class="model-tag">v2 — Pitcher + Offense + Bullpen + Home/Away + Pythagorean + Park + Weather + Rest</div>
+</div>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat-box"><div class="num" id="totalPicks">—</div><div class="label">Total Picks</div></div>
+  <div class="stat-box"><div class="num green" id="winRate">—</div><div class="label">Win Rate</div></div>
+  <div class="stat-box"><div class="num yellow" id="highConf">—</div><div class="label">High Conf %</div></div>
+  <div class="stat-box"><div class="num" id="roi">—</div><div class="label">ROI</div></div>
+  <div class="stat-box"><div class="num" id="todayGames">—</div><div class="label">Today's Games</div></div>
+</div>
+
+<div class="content">
+  <div class="date-nav">
+    <button onclick="changeDate(-1)">← Prev</button>
+    <div class="current-date" id="currentDate"></div>
+    <button onclick="changeDate(1)">Next →</button>
+  </div>
+
+  <div id="gameCards"></div>
+
+  <div class="tracker-section" id="trackerSection" style="display:none">
+    <h2>📊 Season Tracker</h2>
+    <table class="tracker-table">
+      <thead><tr><th>Date</th><th>Game</th><th>Pick</th><th>Prob</th><th>Conf</th><th>Result</th></tr></thead>
+      <tbody id="trackerBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  MLB Prediction Bot v2<br>
+  Factors: Starting Pitcher (season + last 5 + vs team) • Team Offense (OPS/OBP/SLG/R/G) • Bullpen Quality • Home/Away Splits • Pythagorean Win% • Park Factors • Weather • Rest/Travel<br>
+  Data: MLB Stats API (free, public) • Not financial advice • Paper trading
+</div>
+
+<script>
+let currentDate = new Date();
+let allPicks = {};
+let results = [];
+
+const PICKS_DATA = {"2026-03-25": [{"game_id": 823244, "game_date": "2026-03-25", "game_time": "2026-03-26T00:05:00Z", "away_team": "New York Yankees", "home_team": "San Francisco Giants", "away_id": 147, "home_id": 137, "away_pitcher": "Max Fried", "home_pitcher": "Logan Webb", "away_pitcher_score": 71.6, "home_pitcher_score": 74.9, "away_pitcher_era": "2.86", "home_pitcher_era": "3.22", "away_pitcher_whip": "1.10", "home_pitcher_whip": "1.24", "away_pitcher_k9": "8.71", "home_pitcher_k9": "9.74", "away_pitcher_recent": {"recent_score": 85.8, "trend": "improving", "recent_era": "1.90", "recent_whip": "1.06", "recent_k9": "9.5", "avg_ip": "6.6", "starts": 5}, "home_pitcher_recent": {"recent_score": 68.0, "trend": "improving", "recent_era": "3.52", "recent_whip": "1.32", "recent_k9": "9.6", "avg_ip": "5.6", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 60.0, "ops": ".787", "obp": ".332", "slg": ".455", "avg": ".251", "runs_per_game": "5.24", "hr_per_game": "1.69", "stolen_bases": 134}, "home_offense": {"offense_score": 41.6, "ops": ".697", "obp": ".311", "slg": ".386", "avg": ".235", "runs_per_game": "4.35", "hr_per_game": "1.07", "stolen_bases": 68}, "away_staff": {"pitching_score": 69.8, "team_era": "3.91", "team_whip": "1.25", "team_k9": "9.00", "save_pct": "67%", "blown_saves": 21}, "home_staff": {"pitching_score": 68.3, "team_era": "3.82", "team_whip": "1.30", "team_k9": "8.52", "save_pct": "65%", "blown_saves": 22}, "away_record": "94-68", "home_record": "81-81", "away_pyth": 0.597, "home_pyth": 0.514, "venue": "Oracle Park", "park_factor": 0.92, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.472, "away_win_prob": 0.528, "pick": "New York Yankees", "pick_prob": 0.528, "confidence": "LOW", "edge": 0.028, "factors": {"pitcher_matchup": {"impact": -1.2, "desc": "Pitcher: Home 72 vs Away 77"}, "offense": {"impact": -2.9, "desc": "Offense: Home 41.6 vs Away 60.0"}, "bullpen": {"impact": -0.1, "desc": "Bullpen: Home 68.3 vs Away 69.8"}, "home_field": {"impact": 3.3, "desc": "Home record: 42-39"}, "true_talent": {"impact": -1.0, "desc": "Pyth: Home 0.514 vs Away 0.597"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}], "2026-03-26": [{"game_id": 823974, "game_date": "2026-03-26", "game_time": "2026-03-27T00:30:00Z", "away_team": "Arizona Diamondbacks", "home_team": "Los Angeles Dodgers", "away_id": 109, "home_id": 119, "away_pitcher": "Zac Gallen", "home_pitcher": "Yoshinobu Yamamoto", "away_pitcher_score": 53.8, "home_pitcher_score": 73.8, "away_pitcher_era": "4.83", "home_pitcher_era": "2.49", "away_pitcher_whip": "1.26", "home_pitcher_whip": "0.99", "away_pitcher_k9": "8.20", "home_pitcher_k9": "10.42", "away_pitcher_recent": {"recent_score": 55.9, "trend": "flat", "recent_era": "4.30", "recent_whip": "1.09", "recent_k9": "8.0", "avg_ip": "5.9", "starts": 5}, "home_pitcher_recent": {"recent_score": 94.9, "trend": "improving", "recent_era": "0.81", "recent_whip": "0.66", "recent_k9": "11.9", "avg_ip": "6.7", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 52.0, "ops": ".758", "obp": ".325", "slg": ".433", "avg": ".251", "runs_per_game": "4.88", "hr_per_game": "1.32", "stolen_bases": 121}, "home_offense": {"offense_score": 56.4, "ops": ".768", "obp": ".327", "slg": ".441", "avg": ".253", "runs_per_game": "5.09", "hr_per_game": "1.51", "stolen_bases": 88}, "away_staff": {"pitching_score": 61.2, "team_era": "4.49", "team_whip": "1.32", "team_k9": "8.03", "save_pct": "59%", "blown_saves": 29}, "home_staff": {"pitching_score": 69.3, "team_era": "3.95", "team_whip": "1.26", "team_k9": "9.40", "save_pct": "63%", "blown_saves": 27}, "away_record": "80-82", "home_record": "93-69", "away_pyth": 0.503, "home_pyth": 0.586, "venue": "Dodger Stadium", "park_factor": 0.97, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.662, "away_win_prob": 0.338, "pick": "Los Angeles Dodgers", "pick_prob": 0.662, "confidence": "HIGH", "edge": 0.162, "factors": {"pitcher_matchup": {"impact": 6.6, "desc": "Pitcher: Home 82 vs Away 55"}, "offense": {"impact": 0.7, "desc": "Offense: Home 56.4 vs Away 52.0"}, "bullpen": {"impact": 0.8, "desc": "Bullpen: Home 69.3 vs Away 61.2"}, "home_field": {"impact": 6.1, "desc": "Home record: 52-29"}, "true_talent": {"impact": 1.0, "desc": "Pyth: Home 0.586 vs Away 0.503"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 824218, "game_date": "2026-03-26", "game_time": "2026-03-26T20:10:00Z", "away_team": "Los Angeles Angels", "home_team": "Houston Astros", "away_id": 108, "home_id": 117, "away_pitcher": "Jos\u00e9 Soriano", "home_pitcher": "Hunter Brown", "away_pitcher_score": 55.3, "home_pitcher_score": 73.3, "away_pitcher_era": "4.26", "home_pitcher_era": "2.43", "away_pitcher_whip": "1.40", "home_pitcher_whip": "1.03", "away_pitcher_k9": "8.09", "home_pitcher_k9": "10.00", "away_pitcher_recent": {"recent_score": 39.8, "trend": "declining", "recent_era": "6.49", "recent_whip": "1.60", "recent_k9": "10.2", "avg_ip": "3.9", "starts": 5}, "home_pitcher_recent": {"recent_score": 71.5, "trend": "declining", "recent_era": "2.77", "recent_whip": "1.13", "recent_k9": "8.9", "avg_ip": "5.8", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 41.9, "ops": ".695", "obp": ".298", "slg": ".397", "avg": ".225", "runs_per_game": "4.15", "hr_per_game": "1.40", "stolen_bases": 88}, "home_offense": {"offense_score": 41.9, "ops": ".714", "obp": ".315", "slg": ".399", "avg": ".250", "runs_per_game": "4.23", "hr_per_game": "1.12", "stolen_bases": 85}, "away_staff": {"pitching_score": 55.6, "team_era": "4.89", "team_whip": "1.43", "team_k9": "8.05", "save_pct": "53%", "blown_saves": 34}, "home_staff": {"pitching_score": 72.4, "team_era": "3.86", "team_whip": "1.22", "team_k9": "9.39", "save_pct": "73%", "blown_saves": 17}, "away_record": "72-90", "home_record": "87-75", "away_pyth": 0.402, "home_pyth": 0.514, "venue": "Daikin Park", "park_factor": 0.96, "weather": {"adjustment": 0.0, "note": "Dome/retractable roof \u2014 weather neutral", "temp": "72", "wind": "None"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.641, "away_win_prob": 0.359, "pick": "Houston Astros", "pick_prob": 0.641, "confidence": "HIGH", "edge": 0.141, "factors": {"pitcher_matchup": {"impact": 5.6, "desc": "Pitcher: Home 73 vs Away 49"}, "offense": {"impact": 0.0, "desc": "Offense: Home 41.9 vs Away 41.9"}, "bullpen": {"impact": 1.7, "desc": "Bullpen: Home 72.4 vs Away 55.6"}, "home_field": {"impact": 5.4, "desc": "Home record: 46-35"}, "true_talent": {"impact": 1.4, "desc": "Pyth: Home 0.514 vs Away 0.402"}, "weather": {"impact": 0.0, "desc": "Dome/retractable roof \u2014 weather neutral"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 823486, "game_date": "2026-03-26", "game_time": "2026-03-26T20:15:00Z", "away_team": "Texas Rangers", "home_team": "Philadelphia Phillies", "away_id": 140, "home_id": 143, "away_pitcher": "Nathan Eovaldi", "home_pitcher": "Cristopher S\u00e1nchez", "away_pitcher_score": 83.1, "home_pitcher_score": 79.3, "away_pitcher_era": "1.73", "home_pitcher_era": "2.50", "away_pitcher_whip": "0.85", "home_pitcher_whip": "1.06", "away_pitcher_k9": "8.93", "home_pitcher_k9": "9.45", "away_pitcher_recent": {"recent_score": 76.2, "trend": "declining", "recent_era": "2.38", "recent_whip": "0.79", "recent_k9": "7.4", "avg_ip": "6.8", "starts": 5}, "home_pitcher_recent": {"recent_score": 87.2, "trend": "flat", "recent_era": "1.68", "recent_whip": "0.78", "recent_k9": "8.7", "avg_ip": "6.4", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 39.2, "ops": ".683", "obp": ".302", "slg": ".381", "avg": ".234", "runs_per_game": "4.22", "hr_per_game": "1.08", "stolen_bases": 134}, "home_offense": {"offense_score": 51.1, "ops": ".759", "obp": ".328", "slg": ".431", "avg": ".258", "runs_per_game": "4.80", "hr_per_game": "1.31", "stolen_bases": 124}, "away_staff": {"pitching_score": 70.3, "team_era": "3.47", "team_whip": "1.18", "team_k9": "8.38", "save_pct": "56%", "blown_saves": 29}, "home_staff": {"pitching_score": 70.5, "team_era": "3.79", "team_whip": "1.23", "team_k9": "9.19", "save_pct": "64%", "blown_saves": 27}, "away_record": "81-81", "home_record": "96-66", "away_pyth": 0.556, "home_pyth": 0.583, "venue": "Citizens Bank Park", "park_factor": 1.05, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.609, "away_win_prob": 0.391, "pick": "Philadelphia Phillies", "pick_prob": 0.609, "confidence": "HIGH", "edge": 0.109, "factors": {"pitcher_matchup": {"impact": 0.5, "desc": "Pitcher: Home 82 vs Away 80"}, "offense": {"impact": 1.9, "desc": "Offense: Home 51.1 vs Away 39.2"}, "bullpen": {"impact": 0.0, "desc": "Bullpen: Home 70.5 vs Away 70.3"}, "home_field": {"impact": 7.1, "desc": "Home record: 55-26"}, "true_talent": {"impact": 0.3, "desc": "Pyth: Home 0.583 vs Away 0.556"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 823649, "game_date": "2026-03-26", "game_time": "2026-03-26T17:15:00Z", "away_team": "Pittsburgh Pirates", "home_team": "New York Mets", "away_id": 134, "home_id": 121, "away_pitcher": "Paul Skenes", "home_pitcher": "Freddy Peralta", "away_pitcher_score": 82.6, "home_pitcher_score": 67.7, "away_pitcher_era": "1.97", "home_pitcher_era": "2.70", "away_pitcher_whip": "0.95", "home_pitcher_whip": "1.08", "away_pitcher_k9": "10.36", "home_pitcher_k9": "10.39", "away_pitcher_recent": {"recent_score": 89.6, "trend": "declining", "recent_era": "1.37", "recent_whip": "1.03", "recent_k9": "12.0", "avg_ip": "5.2", "starts": 5}, "home_pitcher_recent": {"recent_score": 76.6, "trend": "improving", "recent_era": "3.52", "recent_whip": "1.09", "recent_k9": "14.1", "avg_ip": "4.6", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 29.7, "ops": ".655", "obp": ".305", "slg": ".350", "avg": ".231", "runs_per_game": "3.60", "hr_per_game": "0.72", "stolen_bases": 115}, "home_offense": {"offense_score": 51.8, "ops": ".753", "obp": ".326", "slg": ".427", "avg": ".249", "runs_per_game": "4.73", "hr_per_game": "1.38", "stolen_bases": 147}, "away_staff": {"pitching_score": 67.9, "team_era": "3.76", "team_whip": "1.22", "team_k9": "8.27", "save_pct": "58%", "blown_saves": 26}, "home_staff": {"pitching_score": 65.7, "team_era": "4.03", "team_whip": "1.32", "team_k9": "8.72", "save_pct": "59%", "blown_saves": 28}, "away_record": "71-91", "home_record": "83-79", "away_pyth": 0.454, "home_pyth": 0.531, "venue": "Citi Field", "park_factor": 0.98, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.596, "away_win_prob": 0.404, "pick": "New York Mets", "pick_prob": 0.596, "confidence": "MEDIUM", "edge": 0.096, "factors": {"pitcher_matchup": {"impact": -3.4, "desc": "Pitcher: Home 71 vs Away 85"}, "offense": {"impact": 3.5, "desc": "Offense: Home 51.8 vs Away 29.7"}, "bullpen": {"impact": -0.2, "desc": "Bullpen: Home 65.7 vs Away 67.9"}, "home_field": {"impact": 6.7, "desc": "Home record: 49-32"}, "true_talent": {"impact": 0.9, "desc": "Pyth: Home 0.531 vs Away 0.454"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 823163, "game_date": "2026-03-26", "game_time": "2026-03-27T02:10:00Z", "away_team": "Cleveland Guardians", "home_team": "Seattle Mariners", "away_id": 114, "home_id": 136, "away_pitcher": "Tanner Bibee", "home_pitcher": "Logan Gilbert", "away_pitcher_score": 58.4, "home_pitcher_score": 72.9, "away_pitcher_era": "4.24", "home_pitcher_era": "3.44", "away_pitcher_whip": "1.23", "home_pitcher_whip": "1.03", "away_pitcher_k9": "8.00", "home_pitcher_k9": "11.89", "away_pitcher_recent": {"recent_score": 84.7, "trend": "improving", "recent_era": "2.16", "recent_whip": "0.87", "recent_k9": "8.1", "avg_ip": "6.7", "starts": 5}, "home_pitcher_recent": {"recent_score": 80.7, "trend": "declining", "recent_era": "2.39", "recent_whip": "1.10", "recent_k9": "9.9", "avg_ip": "5.3", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 36.4, "ops": ".669", "obp": ".296", "slg": ".373", "avg": ".226", "runs_per_game": "3.97", "hr_per_game": "1.04", "stolen_bases": 129}, "home_offense": {"offense_score": 50.8, "ops": ".740", "obp": ".320", "slg": ".420", "avg": ".244", "runs_per_game": "4.73", "hr_per_game": "1.47", "stolen_bases": 161}, "away_staff": {"pitching_score": 70.5, "team_era": "3.70", "team_whip": "1.26", "team_k9": "8.62", "save_pct": "68%", "blown_saves": 22}, "home_staff": {"pitching_score": 69.0, "team_era": "3.87", "team_whip": "1.22", "team_k9": "8.77", "save_pct": "62%", "blown_saves": 26}, "away_record": "88-74", "home_record": "90-72", "away_pyth": 0.496, "home_pyth": 0.545, "venue": "T-Mobile Park", "park_factor": 0.95, "weather": {"adjustment": 0.0, "note": "Dome/retractable roof \u2014 weather neutral", "temp": "72", "wind": "None"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.576, "away_win_prob": 0.424, "pick": "Seattle Mariners", "pick_prob": 0.576, "confidence": "MEDIUM", "edge": 0.076, "factors": {"pitcher_matchup": {"impact": 1.7, "desc": "Pitcher: Home 76 vs Away 69"}, "offense": {"impact": 2.3, "desc": "Offense: Home 50.8 vs Away 36.4"}, "bullpen": {"impact": -0.1, "desc": "Bullpen: Home 69.0 vs Away 70.5"}, "home_field": {"impact": 5.1, "desc": "Home record: 51-30"}, "true_talent": {"impact": 0.6, "desc": "Pyth: Home 0.545 vs Away 0.496"}, "weather": {"impact": 0.0, "desc": "Dome/retractable roof \u2014 weather neutral"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 824541, "game_date": "2026-03-26", "game_time": "2026-03-26T20:10:00Z", "away_team": "Boston Red Sox", "home_team": "Cincinnati Reds", "away_id": 111, "home_id": 113, "away_pitcher": "Garrett Crochet", "home_pitcher": "Andrew Abbott", "away_pitcher_score": 79.7, "home_pitcher_score": 66.3, "away_pitcher_era": "2.59", "home_pitcher_era": "2.87", "away_pitcher_whip": "1.03", "home_pitcher_whip": "1.15", "away_pitcher_k9": "11.18", "home_pitcher_k9": "8.06", "away_pitcher_recent": {"recent_score": 82.6, "trend": "improving", "recent_era": "3.55", "recent_whip": "0.85", "recent_k9": "11.2", "avg_ip": "6.6", "starts": 5}, "home_pitcher_recent": {"recent_score": 59.6, "trend": "flat", "recent_era": "4.20", "recent_whip": "1.40", "recent_k9": "8.4", "avg_ip": "5.1", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 47.7, "ops": ".745", "obp": ".324", "slg": ".421", "avg": ".254", "runs_per_game": "4.85", "hr_per_game": "1.15", "stolen_bases": 139}, "home_offense": {"offense_score": 41.4, "ops": ".706", "obp": ".315", "slg": ".391", "avg": ".245", "runs_per_game": "4.42", "hr_per_game": "1.03", "stolen_bases": 105}, "away_staff": {"pitching_score": 68.5, "team_era": "3.70", "team_whip": "1.29", "team_k9": "8.46", "save_pct": "62%", "blown_saves": 28}, "home_staff": {"pitching_score": 69.4, "team_era": "3.86", "team_whip": "1.22", "team_k9": "8.66", "save_pct": "65%", "blown_saves": 22}, "away_record": "89-73", "home_record": "83-79", "away_pyth": 0.569, "home_pyth": 0.523, "venue": "Great American Ball Park", "park_factor": 1.12, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.469, "away_win_prob": 0.531, "pick": "Boston Red Sox", "pick_prob": 0.531, "confidence": "LOW", "edge": 0.031, "factors": {"pitcher_matchup": {"impact": -4.1, "desc": "Pitcher: Home 64 vs Away 81"}, "offense": {"impact": -1.0, "desc": "Offense: Home 41.4 vs Away 47.7"}, "bullpen": {"impact": 0.1, "desc": "Bullpen: Home 69.4 vs Away 68.5"}, "home_field": {"impact": 4.3, "desc": "Home record: 45-36"}, "true_talent": {"impact": -0.5, "desc": "Pyth: Home 0.523 vs Away 0.569"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 823325, "game_date": "2026-03-26", "game_time": "2026-03-26T20:10:00Z", "away_team": "Detroit Tigers", "home_team": "San Diego Padres", "away_id": 116, "home_id": 135, "away_pitcher": "Tarik Skubal", "home_pitcher": "TBD", "away_pitcher_score": 85.8, "home_pitcher_score": 45.0, "away_pitcher_era": "2.21", "home_pitcher_era": "N/A", "away_pitcher_whip": "0.89", "home_pitcher_whip": "N/A", "away_pitcher_k9": "11.10", "home_pitcher_k9": "N/A", "away_pitcher_recent": {"recent_score": 76.7, "trend": "declining", "recent_era": "1.86", "recent_whip": "1.00", "recent_k9": "9.0", "avg_ip": "5.8", "starts": 5}, "home_pitcher_recent": {"recent_score": 50.0, "trend": "unknown", "recent_era": "N/A", "starts": 0}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 46.3, "ops": ".729", "obp": ".316", "slg": ".413", "avg": ".247", "runs_per_game": "4.68", "hr_per_game": "1.22", "stolen_bases": 61}, "home_offense": {"offense_score": 41.7, "ops": ".711", "obp": ".321", "slg": ".390", "avg": ".252", "runs_per_game": "4.33", "hr_per_game": "0.94", "stolen_bases": 106}, "away_staff": {"pitching_score": 68.2, "team_era": "3.95", "team_whip": "1.25", "team_k9": "8.62", "save_pct": "65%", "blown_saves": 22}, "home_staff": {"pitching_score": 73.8, "team_era": "3.63", "team_whip": "1.21", "team_k9": "8.95", "save_pct": "75%", "blown_saves": 16}, "away_record": "87-75", "home_record": "90-72", "away_pyth": 0.542, "home_pyth": 0.556, "venue": "Petco Park", "park_factor": 0.93, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.473, "away_win_prob": 0.527, "pick": "Detroit Tigers", "pick_prob": 0.527, "confidence": "LOW", "edge": 0.027, "factors": {"pitcher_matchup": {"impact": -8.4, "desc": "Pitcher: Home 47 vs Away 82"}, "offense": {"impact": -0.7, "desc": "Offense: Home 41.7 vs Away 46.3"}, "bullpen": {"impact": 0.6, "desc": "Bullpen: Home 73.8 vs Away 68.2"}, "home_field": {"impact": 5.6, "desc": "Home record: 52-29"}, "true_talent": {"impact": 0.2, "desc": "Pyth: Home 0.556 vs Away 0.542"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}, {"game_id": 823081, "game_date": "2026-03-26", "game_time": "2026-03-26T20:15:00Z", "away_team": "Tampa Bay Rays", "home_team": "St. Louis Cardinals", "away_id": 139, "home_id": 138, "away_pitcher": "Drew Rasmussen", "home_pitcher": "Matthew Liberatore", "away_pitcher_score": 68.9, "home_pitcher_score": 57.8, "away_pitcher_era": "2.76", "home_pitcher_era": "4.21", "away_pitcher_whip": "1.02", "home_pitcher_whip": "1.31", "away_pitcher_k9": "7.62", "home_pitcher_k9": "7.24", "away_pitcher_recent": {"recent_score": 64.3, "trend": "declining", "recent_era": "3.58", "recent_whip": "1.29", "recent_k9": "6.3", "avg_ip": "4.0", "starts": 5}, "home_pitcher_recent": {"recent_score": 61.2, "trend": "declining", "recent_era": "3.94", "recent_whip": "1.39", "recent_k9": "8.6", "avg_ip": "5.0", "starts": 5}, "away_p_vs_team_era": "N/A", "home_p_vs_team_era": "N/A", "away_p_vs_team_ip": "0", "home_p_vs_team_ip": "0", "away_offense": {"offense_score": 42.2, "ops": ".714", "obp": ".313", "slg": ".401", "avg": ".251", "runs_per_game": "4.41", "hr_per_game": "1.12", "stolen_bases": 194}, "home_offense": {"offense_score": 38.0, "ops": ".693", "obp": ".314", "slg": ".379", "avg": ".245", "runs_per_game": "4.25", "hr_per_game": "0.91", "stolen_bases": 89}, "away_staff": {"pitching_score": 67.3, "team_era": "3.94", "team_whip": "1.22", "team_k9": "8.90", "save_pct": "55%", "blown_saves": 29}, "home_staff": {"pitching_score": 62.8, "team_era": "4.29", "team_whip": "1.32", "team_k9": "7.60", "save_pct": "65%", "blown_saves": 23}, "away_record": "77-85", "home_record": "78-84", "away_pyth": 0.52, "home_pyth": 0.459, "venue": "Busch Stadium", "park_factor": 0.98, "weather": {"adjustment": 0.0, "note": "Normal conditions", "temp": "72", "wind": "0 mph", "condition": "Clear"}, "away_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_rest": {"adjustment": 0.01, "note": "Well-rested (no games in 3 days)", "games_last_3d": 0}, "home_win_prob": 0.509, "away_win_prob": 0.491, "pick": "St. Louis Cardinals", "pick_prob": 0.509, "confidence": "LOW", "edge": 0.009, "factors": {"pitcher_matchup": {"impact": -1.9, "desc": "Pitcher: Home 59 vs Away 67"}, "offense": {"impact": -0.7, "desc": "Offense: Home 38.0 vs Away 42.2"}, "bullpen": {"impact": -0.4, "desc": "Bullpen: Home 62.8 vs Away 67.3"}, "home_field": {"impact": 4.7, "desc": "Home record: 44-37"}, "true_talent": {"impact": -0.7, "desc": "Pyth: Home 0.459 vs Away 0.520"}, "weather": {"impact": 0.0, "desc": "Normal conditions"}, "rest": {"impact": 0.0, "desc": "Home: Well-rested (no games in 3 days) | Away: Well-rested (no games in 3 days)"}}}]};
+const RESULTS_DATA = [];
+if (PICKS_DATA) allPicks = PICKS_DATA;
+if (RESULTS_DATA) results = RESULTS_DATA;
+
+function formatDate(d) { return d.toISOString().split('T')[0]; }
+function displayDate(d) { return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }); }
+
+function scoreClass(s) {
+  if (s >= 80) return 's-great';
+  if (s >= 65) return 's-good';
+  if (s >= 50) return 's-avg';
+  if (s >= 35) return 's-bad';
+  return 's-terrible';
+}
+
+function trendIcon(t) {
+  if (t === 'improving') return '<span class="trend-up">📈 Improving</span>';
+  if (t === 'declining') return '<span class="trend-down">📉 Declining</span>';
+  return '<span class="trend-flat">➡️ Stable</span>';
+}
+
+function renderGames() {
+  const dateStr = formatDate(currentDate);
+  document.getElementById('currentDate').textContent = displayDate(currentDate);
+  const picks = allPicks[dateStr] || [];
+  const container = document.getElementById('gameCards');
+  document.getElementById('todayGames').textContent = picks.length;
+
+  if (!picks.length) {
+    container.innerHTML = '<div class="empty-state"><div class="emoji">⚾</div><p>No predictions for this date.</p></div>';
+    return;
+  }
+
+  container.innerHTML = picks.map((p, idx) => {
+    const factors = p.factors || {};
+    const sortedFactors = Object.entries(factors).sort((a,b) => Math.abs(b[1].impact) - Math.abs(a[1].impact));
+
+    return `
+    <div class="game-card ${p.confidence.toLowerCase()}">
+      <div class="card-header">
+        <div class="matchup">${p.away_team}<span class="at">@</span>${p.home_team}</div>
+        <span class="conf-badge ${p.confidence.toLowerCase()}">${p.confidence}</span>
+      </div>
+      <div class="card-body">
+        <!-- Pitcher Comparison -->
+        <div class="pitcher-row">
+          <div class="pitcher-card">
+            <div class="side-label">Away Pitcher</div>
+            <div class="name-row">
+              <span class="p-name">${p.away_pitcher}</span>
+              <span class="p-score ${scoreClass(p.away_pitcher_score)}">${p.away_pitcher_score}</span>
+            </div>
+            <div class="stat-grid">
+              <div class="mini-stat"><div class="val">${p.away_pitcher_era}</div><div class="lbl">ERA</div></div>
+              <div class="mini-stat"><div class="val">${p.away_pitcher_whip}</div><div class="lbl">WHIP</div></div>
+              <div class="mini-stat"><div class="val">${p.away_pitcher_k9 || 'N/A'}</div><div class="lbl">K/9</div></div>
+            </div>
+            <div class="recent-form">
+              Last 5: <strong>${p.away_pitcher_recent?.recent_era || 'N/A'}</strong> ERA / 
+              <strong>${p.away_pitcher_recent?.recent_whip || 'N/A'}</strong> WHIP
+              ${p.away_pitcher_recent ? trendIcon(p.away_pitcher_recent.trend) : ''}
+            </div>
+            ${p.away_p_vs_team_era !== 'N/A' ? `<div class="recent-form">vs ${p.home_team}: <strong>${p.away_p_vs_team_era}</strong> ERA (${p.away_p_vs_team_ip} IP)</div>` : ''}
+          </div>
+          <div class="pitcher-card">
+            <div class="side-label">Home Pitcher</div>
+            <div class="name-row">
+              <span class="p-name">${p.home_pitcher}</span>
+              <span class="p-score ${scoreClass(p.home_pitcher_score)}">${p.home_pitcher_score}</span>
+            </div>
+            <div class="stat-grid">
+              <div class="mini-stat"><div class="val">${p.home_pitcher_era}</div><div class="lbl">ERA</div></div>
+              <div class="mini-stat"><div class="val">${p.home_pitcher_whip}</div><div class="lbl">WHIP</div></div>
+              <div class="mini-stat"><div class="val">${p.home_pitcher_k9 || 'N/A'}</div><div class="lbl">K/9</div></div>
+            </div>
+            <div class="recent-form">
+              Last 5: <strong>${p.home_pitcher_recent?.recent_era || 'N/A'}</strong> ERA / 
+              <strong>${p.home_pitcher_recent?.recent_whip || 'N/A'}</strong> WHIP
+              ${p.home_pitcher_recent ? trendIcon(p.home_pitcher_recent.trend) : ''}
+            </div>
+            ${p.home_p_vs_team_era !== 'N/A' ? `<div class="recent-form">vs ${p.away_team}: <strong>${p.home_p_vs_team_era}</strong> ERA (${p.home_p_vs_team_ip} IP)</div>` : ''}
+          </div>
+        </div>
+
+        <!-- Team Comparison -->
+        <div class="team-compare">
+          <div class="team-stat-box">
+            <div class="team-name">${p.away_team}</div>
+            <div class="stat-line"><span class="stat-label">Record</span><span class="stat-val">${p.away_record}</span></div>
+            <div class="stat-line"><span class="stat-label">OPS</span><span class="stat-val">${p.away_offense?.ops || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">R/G</span><span class="stat-val">${p.away_offense?.runs_per_game || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Bullpen ERA</span><span class="stat-val">${p.away_staff?.team_era || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Pyth W%</span><span class="stat-val">${p.away_pyth ? (p.away_pyth * 100).toFixed(1) + '%' : 'N/A'}</span></div>
+          </div>
+          <div class="vs">VS</div>
+          <div class="team-stat-box">
+            <div class="team-name">${p.home_team}</div>
+            <div class="stat-line"><span class="stat-label">Record</span><span class="stat-val">${p.home_record}</span></div>
+            <div class="stat-line"><span class="stat-label">OPS</span><span class="stat-val">${p.home_offense?.ops || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">R/G</span><span class="stat-val">${p.home_offense?.runs_per_game || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Bullpen ERA</span><span class="stat-val">${p.home_staff?.team_era || 'N/A'}</span></div>
+            <div class="stat-line"><span class="stat-label">Pyth W%</span><span class="stat-val">${p.home_pyth ? (p.home_pyth * 100).toFixed(1) + '%' : 'N/A'}</span></div>
+          </div>
+        </div>
+
+        <!-- Probability bar -->
+        <div class="prob-section">
+          <div class="prob-bar-bg">
+            <div class="prob-bar-away" style="width:${p.away_win_prob*100}%"></div>
+            <div class="prob-bar-home" style="width:${p.home_win_prob*100}%"></div>
+          </div>
+          <div class="prob-labels">
+            <span>${p.away_team} ${(p.away_win_prob*100).toFixed(1)}%</span>
+            <span>${p.home_team} ${(p.home_win_prob*100).toFixed(1)}%</span>
+          </div>
+        </div>
+
+        <!-- Pick -->
+        <div class="pick-bar">
+          <div class="pick-team">📈 ${p.pick}</div>
+          <div class="pick-detail">
+            <div class="pick-prob">${(p.pick_prob*100).toFixed(1)}%</div>
+            <div class="pick-edge">Edge +${(p.edge*100).toFixed(1)}%</div>
+          </div>
+        </div>
+
+        <!-- Factor Breakdown -->
+        <div class="factors-toggle" onclick="this.nextElementSibling.classList.toggle('open')">
+          ▸ Factor breakdown (${sortedFactors.length} factors)
+        </div>
+        <div class="factors-list">
+          ${sortedFactors.map(([name, f]) => `
+            <div class="factor-row">
+              <span class="f-desc">${f.desc}</span>
+              <span class="f-impact ${f.impact > 0.05 ? 'positive' : f.impact < -0.05 ? 'negative' : 'neutral'}">
+                ${f.impact > 0 ? '+' : ''}${f.impact.toFixed(1)}%
+              </span>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer">
+          <span>📍 ${p.venue} (PF: ${p.park_factor})</span>
+          <span>🌤️ ${p.weather?.condition || '?'} ${p.weather?.temp || '?'}°F ${p.weather?.wind || ''}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStats() {
+  const all = Object.values(allPicks).flat();
+  const resolved = results.filter(r => r.result);
+  const wins = resolved.filter(r => r.result === 'win');
+  const high = resolved.filter(r => r.confidence === 'HIGH');
+  const highW = high.filter(r => r.result === 'win');
+
+  document.getElementById('totalPicks').textContent = all.length || '—';
+  document.getElementById('winRate').textContent = resolved.length ? `${(wins.length/resolved.length*100).toFixed(1)}%` : '—';
+  document.getElementById('highConf').textContent = high.length ? `${(highW.length/high.length*100).toFixed(1)}%` : '—';
+  document.getElementById('roi').textContent = '—';
+
+  if (resolved.length) {
+    document.getElementById('trackerSection').style.display = 'block';
+    document.getElementById('trackerBody').innerHTML = resolved.slice(-20).reverse().map(r => `
+      <tr>
+        <td>${r.date}</td>
+        <td>${r.away_team} @ ${r.home_team}</td>
+        <td>${r.pick}</td>
+        <td>${(r.pick_prob*100).toFixed(0)}%</td>
+        <td>${r.confidence}</td>
+        <td class="${r.result}">${r.result.toUpperCase()}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+function changeDate(d) { currentDate.setDate(currentDate.getDate() + d); renderGames(); }
+
+const avail = Object.keys(allPicks).sort();
+if (avail.length) currentDate = new Date(avail[avail.length - 1] + 'T12:00:00');
+renderGames();
+updateStats();
+</script>
+</body>
+</html>

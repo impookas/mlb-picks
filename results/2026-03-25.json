@@ -1,0 +1,48 @@
+{
+  "date": "2026-03-25",
+  "total_games": 1,
+  "correct": 1,
+  "wrong": 0,
+  "accuracy": 1.0,
+  "avg_brier": 0.2228,
+  "avg_logloss": 0.6387,
+  "by_confidence": {
+    "LOW": {
+      "total": 1,
+      "correct": 1,
+      "pct": 1.0,
+      "avg_brier": 0.2228
+    }
+  },
+  "calibration": {
+    "0.5": {
+      "n": 1,
+      "avg_predicted": 0.528,
+      "avg_actual": 1.0,
+      "gap": 0.472
+    }
+  },
+  "baseline_brier": 0.25,
+  "picks": [
+    {
+      "game_id": 823244,
+      "date": "2026-03-25",
+      "matchup": "New York Yankees @ San Francisco Giants",
+      "pick": "New York Yankees",
+      "pick_prob": 0.528,
+      "home_prob": 0.472,
+      "confidence": "LOW",
+      "edge": 0.028,
+      "actual_winner": "New York Yankees",
+      "score": "7-0",
+      "correct": true,
+      "brier": 0.2228,
+      "logloss": 0.6387,
+      "home_win": false,
+      "away_pitcher": "Max Fried",
+      "home_pitcher": "Logan Webb",
+      "away_pitcher_score": 71.6,
+      "home_pitcher_score": 74.9
+    }
+  ]
+}
