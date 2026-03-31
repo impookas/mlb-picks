@@ -3,453 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How It Works — MLB Picks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Data-driven MLB predictions with 75% accuracy. Vegas line comparison, transparent track record.">
+    <title>{title} — MLB Picks</title>
     <style>
-
 :root {
-    --bg: #0a0e17;
-    --surface: #111827;
-    --surface2: #1a2332;
-    --surface3: #1f2b3d;
-    --border: #1e293b;
-    --border-hover: #334155;
-    --text: #e2e8f0;
-    --text-dim: #94a3b8;
-    --text-muted: #64748b;
-    --accent: #3b82f6;
-    --accent-hover: #2563eb;
-    --green: #10b981;
-    --green-dim: #059669;
-    --red: #ef4444;
-    --amber: #f59e0b;
-    --purple: #a855f7;
+    --bg: #0f1419;
+    --surface: #1a1f2e;
+    --card: #1e2433;
+    --border: #2a3441;
+    --text: #e8eaed;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font-family: 'Inter', -apple-system, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
 
 /* Header */
-.header {
+header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
+    padding: 20px 0;
     position: sticky;
     top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
+    z-index: 1000;
+    backdrop-filter: blur(8px);
 }
 
-.header-inner {
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
 }
 
-.logo {
-    font-size: 1.25rem;
-    font-weight: 800;
+.brand {
+    font-size: 20px;
+    font-weight: 700;
     color: var(--text);
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    letter-spacing: -0.5px;
 }
 
-.logo-emoji { font-size: 1.5rem; }
-
-.nav {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav a {
-    color: var(--text-dim);
+nav a {
+    color: var(--text-secondary);
     text-decoration: none;
+    margin-left: 32px;
+    font-size: 15px;
     font-weight: 500;
-    font-size: 0.875rem;
     transition: color 0.2s;
 }
 
-.nav a:hover, .nav a.active { color: var(--accent); }
-
-/* Footer */
-.footer {
-    margin-top: 4rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.75rem;
+nav a:hover,
+nav a.active {
+    color: var(--text);
 }
 
 /* Hero */
 .hero {
-    padding: 3rem 0 2rem;
+    text-align: center;
+    padding: 80px 0 60px;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
     text-align: center;
 }
 
-.hero h1 {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-subtitle {
-    color: var(--text-dim);
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Stats Grid */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.stat-card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-}
-
 .stat-value {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--green);
-    line-height: 1;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--success);
+    margin-bottom: 8px;
 }
 
 .stat-label {
+    font-size: 13px;
     color: var(--text-muted);
-    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 0.5rem;
-}
-
-/* Content Sections */
-.section {
-    padding: 3rem 0;
-}
-
-.section h2 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    color: var(--text);
-}
-
-.section h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text);
-}
-
-.section p {
-    color: var(--text-dim);
-    line-height: 1.8;
-    margin-bottom: 1rem;
-}
-
-.section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.section li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--text-dim);
-}
-
-.section li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: bold;
+    font-weight: 600;
 }
 
 /* Cards */
 .card {
-    background: var(--surface2);
+    background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 32px;
+    margin-bottom: 24px;
 }
 
 .card h3 {
-    margin-top: 0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
 }
 
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
+.card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
-th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
+/* Pick Cards */
+.pick {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
 }
 
-th {
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.875rem;
+.pick:hover {
+    border-color: var(--accent);
+}
+
+.pick-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.matchup {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.badge {
+    background: var(--warning);
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+.pick-main {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pick-team {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.pick-prob {
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--success);
+    letter-spacing: -1px;
+}
+
+.vegas-row {
+    display: flex;
+    justify-content: space-between;
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+}
+
+.vegas-item {
+    font-size: 14px;
+}
+
+.vegas-label {
+    color: var(--text-muted);
+    margin-right: 8px;
+}
+
+.market-edge {
+    background: var(--success);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.market-edge.negative {
+    background: var(--error);
+    color: #fff;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+}
+
 td {
-    color: var(--text-dim);
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
 }
 
 tr:hover td {
-    background: var(--surface3);
+    background: var(--surface);
 }
 
-/* Mobile */
+/* Footer */
+footer {
+    text-align: center;
+    padding: 48px 0;
+    margin-top: 80px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .hero h1 { font-size: 1.75rem; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .nav { gap: 1rem; font-size: 0.8rem; }
+    h1 { font-size: 36px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    nav a { margin-left: 20px; font-size: 14px; }
 }
 
 @media (max-width: 480px) {
-    .stats-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .vegas-row { flex-direction: column; gap: 12px; }
 }
-
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.feature {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-}
-
-.feature-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.feature h3 {
-    margin-bottom: 0.75rem;
-}
-
-.process {
-    background: linear-gradient(135deg, var(--surface2) 0%, var(--surface3) 100%);
-    border: 1px solid var(--accent);
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem 0;
-}
-
-.process h3 {
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-}
-
-.process ol {
-    list-style-position: inside;
-    color: var(--text-dim);
-}
-
-.process li {
-    padding: 0.5rem 0;
-    padding-left: 0;
-}
-
-.process li::marker {
-    color: var(--accent);
-    font-weight: bold;
-}
-
-.transparency {
-    background: var(--surface3);
-    border-left: 4px solid var(--green);
-    padding: 1.5rem;
-    margin: 2rem 0;
-    border-radius: 8px;
-}
-    </style>
+</style>
 </head>
 <body>
 
-
-<div class="header">
-    <div class="header-inner">
-        <a href="index.html" class="logo">
-            <span class="logo-emoji">⚾</span>
-            <span>MLB Picks</span>
-        </a>
-        <nav class="nav">
-            <a href="index.html" class="">Today</a>
-            <a href="track-record.html" class="">Track Record</a>
-            <a href="how-it-works.html" class="active">How It Works</a>
-        </nav>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <a href="index.html" class="brand">MLB Picks</a>
+            <nav>
+                <a href="index.html" class="">Today</a>
+                <a href="track-record.html" class="">Track Record</a>
+                <a href="how-it-works.html" class="active">How It Works</a>
+            </nav>
+        </div>
     </div>
-</div>
-
+</header>
 
 <div class="container">
-    <div class="hero">
-        <h1>How It Works</h1>
-        <p class="hero-subtitle">Data-driven predictions. No gut feelings. No hype. Just probabilities backed by machine learning.</p>
-    </div>
-    
-    <div class="section">
-        <h2>🧠 The Model</h2>
-        <p>We use an ensemble of two approaches:</p>
-        
-        <div class="feature-grid">
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <h3>Hand-Tuned Expert System (60%)</h3>
-                <p>Built by analyzing thousands of games. Weights factors like pitcher quality (24%), team offense (16%), bullpen strength (10%), home field advantage, and run differential.</p>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">🤖</div>
-                <h3>Machine Learning (40%)</h3>
-                <p>Logistic regression + gradient boosting trained on 2,426 games from the 2025 season. Learned optimal weights from real outcomes, not guesses.</p>
-            </div>
-        </div>
-        
-        <div class="transparency">
-            <h3>✅ Why Blend Both?</h3>
-            <p>The ML model is data-driven but can be overconfident early in the season. The expert system is conservative and well-calibrated. Blending them (60/40) gives us the best of both: smart feature selection from ML, stability from human expertise.</p>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>🎯 What We Analyze</h2>
-        <div class="feature-grid">
-            <div class="feature">
-                <div class="feature-icon">⚾</div>
-                <h3>Starting Pitchers</h3>
-                <p>Season stats (ERA, WHIP, K/9, BB/9, HR/9) + recent form (last 5 starts) + career vs opponent + park history.</p>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">🏟️</div>
-                <h3>Team Strength</h3>
-                <p>Offensive firepower (OPS, runs/game), bullpen quality (ERA, saves), true talent (Pythagorean win %), home/road splits.</p>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">📍</div>
-                <h3>Context</h3>
-                <p>Park factors (Coors = 1.30, Oracle = 0.92), home field advantage, rest days, Vegas lines (to validate edge).</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>📈 Daily Process</h2>
-        <div class="process">
-            <h3>Every Morning at 10 AM ET:</h3>
-            <ol>
-                <li>Fetch today's games and probable pitchers from MLB Stats API</li>
-                <li>Pull current season stats for all teams and pitchers</li>
-                <li>Fetch Vegas lines from DraftKings/ESPN</li>
-                <li>Run both models (v2 + v3) and blend predictions (60/40)</li>
-                <li>Filter for HIGH confidence only (64%+ win probability)</li>
-                <li>Publish picks 3+ hours before first pitch (transparency)</li>
-                <li>Track results and update accuracy metrics</li>
-            </ol>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>🔬 Quality Standards</h2>
-        <div class="card">
-            <h3>No Look-Ahead Bias</h3>
-            <p>Backtest uses zero future data. Pitcher stats computed only from games before each prediction date. Team stats from prior season. No cheating.</p>
-        </div>
-        
-        <div class="card">
-            <h3>Realistic Odds</h3>
-            <p>ROI calculated using actual moneyline odds with vig, not flat -110. If we pick a favorite at -150, we account for the real payout (not fantasy numbers).</p>
-        </div>
-        
-        <div class="card">
-            <h3>Honest Thresholds</h3>
-            <p>We tested 62%, 65%, 68% thresholds. Settled on 64% because it gives ~2-4 picks/day with 75%+ accuracy. Some days there are ZERO picks if nothing clears the bar.</p>
-        </div>
-        
-        <div class="card">
-            <h3>Full Transparency</h3>
-            <p>Every pick is timestamped. Every result is tracked. Bad days are published (see Track Record). No cherry-picking.</p>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>❓ What This ISN'T</h2>
-        <div class="transparency">
-            <ul>
-                <li>NOT a guaranteed winner — variance exists, upsets happen</li>
-                <li>NOT based on "insider info" or gut feelings — pure data</li>
-                <li>NOT trying to pick every game — selective is better</li>
-                <li>NOT claiming 90%+ win rates — that's a red flag</li>
-                <li>NOT hiding bad picks — full history is public</li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>📊 Proven Results</h2>
-        <p>Backtested on the full 2025 season (2,426 games). HIGH confidence picks went 66.2% with +9.1% ROI. Live tracking since March 2026 shows 75% accuracy and +43% ROI (small sample, but consistent with backtest).</p>
-        
-        <p style="margin-top: 1rem;">When we show "+4.2% vs market" on a pick, that means we think Vegas is wrong and there's real edge. That's the signal worth betting on.</p>
-    </div>
+
+<div class="hero">
+    <h1>How It Works</h1>
+    <p class="subtitle">Data-driven predictions. No gut feelings. Just probabilities backed by machine learning.</p>
 </div>
 
-
-<div class="footer">
-    <p>Predictions are for informational and entertainment purposes only.</p>
-    <p>© 2026 MLB Picks · Updated March 31, 2026 at 05:01 PM ET</p>
+<div class="card">
+    <h3>The Model</h3>
+    <p>We blend two approaches:</p>
+    <p style="margin-top: 12px;"><strong>Expert System (60%):</strong> Hand-tuned weights analyzing pitcher quality (24%), team offense (16%), bullpen strength (10%), home field advantage, and run differential.</p>
+    <p style="margin-top: 12px;"><strong>Machine Learning (40%):</strong> Logistic regression + gradient boosting trained on 2,426 games from 2025. Learned optimal weights from real outcomes.</p>
 </div>
 
+<div class="card">
+    <h3>What We Analyze</h3>
+    <p><strong>Starting Pitchers:</strong> ERA, WHIP, K/9, BB/9, HR/9, recent form (last 5 starts), career vs opponent.</p>
+    <p style="margin-top: 12px;"><strong>Team Strength:</strong> Offensive power (OPS, runs/game), bullpen quality, Pythagorean win %, home/road splits.</p>
+    <p style="margin-top: 12px;"><strong>Context:</strong> Park factors, Vegas lines (to validate edge), rest days.</p>
+</div>
+
+<div class="card">
+    <h3>Daily Process</h3>
+    <p><strong>10 AM ET Every Day:</strong></p>
+    <p style="margin-top: 12px;">1. Fetch games and pitchers from MLB Stats API<br>
+    2. Pull current season stats<br>
+    3. Fetch Vegas lines from DraftKings/ESPN<br>
+    4. Run both models and blend (60/40)<br>
+    5. Filter for 64%+ confidence only<br>
+    6. Publish picks 3+ hours before first pitch<br>
+    7. Track results and update metrics</p>
+</div>
+
+<div class="card">
+    <h3>Quality Standards</h3>
+    <p><strong>No Look-Ahead Bias:</strong> Backtest uses zero future data. Pitcher stats computed only from prior games.</p>
+    <p style="margin-top: 12px;"><strong>Realistic Odds:</strong> ROI uses actual moneyline odds with vig, not fantasy -110.</p>
+    <p style="margin-top: 12px;"><strong>Honest Thresholds:</strong> 64% threshold gives ~2-4 picks/day with 75%+ accuracy. Some days have ZERO picks.</p>
+    <p style="margin-top: 12px;"><strong>Full Transparency:</strong> Every pick is timestamped. Every result is tracked. Bad days are published.</p>
+</div>
+
+<div class="card">
+    <h3>Proven Results</h3>
+    <p>Backtested on 2,426 games from 2025 season. HIGH picks: 66.2% win rate, +9.1% ROI.</p>
+    <p style="margin-top: 12px;">Live tracking since March 2026: 75% accuracy, +43% ROI (early sample, but consistent with backtest).</p>
+    <p style="margin-top: 12px;">When we show "+4.2% vs market", we think Vegas is wrong and there's real edge.</p>
+</div>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p>For entertainment purposes only. Past performance does not guarantee future results.</p>
+        <p style="margin-top: 8px; color: #4b5563;">© 2026 MLB Picks • Updated March 31, 2026</p>
+    </div>
+</footer>
 
 </body>
 </html>

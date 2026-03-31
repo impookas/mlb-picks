@@ -3,418 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Record — MLB Picks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Data-driven MLB predictions with 75% accuracy. Vegas line comparison, transparent track record.">
+    <title>{title} — MLB Picks</title>
     <style>
-
 :root {
-    --bg: #0a0e17;
-    --surface: #111827;
-    --surface2: #1a2332;
-    --surface3: #1f2b3d;
-    --border: #1e293b;
-    --border-hover: #334155;
-    --text: #e2e8f0;
-    --text-dim: #94a3b8;
-    --text-muted: #64748b;
-    --accent: #3b82f6;
-    --accent-hover: #2563eb;
-    --green: #10b981;
-    --green-dim: #059669;
-    --red: #ef4444;
-    --amber: #f59e0b;
-    --purple: #a855f7;
+    --bg: #0f1419;
+    --surface: #1a1f2e;
+    --card: #1e2433;
+    --border: #2a3441;
+    --text: #e8eaed;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font-family: 'Inter', -apple-system, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
 
 /* Header */
-.header {
+header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
+    padding: 20px 0;
     position: sticky;
     top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
+    z-index: 1000;
+    backdrop-filter: blur(8px);
 }
 
-.header-inner {
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
 }
 
-.logo {
-    font-size: 1.25rem;
-    font-weight: 800;
+.brand {
+    font-size: 20px;
+    font-weight: 700;
     color: var(--text);
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    letter-spacing: -0.5px;
 }
 
-.logo-emoji { font-size: 1.5rem; }
-
-.nav {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav a {
-    color: var(--text-dim);
+nav a {
+    color: var(--text-secondary);
     text-decoration: none;
+    margin-left: 32px;
+    font-size: 15px;
     font-weight: 500;
-    font-size: 0.875rem;
     transition: color 0.2s;
 }
 
-.nav a:hover, .nav a.active { color: var(--accent); }
-
-/* Footer */
-.footer {
-    margin-top: 4rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.75rem;
+nav a:hover,
+nav a.active {
+    color: var(--text);
 }
 
 /* Hero */
 .hero {
-    padding: 3rem 0 2rem;
+    text-align: center;
+    padding: 80px 0 60px;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
     text-align: center;
 }
 
-.hero h1 {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-subtitle {
-    color: var(--text-dim);
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Stats Grid */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.stat-card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-}
-
 .stat-value {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--green);
-    line-height: 1;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--success);
+    margin-bottom: 8px;
 }
 
 .stat-label {
+    font-size: 13px;
     color: var(--text-muted);
-    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 0.5rem;
-}
-
-/* Content Sections */
-.section {
-    padding: 3rem 0;
-}
-
-.section h2 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    color: var(--text);
-}
-
-.section h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text);
-}
-
-.section p {
-    color: var(--text-dim);
-    line-height: 1.8;
-    margin-bottom: 1rem;
-}
-
-.section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.section li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--text-dim);
-}
-
-.section li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-weight: bold;
+    font-weight: 600;
 }
 
 /* Cards */
 .card {
-    background: var(--surface2);
+    background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 32px;
+    margin-bottom: 24px;
 }
 
 .card h3 {
-    margin-top: 0;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
 }
 
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
+.card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
-th, td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
+/* Pick Cards */
+.pick {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
 }
 
-th {
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.875rem;
+.pick:hover {
+    border-color: var(--accent);
+}
+
+.pick-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.matchup {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.badge {
+    background: var(--warning);
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
+.pick-main {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--card) 100%);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pick-team {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.pick-prob {
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--success);
+    letter-spacing: -1px;
+}
+
+.vegas-row {
+    display: flex;
+    justify-content: space-between;
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+}
+
+.vegas-item {
+    font-size: 14px;
+}
+
+.vegas-label {
+    color: var(--text-muted);
+    margin-right: 8px;
+}
+
+.market-edge {
+    background: var(--success);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.market-edge.negative {
+    background: var(--error);
+    color: #fff;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+}
+
 td {
-    color: var(--text-dim);
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
 }
 
 tr:hover td {
-    background: var(--surface3);
+    background: var(--surface);
 }
 
-/* Mobile */
+/* Footer */
+footer {
+    text-align: center;
+    padding: 48px 0;
+    margin-top: 80px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .hero h1 { font-size: 1.75rem; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .nav { gap: 1rem; font-size: 0.8rem; }
+    h1 { font-size: 36px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    nav a { margin-left: 20px; font-size: 14px; }
 }
 
 @media (max-width: 480px) {
-    .stats-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .vegas-row { flex-direction: column; gap: 12px; }
 }
-
-
-.performance-chart {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem 0;
-}
-
-.chart-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-}
-
-.daily-row {
-    display: grid;
-    grid-template-columns: 120px 1fr 100px 100px;
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border);
-    align-items: center;
-    gap: 1rem;
-}
-
-.daily-row:hover {
-    background: var(--surface3);
-}
-
-.date {
-    font-weight: 600;
-    color: var(--text);
-}
-
-.record {
-    color: var(--text-dim);
-}
-
-.accuracy {
-    font-weight: 700;
-}
-
-.accuracy.good { color: var(--green); }
-.accuracy.ok { color: var(--amber); }
-.accuracy.bad { color: var(--red); }
-
-.badge {
-    background: var(--surface3);
-    border: 1px solid var(--border);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.badge.live { border-color: var(--accent); color: var(--accent); }
-    </style>
+</style>
 </head>
 <body>
 
-
-<div class="header">
-    <div class="header-inner">
-        <a href="index.html" class="logo">
-            <span class="logo-emoji">⚾</span>
-            <span>MLB Picks</span>
-        </a>
-        <nav class="nav">
-            <a href="index.html" class="">Today</a>
-            <a href="track-record.html" class="active">Track Record</a>
-            <a href="how-it-works.html" class="">How It Works</a>
-        </nav>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <a href="index.html" class="brand">MLB Picks</a>
+            <nav>
+                <a href="index.html" class="">Today</a>
+                <a href="track-record.html" class="active">Track Record</a>
+                <a href="how-it-works.html" class="">How It Works</a>
+            </nav>
+        </div>
     </div>
-</div>
-
+</header>
 
 <div class="container">
-    <div class="hero">
-        <h1>Track Record</h1>
-        <p class="hero-subtitle">Every prediction, every result. Full transparency.</p>
-        
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">9-3</div>
-                <div class="stat-label">All-Time Record</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">75.0%</div>
-                <div class="stat-label">Win Rate</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">37.5%</div>
-                <div class="stat-label">Brier Skill</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">+43.2%</div>
-                <div class="stat-label">ROI</div>
-            </div>
-        </div>
-    </div>
+
+<div class="hero">
+    <h1>Track Record</h1>
+    <p class="subtitle">Every prediction. Every result. Full transparency.</p>
     
-    <div class="performance-chart">
-        <div class="chart-title">📊 Daily Performance</div>
-        <div style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-            Only HIGH confidence picks (64%+) are tracked. Full history below.
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-value">9-3</div>
+            <div class="stat-label">All-Time</div>
         </div>
-        
-        <div class="daily-row" style="font-weight: 600; color: var(--text-muted); font-size: 0.875rem;">
-            <div>DATE</div>
-            <div>RECORD</div>
-            <div>ACCURACY</div>
-            <div>STATUS</div>
+        <div class="stat">
+            <div class="stat-value">75%</div>
+            <div class="stat-label">Win Rate</div>
         </div>
-
-        <div class="daily-row">
-            <div class="date">2026-03-30</div>
-            <div class="record">4-5 (9 picks)</div>
-            <div class="accuracy bad">44.4%</div>
-            <div></div>
+        <div class="stat">
+            <div class="stat-value">+38%</div>
+            <div class="stat-label">Brier Skill</div>
         </div>
-
-        <div class="daily-row">
-            <div class="date">2026-03-28</div>
-            <div class="record">10-5 (15 picks)</div>
-            <div class="accuracy ok">66.7%</div>
-            <div></div>
-        </div>
-
-        <div class="daily-row">
-            <div class="date">2026-03-26</div>
-            <div class="record">6-2 (8 picks)</div>
-            <div class="accuracy good">75.0%</div>
-            <div></div>
-        </div>
-
-        <div class="daily-row">
-            <div class="date">2026-03-25</div>
-            <div class="record">1-0 (1 picks)</div>
-            <div class="accuracy good">100.0%</div>
-            <div></div>
-        </div>
-
-    </div>
-    
-    <div class="section">
-        <h2>💯 What This Means</h2>
-        <div class="card">
-            <h3>Brier Skill Score: 37.5%</h3>
-            <p>This measures how much better we are than a coin flip. Anything above 0% means we're adding real value. 37.5% means we're significantly beating random guessing.</p>
-        </div>
-        
-        <div class="card">
-            <h3>ROI (Return on Investment): +43.2%</h3>
-            <p>If you bet $100 on every HIGH pick, you'd be up $43. This accounts for realistic moneyline odds with vig, not flat -110.</p>
-        </div>
-        
-        <div class="card">
-            <h3>Why Only HIGH Picks?</h3>
-            <p>We generate predictions for all games, but only HIGH confidence picks (64%+) are worth betting. Medium and Low picks are for research and model calibration.</p>
+        <div class="stat">
+            <div class="stat-value">+43%</div>
+            <div class="stat-label">ROI</div>
         </div>
     </div>
 </div>
 
-{build_footer()}
+<div class="card">
+    <h3>What These Numbers Mean</h3>
+    <p><strong>Win Rate:</strong> Percentage of correct picks on HIGH confidence bets (64%+).</p>
+    <p style="margin-top: 12px;"><strong>Brier Skill:</strong> Measures calibration quality. Above 0% means better than random. +38% is strong.</p>
+    <p style="margin-top: 12px;"><strong>ROI:</strong> Return on investment using realistic moneyline odds with vig. If you bet $100 on every HIGH pick, you'd be up $43.</p>
+</div>
+
+<div class="card">
+    <h3>Daily History</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Record</th>
+                <th>Accuracy</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>2026-03-30</td>
+                <td>4-5</td>
+                <td>44%</td>
+            </tr>
+
+            <tr>
+                <td>2026-03-28</td>
+                <td>10-5</td>
+                <td>67%</td>
+            </tr>
+
+            <tr>
+                <td>2026-03-26</td>
+                <td>6-2</td>
+                <td>75%</td>
+            </tr>
+
+            <tr>
+                <td>2026-03-25</td>
+                <td>1-0</td>
+                <td>100%</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p>For entertainment purposes only. Past performance does not guarantee future results.</p>
+        <p style="margin-top: 8px; color: #4b5563;">© 2026 MLB Picks • Updated March 31, 2026</p>
+    </div>
+</footer>
 
 </body>
 </html>
