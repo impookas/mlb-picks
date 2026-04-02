@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — DiamondBets</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f1419;
+            --surface: #1a1f29;
+            --surface-hover: #242b38;
+            --border: #2d3748;
+            --text: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--success);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: var(--surface-hover);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .prob-high {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .prob-medium {
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        .edge-positive {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .edge-negative {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-high {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        /* Input */
+        .input {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        /* Kelly Calculator */
+        .kelly-result {
+            background: var(--bg);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .kelly-value {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .kelly-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--text);
+        }
+
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 64px 32px;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="brand">
+        <span>💎</span>
+        <span>DiamondBets Dashboard</span>
+    </div>
+    <div class="header-actions">
+        <button class="btn btn-outline" onclick="window.location.href='index.html'">Public Site</button>
+        <button class="btn" onclick="refreshData()">Refresh</button>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Stats Overview -->
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="stat-record">-</div>
+            <div class="stat-label">Season Record</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-winrate">-</div>
+            <div class="stat-label">Win Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-roi">-</div>
+            <div class="stat-label">ROI</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-picks">-</div>
+            <div class="stat-label">Today's Picks</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid">
+        <!-- Today's Picks -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Today's Premium Picks</h2>
+                <span id="last-update" style="font-size: 12px; color: var(--text-muted);">Last updated: -</span>
+            </div>
+            <div class="table-wrapper">
+                <table id="picks-table">
+                    <thead>
+                        <tr>
+                            <th>Matchup</th>
+                            <th>Pick</th>
+                            <th>Confidence</th>
+                            <th>Edge</th>
+                            <th>Game Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="picks-body">
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <h3>Loading picks...</h3>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs for Tools -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('tracker')">Bet Tracker</button>
+        <button class="tab" onclick="switchTab('kelly')">Kelly Calculator</button>
+        <button class="tab" onclick="switchTab('performance')">Performance</button>
+    </div>
+
+    <!-- Tab Content: Bet Tracker -->
+    <div id="tracker-content" class="tab-content active">
+        <div class="grid grid-2">
+            <div class="card">
+                <h2 class="card-title">Log New Bet</h2>
+                <form id="bet-form" onsubmit="logBet(event)">
+                    <div class="form-group">
+                        <label class="form-label">Game / Pick</label>
+                        <input type="text" class="input" id="bet-game" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bet Amount ($)</label>
+                        <input type="number" class="input" id="bet-amount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Odds (American)</label>
+                        <input type="text" class="input" id="bet-odds" placeholder="-110" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Log Bet</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">Your Bets</h2>
+                <div id="bets-list">
+                    <div class="empty-state">
+                        <h3>No bets logged</h3>
+                        <p>Log your first bet to start tracking performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Kelly Calculator -->
+    <div id="kelly-content" class="tab-content">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2 class="card-title">Kelly Criterion Calculator</h2>
+            <form id="kelly-form" onsubmit="calculateKelly(event)">
+                <div class="form-group">
+                    <label class="form-label">Model Win Probability (%)</label>
+                    <input type="number" class="input" id="kelly-prob" min="0" max="100" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">American Odds</label>
+                    <input type="text" class="input" id="kelly-odds" placeholder="-110" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bankroll ($)</label>
+                    <input type="number" class="input" id="kelly-bankroll" step="0.01" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Calculate</button>
+            </form>
+            <div id="kelly-result" style="display: none;">
+                <div class="kelly-result">
+                    <div class="kelly-value" id="kelly-bet-size">$0</div>
+                    <div class="kelly-label">Recommended Bet Size (Full Kelly)</div>
+                </div>
+                <div style="margin-top: 16px; padding: 16px; background: var(--bg); border-radius: 8px;">
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Conservative sizing:</p>
+                    <p style="font-size: 14px;"><strong>1/4 Kelly:</strong> <span id="kelly-quarter">$0</span></p>
+                    <p style="font-size: 14px;"><strong>1/2 Kelly:</strong> <span id="kelly-half">$0</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Performance -->
+    <div id="performance-content" class="tab-content">
+        <div class="card">
+            <h2 class="card-title">Performance Metrics</h2>
+            <p style="color: var(--text-muted);">Coming soon: Charts, calibration analysis, ROI tracking</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// State
+let picks = [];
+let bets = JSON.parse(localStorage.getItem('bets') || '[]');
+
+// Load data
+async function loadData() {
+    try {
+        // Load latest picks
+        const picksResponse = await fetch('../picks/2026-03-31.json');
+        const allPicks = await picksResponse.json();
+        picks = allPicks.filter(p => p.confidence === 'HIGH');
+
+        // Load season stats
+        const statsResponse = await fetch('../reports/season.json');
+        const stats = await statsResponse.json();
+
+        updateStats(stats);
+        renderPicks();
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+}
+
+function updateStats(stats) {
+    document.getElementById('stat-record').textContent = `${stats.correct}-${stats.wrong}`;
+    document.getElementById('stat-winrate').textContent = `${(stats.accuracy * 100).toFixed(0)}%`;
+    document.getElementById('stat-roi').textContent = `+${stats.roi_pct.toFixed(0)}%`;
+    document.getElementById('stat-picks').textContent = picks.length;
+    document.getElementById('last-update').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+}
+
+function renderPicks() {
+    const tbody = document.getElementById('picks-body');
+    
+    if (picks.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="empty-state">
+                        <h3>No premium picks today</h3>
+                        <p>Check back at 10 AM ET</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = picks.map(pick => {
+        const edge = (pick.edge * 100).toFixed(1);
+        const edgeClass = pick.edge > 0 ? 'edge-positive' : 'edge-negative';
+        const gameTime = new Date(pick.game_time).toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit' 
+        });
+
+        return `
+            <tr>
+                <td>
+                    <div style="font-size: 13px; color: var(--text-muted);">${pick.away_team} @ ${pick.home_team}</div>
+                </td>
+                <td class="team-name">${pick.pick}</td>
+                <td>
+                    <span class="prob-high">${(pick.pick_prob * 100).toFixed(0)}%</span>
+                    <span class="badge badge-high">HIGH</span>
+                </td>
+                <td class="${edgeClass}">+${edge}%</td>
+                <td>${gameTime}</td>
+                <td>
+                    <button class="btn" style="padding: 4px 12px; font-size: 12px;" 
+                            onclick="quickLog('${pick.pick}', ${pick.pick_prob})">
+                        Log Bet
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+// Bet Tracker
+function logBet(e) {
+    e.preventDefault();
+    
+    const bet = {
+        id: Date.now(),
+        game: document.getElementById('bet-game').value,
+        amount: parseFloat(document.getElementById('bet-amount').value),
+        odds: document.getElementById('bet-odds').value,
+        timestamp: new Date().toISOString()
+    };
+    
+    bets.push(bet);
+    localStorage.setItem('bets', JSON.stringify(bets));
+    
+    document.getElementById('bet-form').reset();
+    renderBets();
+}
+
+function renderBets() {
+    const container = document.getElementById('bets-list');
+    
+    if (bets.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <h3>No bets logged</h3>
+                <p>Log your first bet to start tracking performance</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = bets.slice(-5).reverse().map(bet => `
+        <div style="padding: 12px; border-bottom: 1px solid var(--border);">
+            <div style="font-weight: 600;">${bet.game}</div>
+            <div style="font-size: 13px; color: var(--text-muted);">
+                $${bet.amount.toFixed(2)} @ ${bet.odds}
+            </div>
+        </div>
+    `).join('');
+}
+
+function quickLog(team, prob) {
+    document.getElementById('bet-game').value = team;
+    document.getElementById('kelly-prob').value = (prob * 100).toFixed(1);
+    switchTab('tracker');
+}
+
+// Kelly Calculator
+function calculateKelly(e) {
+    e.preventDefault();
+    
+    const prob = parseFloat(document.getElementById('kelly-prob').value) / 100;
+    const odds = document.getElementById('kelly-odds').value;
+    const bankroll = parseFloat(document.getElementById('kelly-bankroll').value);
+    
+    // Convert American odds to decimal
+    let decimalOdds;
+    if (odds.startsWith('-')) {
+        decimalOdds = 1 + (100 / Math.abs(parseInt(odds)));
+    } else {
+        decimalOdds = 1 + (parseInt(odds) / 100);
+    }
+    
+    // Kelly formula: f = (bp - q) / b
+    const b = decimalOdds - 1;
+    const q = 1 - prob;
+    const kelly = (b * prob - q) / b;
+    
+    const betSize = Math.max(0, kelly * bankroll);
+    
+    document.getElementById('kelly-result').style.display = 'block';
+    document.getElementById('kelly-bet-size').textContent = `$${betSize.toFixed(2)}`;
+    document.getElementById('kelly-quarter').textContent = `$${(betSize * 0.25).toFixed(2)}`;
+    document.getElementById('kelly-half').textContent = `$${(betSize * 0.5).toFixed(2)}`;
+}
+
+// Tabs
+function switchTab(tab) {
+    // Update tab buttons
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Update tab content
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(`${tab}-content`).classList.add('active');
+}
+
+// Refresh
+function refreshData() {
+    loadData();
+}
+
+// Initialize
+loadData();
+renderBets();
+</script>
+
+</body>
+</html>
