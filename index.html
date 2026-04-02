@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Data-driven MLB predictions with 65% accuracy. Professional analytics, transparent results, Vegas comparison.">
-    <title>{title} — DiamondBets</title>
+    <title>Today's Picks — DiamondBets</title>
     <style>
 * {
     margin: 0;
@@ -37,7 +37,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -84,13 +83,13 @@ header {
 
 nav {
     display: flex;
-    gap: 32px;
+    gap: 24px;
 }
 
 nav a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     transition: color 0.2s;
     position: relative;
@@ -149,6 +148,18 @@ nav a.active::after {
     position: relative;
 }
 
+.hero.compact {
+    padding: 48px 24px 80px;
+}
+
+.hero.compact h1 {
+    font-size: 42px;
+}
+
+.hero.compact .subtitle {
+    font-size: 18px;
+}
+
 /* Stats Grid */
 .stats-section {
     margin: -80px 0 64px;
@@ -159,6 +170,10 @@ nav a.active::after {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+}
+
+.stats-grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .stat-card {
@@ -190,13 +205,6 @@ nav a.active::after {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.stat-change {
-    font-size: 12px;
-    color: var(--success);
-    margin-top: 8px;
     font-weight: 600;
 }
 
@@ -408,6 +416,17 @@ nav a.active::after {
     margin-bottom: 0;
 }
 
+.info-card ul {
+    margin: 16px 0;
+    padding-left: 24px;
+}
+
+.info-card li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
 /* Table */
 .table-wrapper {
     background: white;
@@ -415,6 +434,7 @@ nav a.active::after {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 24px;
 }
 
 table {
@@ -460,33 +480,86 @@ tr:hover {
 .accuracy-ok { color: var(--warning); font-weight: 700; }
 .accuracy-bad { color: var(--error); font-weight: 700; }
 
+.result-win { color: var(--success); font-weight: 600; }
+.result-loss { color: var(--error); font-weight: 600; }
+
 /* Footer */
 footer {
     margin-top: 96px;
     padding: 48px 0;
     border-top: 1px solid var(--border);
-    text-align: center;
-    color: var(--text-muted);
+    background: var(--surface);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 32px;
+}
+
+.footer-about h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.footer-about p {
+    color: var(--text-secondary);
+    line-height: 1.7;
     font-size: 14px;
 }
 
-footer p {
-    margin: 8px 0;
+.footer-links h4 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    color: var(--text-muted);
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 2;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .hero h1 { font-size: 40px; }
+    .hero.compact h1 { font-size: 32px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid.grid-3 { grid-template-columns: 1fr; }
     .pick-details { grid-template-columns: 1fr; }
     .pick-prediction { flex-direction: column; text-align: center; gap: 20px; }
     .pick-confidence { text-align: center; }
-    nav { gap: 20px; }
+    nav { gap: 16px; font-size: 13px; }
+    .footer-content { grid-template-columns: 1fr; gap: 32px; }
 }
 
 @media (max-width: 480px) {
     .stats-grid { grid-template-columns: 1fr; }
     .hero { padding: 60px 24px 100px; }
+    .hero.compact { padding: 40px 24px 70px; }
 }
 </style>
 </head>
@@ -499,11 +572,7 @@ footer p {
                 <span class="brand-emoji">💎</span>
                 <span>DiamondBets</span>
             </a>
-            <nav>
-        <a href="index.html" class="active">Today's Picks</a>
-        <a href="track-record.html" class="">Track Record</a>
-        <a href="how-it-works.html" class="">How It Works</a>
-    </nav>
+            <nav><a href="index.html" class="active">Today's Picks</a><a href="track-record.html" >Track Record</a><a href="stats.html" >Stats</a><a href="betting-guide.html" >Betting Guide</a><a href="how-it-works.html" >How It Works</a><a href="about.html" >About</a></nav>
         </div>
     </div>
 </header>
@@ -512,7 +581,7 @@ footer p {
 <div class="hero">
     <div class="container">
         <h1>Premium MLB Predictions</h1>
-        <p class="subtitle">Data-driven picks with proven results. 0 high-confidence predictions for today.</p>
+        <p class="subtitle">Data-driven picks with proven results. 4 high-confidence predictions for today.</p>
     </div>
 </div>
 
@@ -520,19 +589,19 @@ footer p {
     <div class="container">
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value">13-7</div>
+                <div class="stat-value">9-3</div>
                 <div class="stat-label">Season Record</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">65%</div>
+                <div class="stat-value">75%</div>
                 <div class="stat-label">Win Rate</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">+17%</div>
+                <div class="stat-value">+38%</div>
                 <div class="stat-label">Brier Skill</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">+24%</div>
+                <div class="stat-value">+43%</div>
                 <div class="stat-label">ROI</div>
             </div>
         </div>
@@ -541,9 +610,140 @@ footer p {
 
 <div class="container">
     <div class="section">
-        <div class="empty-state">
-            <h3>No Premium Picks Today</h3>
-            <p>Nothing cleared our 64% confidence threshold. We only publish picks where we see real edge over Vegas. Check back tomorrow at 10 AM ET for new predictions.</p>
+        <div class="section-header">
+            <h2 class="section-title">Today's Premium Picks</h2>
+            <p class="section-subtitle">High-confidence predictions (64%+) with proven edge over Vegas</p>
+        </div>
+        <div class="picks-grid">
+
+        <div class="pick-card">
+            <div class="pick-header">
+                <div>
+                    <div class="matchup">Cleveland Guardians @ Los Angeles Dodgers</div>
+                    <div class="matchup-teams">Cleveland Guardians vs Los Angeles Dodgers</div>
+                </div>
+                <span class="badge">Premium</span>
+            </div>
+            
+            <div class="pick-body">
+                <div class="pick-prediction">
+                    <div class="pick-team-name">Los Angeles Dodgers</div>
+                    <div class="pick-confidence">
+                        <div class="pick-prob">67%</div>
+                        <div class="pick-edge">+16.6% edge</div>
+                    </div>
+                </div>
+                
+                <div class="pick-details">
+                    <div class="detail-box">
+                        <div class="detail-label">Our Model</div>
+                        <div class="detail-value">67% confidence</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Vegas Line</div>
+                        <div class="detail-value">-110 (67%)</div>
+                        <span class="market-edge negative">+0.0% vs market</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pick-card">
+            <div class="pick-header">
+                <div>
+                    <div class="matchup">Chicago White Sox @ Miami Marlins</div>
+                    <div class="matchup-teams">Chicago White Sox vs Miami Marlins</div>
+                </div>
+                <span class="badge">Premium</span>
+            </div>
+            
+            <div class="pick-body">
+                <div class="pick-prediction">
+                    <div class="pick-team-name">Miami Marlins</div>
+                    <div class="pick-confidence">
+                        <div class="pick-prob">65%</div>
+                        <div class="pick-edge">+15.1% edge</div>
+                    </div>
+                </div>
+                
+                <div class="pick-details">
+                    <div class="detail-box">
+                        <div class="detail-label">Our Model</div>
+                        <div class="detail-value">65% confidence</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Vegas Line</div>
+                        <div class="detail-value">-110 (65%)</div>
+                        <span class="market-edge negative">+0.0% vs market</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pick-card">
+            <div class="pick-header">
+                <div>
+                    <div class="matchup">Los Angeles Angels @ Chicago Cubs</div>
+                    <div class="matchup-teams">Los Angeles Angels vs Chicago Cubs</div>
+                </div>
+                <span class="badge">Premium</span>
+            </div>
+            
+            <div class="pick-body">
+                <div class="pick-prediction">
+                    <div class="pick-team-name">Chicago Cubs</div>
+                    <div class="pick-confidence">
+                        <div class="pick-prob">65%</div>
+                        <div class="pick-edge">+14.9% edge</div>
+                    </div>
+                </div>
+                
+                <div class="pick-details">
+                    <div class="detail-box">
+                        <div class="detail-label">Our Model</div>
+                        <div class="detail-value">65% confidence</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Vegas Line</div>
+                        <div class="detail-value">-110 (65%)</div>
+                        <span class="market-edge negative">+0.0% vs market</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pick-card">
+            <div class="pick-header">
+                <div>
+                    <div class="matchup">Athletics @ Atlanta Braves</div>
+                    <div class="matchup-teams">Athletics vs Atlanta Braves</div>
+                </div>
+                <span class="badge">Premium</span>
+            </div>
+            
+            <div class="pick-body">
+                <div class="pick-prediction">
+                    <div class="pick-team-name">Atlanta Braves</div>
+                    <div class="pick-confidence">
+                        <div class="pick-prob">65%</div>
+                        <div class="pick-edge">+14.7% edge</div>
+                    </div>
+                </div>
+                
+                <div class="pick-details">
+                    <div class="detail-box">
+                        <div class="detail-label">Our Model</div>
+                        <div class="detail-value">65% confidence</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Vegas Line</div>
+                        <div class="detail-value">-110 (65%)</div>
+                        <span class="market-edge negative">+0.0% vs market</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         </div>
     </div>
 </div>
@@ -551,8 +751,32 @@ footer p {
 
 <footer>
     <div class="container">
-        <p>Picks are for informational and entertainment purposes only. Past performance does not guarantee future results.</p>
-        <p>© 2026 DiamondBets • Updated April 02, 2026</p>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>💎 DiamondBets</h3>
+                <p>Professional MLB predictions powered by machine learning and advanced analytics. We combine expert systems with data-driven models to deliver transparent, high-confidence picks with proven edge over Vegas lines.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Predictions</h4>
+                <ul>
+                    <li><a href="index.html">Today's Picks</a></li>
+                    <li><a href="track-record.html">Track Record</a></li>
+                    <li><a href="stats.html">Stats & Trends</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="betting-guide.html">Betting Guide</a></li>
+                    <li><a href="how-it-works.html">How It Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Picks are for informational and entertainment purposes only. Past performance does not guarantee future results.</p>
+            <p>© 2026 DiamondBets • Updated April 02, 2026</p>
+        </div>
     </div>
 </footer>
 
