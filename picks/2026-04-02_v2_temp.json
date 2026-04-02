@@ -1,0 +1,545 @@
+[
+  {
+    "game_id": 825105,
+    "game_date": "2026-04-02",
+    "game_time": "2026-04-03T01:40:00Z",
+    "away_team": "Atlanta Braves",
+    "home_team": "Arizona Diamondbacks",
+    "away_id": 144,
+    "home_id": 109,
+    "away_pitcher": "Reynaldo L\u00f3pez",
+    "home_pitcher": "Ryne Nelson",
+    "away_pitcher_score": 37.0,
+    "home_pitcher_score": 64.9,
+    "away_pitcher_era": "5.40",
+    "home_pitcher_era": "3.39",
+    "away_pitcher_whip": "2.20",
+    "home_pitcher_whip": "1.07",
+    "away_pitcher_k9": "1.80",
+    "home_pitcher_k9": "7.71",
+    "away_pitcher_recent": {
+      "recent_score": 24.2,
+      "trend": "flat",
+      "recent_era": "5.40",
+      "recent_whip": "2.20",
+      "recent_k9": "1.8",
+      "avg_ip": "5.0",
+      "starts": 1
+    },
+    "home_pitcher_recent": {
+      "recent_score": 72.5,
+      "trend": "flat",
+      "recent_era": "2.79",
+      "recent_whip": "1.10",
+      "recent_k9": "7.4",
+      "avg_ip": "5.8",
+      "starts": 5
+    },
+    "away_p_vs_team_era": "N/A",
+    "home_p_vs_team_era": "N/A",
+    "away_p_vs_team_ip": "0",
+    "home_p_vs_team_ip": "0",
+    "away_offense": {
+      "offense_score": 45.4,
+      "ops": ".719",
+      "obp": ".320",
+      "slg": ".399",
+      "avg": ".245",
+      "runs_per_game": "4.47",
+      "hr_per_game": "1.17",
+      "stolen_bases": 82
+    },
+    "home_offense": {
+      "offense_score": 52.0,
+      "ops": ".758",
+      "obp": ".325",
+      "slg": ".433",
+      "avg": ".251",
+      "runs_per_game": "4.88",
+      "hr_per_game": "1.32",
+      "stolen_bases": 121
+    },
+    "away_staff": {
+      "pitching_score": 64.4,
+      "team_era": "4.36",
+      "team_whip": "1.31",
+      "team_k9": "8.86",
+      "save_pct": "62%",
+      "blown_saves": 21
+    },
+    "home_staff": {
+      "pitching_score": 61.2,
+      "team_era": "4.49",
+      "team_whip": "1.32",
+      "team_k9": "8.03",
+      "save_pct": "59%",
+      "blown_saves": 29
+    },
+    "away_record": "76-86",
+    "home_record": "80-82",
+    "away_pyth": 0.494,
+    "home_pyth": 0.503,
+    "venue": "Chase Field",
+    "park_factor": 1.03,
+    "weather": {
+      "adjustment": 0.0,
+      "note": "Dome/retractable roof \u2014 weather neutral",
+      "temp": "72",
+      "wind": "None"
+    },
+    "away_rest": {
+      "adjustment": -0.01,
+      "note": "Fatigued (3 games in 3 days)",
+      "games_last_3d": 3
+    },
+    "home_rest": {
+      "adjustment": -0.01,
+      "note": "Fatigued (3 games in 3 days)",
+      "games_last_3d": 3
+    },
+    "home_win_prob": 0.639,
+    "away_win_prob": 0.361,
+    "pick": "Arizona Diamondbacks",
+    "pick_prob": 0.639,
+    "confidence": "HIGH",
+    "edge": 0.139,
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 8.7,
+        "desc": "Pitcher: Home 68 vs Away 32"
+      },
+      "offense": {
+        "impact": 1.1,
+        "desc": "Offense: Home 52.0 vs Away 45.4"
+      },
+      "bullpen": {
+        "impact": -0.3,
+        "desc": "Bullpen: Home 61.2 vs Away 64.4"
+      },
+      "home_field": {
+        "impact": 4.4,
+        "desc": "Home record: 43-38"
+      },
+      "true_talent": {
+        "impact": 0.1,
+        "desc": "Pyth: Home 0.503 vs Away 0.494"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Dome/retractable roof \u2014 weather neutral"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 824133,
+    "game_date": "2026-04-02",
+    "game_time": "2026-04-02T18:10:00Z",
+    "away_team": "Minnesota Twins",
+    "home_team": "Kansas City Royals",
+    "away_id": 142,
+    "home_id": 118,
+    "away_pitcher": "Taj Bradley",
+    "home_pitcher": "Cole Ragans",
+    "away_pitcher_score": 51.1,
+    "home_pitcher_score": 63.5,
+    "away_pitcher_era": "5.05",
+    "home_pitcher_era": "4.67",
+    "away_pitcher_whip": "1.31",
+    "home_pitcher_whip": "1.18",
+    "away_pitcher_k9": "8.01",
+    "home_pitcher_k9": "14.30",
+    "away_pitcher_recent": {
+      "recent_score": 51.2,
+      "trend": "flat",
+      "recent_era": "5.52",
+      "recent_whip": "1.30",
+      "recent_k9": "10.7",
+      "avg_ip": "5.2",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 65.3,
+      "trend": "improving",
+      "recent_era": "5.76",
+      "recent_whip": "1.13",
+      "recent_k9": "14.6",
+      "avg_ip": "4.1",
+      "starts": 5
+    },
+    "away_p_vs_team_era": "N/A",
+    "home_p_vs_team_era": "N/A",
+    "away_p_vs_team_ip": "0",
+    "home_p_vs_team_ip": "0",
+    "away_offense": {
+      "offense_score": 41.8,
+      "ops": ".707",
+      "obp": ".310",
+      "slg": ".397",
+      "avg": ".238",
+      "runs_per_game": "4.19",
+      "hr_per_game": "1.18",
+      "stolen_bases": 114
+    },
+    "home_offense": {
+      "offense_score": 39.2,
+      "ops": ".706",
+      "obp": ".309",
+      "slg": ".397",
+      "avg": ".247",
+      "runs_per_game": "4.02",
+      "hr_per_game": "0.98",
+      "stolen_bases": 111
+    },
+    "away_staff": {
+      "pitching_score": 60.9,
+      "team_era": "4.55",
+      "team_whip": "1.31",
+      "team_k9": "8.66",
+      "save_pct": "53%",
+      "blown_saves": 25
+    },
+    "home_staff": {
+      "pitching_score": 69.7,
+      "team_era": "3.73",
+      "team_whip": "1.24",
+      "team_k9": "7.96",
+      "save_pct": "70%",
+      "blown_saves": 20
+    },
+    "away_record": "70-92",
+    "home_record": "82-80",
+    "away_pyth": 0.44,
+    "home_pyth": 0.51,
+    "venue": "Kauffman Stadium",
+    "park_factor": 0.95,
+    "weather": {
+      "adjustment": 0.0,
+      "note": "Normal conditions",
+      "temp": "72",
+      "wind": "0 mph",
+      "condition": "Clear"
+    },
+    "away_rest": {
+      "adjustment": 0.0,
+      "note": "Normal schedule",
+      "games_last_3d": 2
+    },
+    "home_rest": {
+      "adjustment": 0.0,
+      "note": "Normal schedule",
+      "games_last_3d": 2
+    },
+    "home_win_prob": 0.605,
+    "away_win_prob": 0.395,
+    "pick": "Kansas City Royals",
+    "pick_prob": 0.605,
+    "confidence": "MEDIUM",
+    "edge": 0.105,
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 3.1,
+        "desc": "Pitcher: Home 64 vs Away 51"
+      },
+      "offense": {
+        "impact": -0.4,
+        "desc": "Offense: Home 39.2 vs Away 41.8"
+      },
+      "bullpen": {
+        "impact": 0.9,
+        "desc": "Bullpen: Home 69.7 vs Away 60.9"
+      },
+      "home_field": {
+        "impact": 5.0,
+        "desc": "Home record: 43-38"
+      },
+      "true_talent": {
+        "impact": 0.8,
+        "desc": "Pyth: Home 0.510 vs Away 0.440"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Normal schedule | Away: Normal schedule"
+      }
+    }
+  },
+  {
+    "game_id": 823242,
+    "game_date": "2026-04-02",
+    "game_time": "2026-04-03T01:45:00Z",
+    "away_team": "New York Mets",
+    "home_team": "San Francisco Giants",
+    "away_id": 121,
+    "home_id": 137,
+    "away_pitcher": "David Peterson",
+    "home_pitcher": "Robbie Ray",
+    "away_pitcher_score": 57.4,
+    "home_pitcher_score": 59.2,
+    "away_pitcher_era": "4.22",
+    "home_pitcher_era": "3.65",
+    "away_pitcher_whip": "1.37",
+    "home_pitcher_whip": "1.21",
+    "away_pitcher_k9": "8.00",
+    "home_pitcher_k9": "9.18",
+    "away_pitcher_recent": {
+      "recent_score": 20.5,
+      "trend": "flat",
+      "recent_era": "12.86",
+      "recent_whip": "2.36",
+      "recent_k9": "7.4",
+      "avg_ip": "3.6",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 39.5,
+      "trend": "flat",
+      "recent_era": "9.21",
+      "recent_whip": "1.81",
+      "recent_k9": "11.7",
+      "avg_ip": "4.3",
+      "starts": 5
+    },
+    "away_p_vs_team_era": "N/A",
+    "home_p_vs_team_era": "N/A",
+    "away_p_vs_team_ip": "0",
+    "home_p_vs_team_ip": "0",
+    "away_offense": {
+      "offense_score": 51.8,
+      "ops": ".753",
+      "obp": ".326",
+      "slg": ".427",
+      "avg": ".249",
+      "runs_per_game": "4.73",
+      "hr_per_game": "1.38",
+      "stolen_bases": 147
+    },
+    "home_offense": {
+      "offense_score": 41.6,
+      "ops": ".697",
+      "obp": ".311",
+      "slg": ".386",
+      "avg": ".235",
+      "runs_per_game": "4.35",
+      "hr_per_game": "1.07",
+      "stolen_bases": 68
+    },
+    "away_staff": {
+      "pitching_score": 65.7,
+      "team_era": "4.03",
+      "team_whip": "1.32",
+      "team_k9": "8.72",
+      "save_pct": "59%",
+      "blown_saves": 28
+    },
+    "home_staff": {
+      "pitching_score": 68.3,
+      "team_era": "3.82",
+      "team_whip": "1.30",
+      "team_k9": "8.52",
+      "save_pct": "65%",
+      "blown_saves": 22
+    },
+    "away_record": "83-79",
+    "home_record": "81-81",
+    "away_pyth": 0.531,
+    "home_pyth": 0.514,
+    "venue": "Oracle Park",
+    "park_factor": 0.92,
+    "weather": {
+      "adjustment": 0.0,
+      "note": "Normal conditions",
+      "temp": "72",
+      "wind": "0 mph",
+      "condition": "Clear"
+    },
+    "away_rest": {
+      "adjustment": -0.01,
+      "note": "Fatigued (3 games in 3 days)",
+      "games_last_3d": 3
+    },
+    "home_rest": {
+      "adjustment": -0.01,
+      "note": "Fatigued (3 games in 3 days)",
+      "games_last_3d": 3
+    },
+    "home_win_prob": 0.559,
+    "away_win_prob": 0.441,
+    "pick": "San Francisco Giants",
+    "pick_prob": 0.559,
+    "confidence": "LOW",
+    "edge": 0.059,
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 2.1,
+        "desc": "Pitcher: Home 51 vs Away 43"
+      },
+      "offense": {
+        "impact": -1.6,
+        "desc": "Offense: Home 41.6 vs Away 51.8"
+      },
+      "bullpen": {
+        "impact": 0.3,
+        "desc": "Bullpen: Home 68.3 vs Away 65.7"
+      },
+      "home_field": {
+        "impact": 4.6,
+        "desc": "Home record: 42-39"
+      },
+      "true_talent": {
+        "impact": -0.2,
+        "desc": "Pyth: Home 0.514 vs Away 0.531"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 824621,
+    "game_date": "2026-04-03",
+    "game_time": "2026-04-02T20:10:00Z",
+    "away_team": "Toronto Blue Jays",
+    "home_team": "Chicago White Sox",
+    "away_id": 141,
+    "home_id": 145,
+    "away_pitcher": "Dylan Cease",
+    "home_pitcher": "Sean Burke",
+    "away_pitcher_score": 58.5,
+    "home_pitcher_score": 49.9,
+    "away_pitcher_era": "4.55",
+    "home_pitcher_era": "4.22",
+    "away_pitcher_whip": "1.33",
+    "home_pitcher_whip": "1.44",
+    "away_pitcher_k9": "11.52",
+    "home_pitcher_k9": "8.91",
+    "away_pitcher_recent": {
+      "recent_score": 76.2,
+      "trend": "flat",
+      "recent_era": "3.12",
+      "recent_whip": "1.31",
+      "recent_k9": "11.1",
+      "avg_ip": "5.2",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 68.1,
+      "trend": "improving",
+      "recent_era": "4.18",
+      "recent_whip": "1.55",
+      "recent_k9": "12.1",
+      "avg_ip": "3.9",
+      "starts": 5
+    },
+    "away_p_vs_team_era": "N/A",
+    "home_p_vs_team_era": "N/A",
+    "away_p_vs_team_ip": "0",
+    "home_p_vs_team_ip": "0",
+    "away_offense": {
+      "offense_score": 52.0,
+      "ops": ".760",
+      "obp": ".333",
+      "slg": ".427",
+      "avg": ".265",
+      "runs_per_game": "4.93",
+      "hr_per_game": "1.18",
+      "stolen_bases": 77
+    },
+    "home_offense": {
+      "offense_score": 36.7,
+      "ops": ".675",
+      "obp": ".302",
+      "slg": ".373",
+      "avg": ".232",
+      "runs_per_game": "3.99",
+      "hr_per_game": "1.02",
+      "stolen_bases": 85
+    },
+    "away_staff": {
+      "pitching_score": 66.9,
+      "team_era": "4.19",
+      "team_whip": "1.27",
+      "team_k9": "8.95",
+      "save_pct": "65%",
+      "blown_saves": 23
+    },
+    "home_staff": {
+      "pitching_score": 60.9,
+      "team_era": "4.26",
+      "team_whip": "1.36",
+      "team_k9": "8.17",
+      "save_pct": "51%",
+      "blown_saves": 24
+    },
+    "away_record": "94-68",
+    "home_record": "60-102",
+    "away_pyth": 0.546,
+    "home_pyth": 0.438,
+    "venue": "Rate Field",
+    "park_factor": 1.0,
+    "weather": {
+      "adjustment": 0.0,
+      "note": "Normal conditions",
+      "temp": "72",
+      "wind": "0 mph",
+      "condition": "Clear"
+    },
+    "away_rest": {
+      "adjustment": 0.0,
+      "note": "Normal schedule",
+      "games_last_3d": 2
+    },
+    "home_rest": {
+      "adjustment": 0.0,
+      "note": "Normal schedule",
+      "games_last_3d": 2
+    },
+    "home_win_prob": 0.468,
+    "away_win_prob": 0.532,
+    "pick": "Toronto Blue Jays",
+    "pick_prob": 0.532,
+    "confidence": "LOW",
+    "edge": 0.032,
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -2.0,
+        "desc": "Pitcher: Home 57 vs Away 66"
+      },
+      "offense": {
+        "impact": -2.4,
+        "desc": "Offense: Home 36.7 vs Away 52.0"
+      },
+      "bullpen": {
+        "impact": -0.6,
+        "desc": "Bullpen: Home 60.9 vs Away 66.9"
+      },
+      "home_field": {
+        "impact": 2.2,
+        "desc": "Home record: 33-48"
+      },
+      "true_talent": {
+        "impact": -1.3,
+        "desc": "Pyth: Home 0.438 vs Away 0.546"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Normal schedule | Away: Normal schedule"
+      }
+    }
+  }
+]

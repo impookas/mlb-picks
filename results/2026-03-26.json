@@ -35,9 +35,9 @@
     },
     "0.6": {
       "n": 4,
-      "avg_predicted": 0.606,
+      "avg_predicted": 0.605,
       "avg_actual": 0.5,
-      "gap": -0.106
+      "gap": -0.105
     },
     "0.7": {
       "n": 1,
