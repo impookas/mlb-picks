@@ -371,7 +371,7 @@ def header(active=""):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Data-driven MLB predictions with 75% accuracy. Vegas comparison, transparent results.">
-    <title>{{title}} — MLB Picks</title>
+    <title>{{title}} — DiamondBets</title>
     <style>{CSS}</style>
 </head>
 <body>
@@ -379,7 +379,7 @@ def header(active=""):
 <header>
     <div class="container">
         <div class="header-content">
-            <a href="index.html" class="brand">⚾ MLB Picks</a>
+            <a href="index.html" class="brand">⚾ DiamondBets</a>
             <nav>
                 <a href="index.html" class="{'active' if active == 'today' else ''}">Today</a>
                 <a href="track-record.html" class="{'active' if active == 'track' else ''}">Track Record</a>
@@ -395,7 +395,7 @@ def footer():
 <footer>
     <div class="container">
         <p>Picks are for informational and entertainment purposes only.</p>
-        <p style="margin-top: 8px;">© 2026 MLB Picks • Updated {datetime.now().strftime('%B %d, %Y')}</p>
+        <p style="margin-top: 8px;">© 2026 DiamondBets • Updated {datetime.now().strftime('%B %d, %Y')}</p>
     </div>
 </footer>
 
