@@ -39,6 +39,7 @@
     "pick_prob": 0.585,
     "confidence": "MEDIUM",
     "edge": 0.085,
+    "edge_pct": 8.5,
     "model_detail": {
       "v2_home_prob": 0.534,
       "v3_home_prob": 0.661,
@@ -119,6 +120,7 @@
     "pick_prob": 0.582,
     "confidence": "MEDIUM",
     "edge": 0.082,
+    "edge_pct": 8.2,
     "model_detail": {
       "v2_home_prob": 0.368,
       "v3_home_prob": 0.492,
@@ -197,8 +199,9 @@
     "away_win_prob": 0.564,
     "pick": "Toronto Blue Jays",
     "pick_prob": 0.564,
-    "confidence": "MEDIUM",
+    "confidence": "LOW",
     "edge": 0.064,
+    "edge_pct": 6.4,
     "model_detail": {
       "v2_home_prob": 0.495,
       "v3_home_prob": 0.348,
@@ -279,6 +282,7 @@
     "pick_prob": 0.554,
     "confidence": "LOW",
     "edge": 0.054,
+    "edge_pct": 5.4,
     "model_detail": {
       "v2_home_prob": 0.623,
       "v3_home_prob": 0.45,
@@ -359,6 +363,7 @@
     "pick_prob": 0.551,
     "confidence": "LOW",
     "edge": 0.051,
+    "edge_pct": 5.1,
     "model_detail": {
       "v2_home_prob": 0.519,
       "v3_home_prob": 0.599,
@@ -439,6 +444,7 @@
     "pick_prob": 0.549,
     "confidence": "LOW",
     "edge": 0.049,
+    "edge_pct": 4.9,
     "model_detail": {
       "v2_home_prob": 0.516,
       "v3_home_prob": 0.598,
@@ -519,6 +525,7 @@
     "pick_prob": 0.54,
     "confidence": "LOW",
     "edge": 0.04,
+    "edge_pct": 4.0,
     "model_detail": {
       "v2_home_prob": 0.431,
       "v3_home_prob": 0.504,
@@ -599,6 +606,7 @@
     "pick_prob": 0.532,
     "confidence": "LOW",
     "edge": 0.032,
+    "edge_pct": 3.2,
     "model_detail": {
       "v2_home_prob": 0.488,
       "v3_home_prob": 0.437,
@@ -679,6 +687,7 @@
     "pick_prob": 0.525,
     "confidence": "LOW",
     "edge": 0.025,
+    "edge_pct": 2.5,
     "model_detail": {
       "v2_home_prob": 0.403,
       "v3_home_prob": 0.582,
@@ -759,6 +768,7 @@
     "pick_prob": 0.511,
     "confidence": "LOW",
     "edge": 0.011,
+    "edge_pct": 1.1,
     "model_detail": {
       "v2_home_prob": 0.538,
       "v3_home_prob": 0.415,
@@ -839,6 +849,7 @@
     "pick_prob": 0.503,
     "confidence": "LOW",
     "edge": 0.003,
+    "edge_pct": 0.3,
     "model_detail": {
       "v2_home_prob": 0.571,
       "v3_home_prob": 0.386,
