@@ -681,7 +681,8 @@ def build_today():
     with open(picks_files[-1]) as f:
         all_picks = json.load(f)
     
-    picks = [p for p in all_picks if p.get("confidence") == "HIGH"]
+    # Only show PREMIUM (15%+ edge) and HIGH (12-15% edge) picks
+    picks = [p for p in all_picks if p.get("confidence") in ["PREMIUM", "HIGH"]]
     vegas_odds = fetch_vegas_odds()
     stats = get_season_stats()
     
@@ -730,7 +731,7 @@ def build_today():
     <div class="section">
         <div class="empty-state">
             <h3>No Premium Picks Today</h3>
-            <p>Nothing cleared our 64% confidence threshold. We only publish picks where we see real edge over Vegas. Check back tomorrow at 10 AM ET for new predictions.</p>
+            <p>No picks with 12%+ edge today. We only publish when we have real edge — some days that means zero picks. Quality over quantity. Check back tomorrow at 10 AM ET.</p>
         </div>
     </div>
 </div>

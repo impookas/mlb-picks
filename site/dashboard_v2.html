@@ -557,7 +557,8 @@ async function loadData() {
         }
         
         const allPicks = await picksResponse.json();
-        picks = allPicks.filter(p => p.confidence === 'HIGH');
+        // Only show PREMIUM (15%+ edge) and HIGH (12-15% edge) picks
+        picks = allPicks.filter(p => p.confidence === 'PREMIUM' || p.confidence === 'HIGH');
 
         updateStats();
         renderPicks();
