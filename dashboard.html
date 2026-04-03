@@ -543,7 +543,19 @@ function saveSettings(e) {
 // Load data
 async function loadData() {
     try {
-        const picksResponse = await fetch('../picks/2026-03-31.json');
+        // Get today's date
+        const today = new Date();
+        const dateStr = today.toISOString().split('T')[0];
+        
+        // Try today's picks, fallback to latest
+        let picksResponse;
+        try {
+            picksResponse = await fetch(`picks/${dateStr}.json`);
+            if (!picksResponse.ok) throw new Error('Not found');
+        } catch {
+            picksResponse = await fetch('picks/2026-03-31.json');
+        }
+        
         const allPicks = await picksResponse.json();
         picks = allPicks.filter(p => p.confidence === 'HIGH');
 
@@ -551,6 +563,9 @@ async function loadData() {
         renderPicks();
     } catch (error) {
         console.error('Error loading data:', error);
+        document.getElementById('picks-body').innerHTML = `
+            <tr><td colspan="6"><div class="empty-state"><h3>Error loading picks</h3></div></td></tr>
+        `;
     }
 }
 
