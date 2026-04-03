@@ -39,10 +39,10 @@ def blend_predictions(v2_pred, v3_pred):
         pick = v2_pred["away_team"]
         pick_prob = blended_away
     
-    # Conservative threshold (tighter than either model alone)
-    if pick_prob >= 0.64:
+    # Optimized threshold (62%+ for best balance of volume + ROI)
+    if pick_prob >= 0.62:
         confidence = "HIGH"
-    elif pick_prob >= 0.58:
+    elif pick_prob >= 0.56:
         confidence = "MEDIUM"
     else:
         confidence = "LOW"
