@@ -1,0 +1,161 @@
+[
+  {
+    "game_id": 823565,
+    "game_date": "2026-04-09",
+    "game_time": "2026-04-09T17:35:00Z",
+    "away_team": "Athletics",
+    "home_team": "New York Yankees",
+    "away_id": 133,
+    "home_id": 147,
+    "away_pitcher": "Jeffrey Springs",
+    "home_pitcher": "Ryan Weathers",
+    "away_pitcher_score": 55.1,
+    "home_pitcher_score": 54.5,
+    "away_pitcher_era": "4.11",
+    "home_pitcher_era": "3.99",
+    "away_pitcher_recent": {
+      "recent_score": 63.0,
+      "trend": "flat",
+      "recent_era": "3.93",
+      "recent_whip": "1.43",
+      "recent_k9": "7.5",
+      "avg_ip": "5.0",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 39.7,
+      "trend": "flat",
+      "recent_era": "6.08",
+      "recent_whip": "1.58",
+      "recent_k9": "8.9",
+      "avg_ip": "4.4",
+      "starts": 5
+    },
+    "venue": "Yankee Stadium",
+    "park_factor": 1.04,
+    "home_win_prob": 0.645,
+    "away_win_prob": 0.355,
+    "pick": "New York Yankees",
+    "pick_prob": 0.645,
+    "confidence": "HIGH",
+    "edge": 0.145,
+    "edge_pct": 14.5,
+    "model_detail": {
+      "v2_home_prob": 0.575,
+      "v3_home_prob": 0.751,
+      "v2_pick_prob": 0.575,
+      "v3_pick_prob": 0.751,
+      "blend": 0.645,
+      "v2_confidence": "MEDIUM",
+      "v3_confidence": "HIGH"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -2.3,
+        "desc": "Pitcher: Home 49 vs Away 58"
+      },
+      "offense": {
+        "impact": 1.8,
+        "desc": "Offense: Home 60.0 vs Away 48.5"
+      },
+      "bullpen": {
+        "impact": 0.9,
+        "desc": "Bullpen: Home 69.8 vs Away 60.6"
+      },
+      "home_field": {
+        "impact": 5.3,
+        "desc": "Home record: 50-31"
+      },
+      "true_talent": {
+        "impact": 1.8,
+        "desc": "Pyth: Home 0.597 vs Away 0.451"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Normal schedule | Away: Normal schedule"
+      }
+    }
+  },
+  {
+    "game_id": 823319,
+    "game_date": "2026-04-09",
+    "game_time": "2026-04-10T01:40:00Z",
+    "away_team": "Colorado Rockies",
+    "home_team": "San Diego Padres",
+    "away_id": 115,
+    "home_id": 135,
+    "away_pitcher": "TBD",
+    "home_pitcher": "Randy V\u00e1squez",
+    "away_pitcher_score": 45.0,
+    "home_pitcher_score": 49.7,
+    "away_pitcher_era": "N/A",
+    "home_pitcher_era": "3.84",
+    "away_pitcher_recent": {
+      "recent_score": 50.0,
+      "trend": "unknown",
+      "recent_era": "N/A",
+      "starts": 0
+    },
+    "home_pitcher_recent": {
+      "recent_score": 43.9,
+      "trend": "declining",
+      "recent_era": "3.26",
+      "recent_whip": "1.04",
+      "recent_k9": "7.7",
+      "avg_ip": "4.4",
+      "starts": 5
+    },
+    "venue": "Petco Park",
+    "park_factor": 0.93,
+    "home_win_prob": 0.614,
+    "away_win_prob": 0.386,
+    "pick": "San Diego Padres",
+    "pick_prob": 0.614,
+    "confidence": "MEDIUM",
+    "edge": 0.114,
+    "edge_pct": 11.4,
+    "model_detail": {
+      "v2_home_prob": 0.661,
+      "v3_home_prob": 0.543,
+      "v2_pick_prob": 0.661,
+      "v3_pick_prob": 0.543,
+      "blend": 0.614,
+      "v2_confidence": "HIGH",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 0.1,
+        "desc": "Pitcher: Home 47 vs Away 47"
+      },
+      "offense": {
+        "impact": 1.5,
+        "desc": "Offense: Home 41.7 vs Away 32.5"
+      },
+      "bullpen": {
+        "impact": 3.0,
+        "desc": "Bullpen: Home 73.8 vs Away 44.1"
+      },
+      "home_field": {
+        "impact": 8.4,
+        "desc": "Home record: 52-29"
+      },
+      "true_talent": {
+        "impact": 3.4,
+        "desc": "Pyth: Home 0.556 vs Away 0.272"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  }
+]

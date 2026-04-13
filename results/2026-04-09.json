@@ -1,0 +1,74 @@
+{
+  "date": "2026-04-09",
+  "total_games": 2,
+  "correct": 1,
+  "wrong": 1,
+  "accuracy": 0.5,
+  "avg_brier": 0.2825,
+  "avg_logloss": 0.7617,
+  "by_confidence": {
+    "HIGH": {
+      "total": 1,
+      "correct": 0,
+      "pct": 0.0,
+      "avg_brier": 0.416
+    },
+    "MEDIUM": {
+      "total": 1,
+      "correct": 1,
+      "pct": 1.0,
+      "avg_brier": 0.149
+    }
+  },
+  "calibration": {
+    "0.6": {
+      "n": 2,
+      "avg_predicted": 0.629,
+      "avg_actual": 0.5,
+      "gap": -0.129
+    }
+  },
+  "baseline_brier": 0.25,
+  "picks": [
+    {
+      "game_id": 823565,
+      "date": "2026-04-09",
+      "matchup": "Athletics @ New York Yankees",
+      "pick": "New York Yankees",
+      "pick_prob": 0.645,
+      "home_prob": 0.645,
+      "confidence": "HIGH",
+      "edge": 0.145,
+      "actual_winner": "Athletics",
+      "score": "1-0",
+      "correct": false,
+      "brier": 0.416,
+      "logloss": 1.0356,
+      "home_win": false,
+      "away_pitcher": "Jeffrey Springs",
+      "home_pitcher": "Ryan Weathers",
+      "away_pitcher_score": 55.1,
+      "home_pitcher_score": 54.5
+    },
+    {
+      "game_id": 823319,
+      "date": "2026-04-09",
+      "matchup": "Colorado Rockies @ San Diego Padres",
+      "pick": "San Diego Padres",
+      "pick_prob": 0.614,
+      "home_prob": 0.614,
+      "confidence": "MEDIUM",
+      "edge": 0.114,
+      "actual_winner": "San Diego Padres",
+      "score": "3-7",
+      "correct": true,
+      "brier": 0.149,
+      "logloss": 0.4878,
+      "home_win": true,
+      "away_pitcher": "TBD",
+      "home_pitcher": "Randy V\u00e1squez",
+      "away_pitcher_score": 45.0,
+      "home_pitcher_score": 49.7
+    }
+  ]
+}
