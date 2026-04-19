@@ -1,5 +1,5 @@
 {
-  "dates_tracked": 19,
+  "dates_tracked": 20,
   "total_picks": 32,
   "correct": 21,
   "wrong": 11,
@@ -17,17 +17,17 @@
       "avg_edge": 0.173
     },
     "MEDIUM": {
-      "total": 37,
-      "correct": 20,
-      "pct": 0.541,
-      "avg_brier": 0.2523,
-      "avg_edge": 0.105
+      "total": 39,
+      "correct": 22,
+      "pct": 0.564,
+      "avg_brier": 0.2481,
+      "avg_edge": 0.104
     },
     "LOW": {
-      "total": 100,
-      "correct": 48,
-      "pct": 0.48,
-      "avg_brier": 0.2519,
+      "total": 110,
+      "correct": 53,
+      "pct": 0.482,
+      "avg_brier": 0.2513,
       "avg_edge": 0.038
     }
   },
