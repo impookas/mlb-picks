@@ -1,0 +1,890 @@
+[
+  {
+    "game_id": 824373,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-18T00:40:00Z",
+    "away_team": "Los Angeles Dodgers",
+    "home_team": "Colorado Rockies",
+    "away_id": 119,
+    "home_id": 115,
+    "away_pitcher": "Tyler Glasnow",
+    "home_pitcher": "Tomoyuki Sugano",
+    "away_pitcher_score": 59.8,
+    "home_pitcher_score": 52.0,
+    "away_pitcher_era": "3.19",
+    "home_pitcher_era": "4.64",
+    "away_pitcher_recent": {
+      "recent_score": 82.5,
+      "trend": "flat",
+      "recent_era": "2.87",
+      "recent_whip": "0.96",
+      "recent_k9": "9.9",
+      "avg_ip": "5.6",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 29.1,
+      "trend": "improving",
+      "recent_era": "8.91",
+      "recent_whip": "1.77",
+      "recent_k9": "7.0",
+      "avg_ip": "3.8",
+      "starts": 5
+    },
+    "venue": "Coors Field",
+    "park_factor": 1.3,
+    "home_win_prob": 0.38,
+    "away_win_prob": 0.62,
+    "pick": "Los Angeles Dodgers",
+    "pick_prob": 0.62,
+    "confidence": "HIGH",
+    "edge": 0.12,
+    "edge_pct": 12.0,
+    "model_detail": {
+      "v2_home_prob": 0.334,
+      "v3_home_prob": 0.448,
+      "v2_pick_prob": 0.666,
+      "v3_pick_prob": 0.552,
+      "blend": 0.62,
+      "v2_confidence": "HIGH",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -6.2,
+        "desc": "Pitcher: Home 43 vs Away 69"
+      },
+      "offense": {
+        "impact": -3.8,
+        "desc": "Offense: Home 32.5 vs Away 56.4"
+      },
+      "bullpen": {
+        "impact": -2.5,
+        "desc": "Bullpen: Home 44.1 vs Away 69.3"
+      },
+      "home_field": {
+        "impact": 0.6,
+        "desc": "Home record: 25-56"
+      },
+      "true_talent": {
+        "impact": -3.8,
+        "desc": "Pyth: Home 0.272 vs Away 0.586"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": -1.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Normal schedule"
+      }
+    }
+  },
+  {
+    "game_id": 824693,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-17T18:20:00Z",
+    "away_team": "New York Mets",
+    "home_team": "Chicago Cubs",
+    "away_id": 121,
+    "home_id": 112,
+    "away_pitcher": "Kodai Senga",
+    "home_pitcher": "Edward Cabrera",
+    "away_pitcher_score": 57.1,
+    "home_pitcher_score": 62.5,
+    "away_pitcher_era": "3.02",
+    "home_pitcher_era": "3.53",
+    "away_pitcher_recent": {
+      "recent_score": 38.7,
+      "trend": "declining",
+      "recent_era": "6.00",
+      "recent_whip": "1.64",
+      "recent_k9": "9.2",
+      "avg_ip": "4.5",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 58.9,
+      "trend": "declining",
+      "recent_era": "4.48",
+      "recent_whip": "1.54",
+      "recent_k9": "11.2",
+      "avg_ip": "4.8",
+      "starts": 5
+    },
+    "venue": "Wrigley Field",
+    "park_factor": 1.04,
+    "home_win_prob": 0.596,
+    "away_win_prob": 0.404,
+    "pick": "Chicago Cubs",
+    "pick_prob": 0.596,
+    "confidence": "MEDIUM",
+    "edge": 0.096,
+    "edge_pct": 9.6,
+    "model_detail": {
+      "v2_home_prob": 0.6,
+      "v3_home_prob": 0.59,
+      "v2_pick_prob": 0.6,
+      "v3_pick_prob": 0.59,
+      "blend": 0.596,
+      "v2_confidence": "MEDIUM",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 2.7,
+        "desc": "Pitcher: Home 61 vs Away 50"
+      },
+      "offense": {
+        "impact": 0.1,
+        "desc": "Offense: Home 52.6 vs Away 51.8"
+      },
+      "bullpen": {
+        "impact": 0.4,
+        "desc": "Bullpen: Home 69.7 vs Away 65.7"
+      },
+      "home_field": {
+        "impact": 6.1,
+        "desc": "Home record: 50-31"
+      },
+      "true_talent": {
+        "impact": 0.7,
+        "desc": "Pyth: Home 0.591 vs Away 0.531"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Normal schedule | Away: Normal schedule"
+      }
+    }
+  },
+  {
+    "game_id": 825019,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-18T01:40:00Z",
+    "away_team": "Chicago White Sox",
+    "home_team": "Athletics",
+    "away_id": 145,
+    "home_id": 133,
+    "away_pitcher": "Davis Martin",
+    "home_pitcher": "Aaron Civale",
+    "away_pitcher_score": 53.4,
+    "home_pitcher_score": 52.7,
+    "away_pitcher_era": "4.10",
+    "home_pitcher_era": "4.85",
+    "away_pitcher_recent": {
+      "recent_score": 52.9,
+      "trend": "flat",
+      "recent_era": "4.47",
+      "recent_whip": "1.34",
+      "recent_k9": "6.5",
+      "avg_ip": "5.2",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 83.8,
+      "trend": "flat",
+      "recent_era": "2.08",
+      "recent_whip": "0.54",
+      "recent_k9": "9.7",
+      "avg_ip": "2.6",
+      "starts": 5
+    },
+    "venue": "Sutter Health Park",
+    "park_factor": 1.0,
+    "home_win_prob": 0.586,
+    "away_win_prob": 0.414,
+    "pick": "Athletics",
+    "pick_prob": 0.586,
+    "confidence": "MEDIUM",
+    "edge": 0.086,
+    "edge_pct": 8.6,
+    "model_detail": {
+      "v2_home_prob": 0.592,
+      "v3_home_prob": 0.576,
+      "v2_pick_prob": 0.592,
+      "v3_pick_prob": 0.576,
+      "blend": 0.586,
+      "v2_confidence": "MEDIUM",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 2.9,
+        "desc": "Pitcher: Home 65 vs Away 53"
+      },
+      "offense": {
+        "impact": 1.9,
+        "desc": "Offense: Home 48.5 vs Away 36.7"
+      },
+      "bullpen": {
+        "impact": -0.0,
+        "desc": "Bullpen: Home 60.6 vs Away 60.9"
+      },
+      "home_field": {
+        "impact": 4.3,
+        "desc": "Home record: 36-45"
+      },
+      "true_talent": {
+        "impact": 0.2,
+        "desc": "Pyth: Home 0.451 vs Away 0.438"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 824454,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-17T22:10:00Z",
+    "away_team": "Baltimore Orioles",
+    "home_team": "Cleveland Guardians",
+    "away_id": 110,
+    "home_id": 114,
+    "away_pitcher": "Chris Bassitt",
+    "home_pitcher": "Tanner Bibee",
+    "away_pitcher_score": 60.8,
+    "home_pitcher_score": 58.4,
+    "away_pitcher_era": "3.96",
+    "home_pitcher_era": "4.24",
+    "away_pitcher_recent": {
+      "recent_score": 69.6,
+      "trend": "flat",
+      "recent_era": "2.85",
+      "recent_whip": "1.30",
+      "recent_k9": "8.5",
+      "avg_ip": "5.1",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 84.7,
+      "trend": "improving",
+      "recent_era": "2.16",
+      "recent_whip": "0.87",
+      "recent_k9": "8.1",
+      "avg_ip": "6.7",
+      "starts": 5
+    },
+    "venue": "Progressive Field",
+    "park_factor": 0.98,
+    "home_win_prob": 0.581,
+    "away_win_prob": 0.419,
+    "pick": "Cleveland Guardians",
+    "pick_prob": 0.581,
+    "confidence": "MEDIUM",
+    "edge": 0.081,
+    "edge_pct": 8.1,
+    "model_detail": {
+      "v2_home_prob": 0.58,
+      "v3_home_prob": 0.582,
+      "v2_pick_prob": 0.58,
+      "v3_pick_prob": 0.582,
+      "blend": 0.581,
+      "v2_confidence": "MEDIUM",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 1.1,
+        "desc": "Pitcher: Home 69 vs Away 64"
+      },
+      "offense": {
+        "impact": -0.7,
+        "desc": "Offense: Home 36.4 vs Away 40.5"
+      },
+      "bullpen": {
+        "impact": 0.9,
+        "desc": "Bullpen: Home 70.5 vs Away 61.9"
+      },
+      "home_field": {
+        "impact": 4.9,
+        "desc": "Home record: 45-36"
+      },
+      "true_talent": {
+        "impact": 0.8,
+        "desc": "Pyth: Home 0.496 vs Away 0.431"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 823152,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-18T01:40:00Z",
+    "away_team": "Texas Rangers",
+    "home_team": "Seattle Mariners",
+    "away_id": 140,
+    "home_id": 136,
+    "away_pitcher": "Jacob deGrom",
+    "home_pitcher": "Logan Gilbert",
+    "away_pitcher_score": 74.4,
+    "home_pitcher_score": 72.9,
+    "away_pitcher_era": "2.97",
+    "home_pitcher_era": "3.44",
+    "away_pitcher_recent": {
+      "recent_score": 72.6,
+      "trend": "declining",
+      "recent_era": "3.99",
+      "recent_whip": "0.89",
+      "recent_k9": "10.0",
+      "avg_ip": "5.4",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 80.7,
+      "trend": "declining",
+      "recent_era": "2.39",
+      "recent_whip": "1.10",
+      "recent_k9": "9.9",
+      "avg_ip": "5.3",
+      "starts": 5
+    },
+    "venue": "T-Mobile Park",
+    "park_factor": 0.95,
+    "home_win_prob": 0.563,
+    "away_win_prob": 0.437,
+    "pick": "Seattle Mariners",
+    "pick_prob": 0.563,
+    "confidence": "LOW",
+    "edge": 0.063,
+    "edge_pct": 6.3,
+    "model_detail": {
+      "v2_home_prob": 0.585,
+      "v3_home_prob": 0.53,
+      "v2_pick_prob": 0.585,
+      "v3_pick_prob": 0.53,
+      "blend": 0.563,
+      "v2_confidence": "MEDIUM",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 0.6,
+        "desc": "Pitcher: Home 76 vs Away 74"
+      },
+      "offense": {
+        "impact": 1.9,
+        "desc": "Offense: Home 50.8 vs Away 39.2"
+      },
+      "bullpen": {
+        "impact": -0.1,
+        "desc": "Bullpen: Home 69.0 vs Away 70.3"
+      },
+      "home_field": {
+        "impact": 6.4,
+        "desc": "Home record: 51-30"
+      },
+      "true_talent": {
+        "impact": -0.1,
+        "desc": "Pyth: Home 0.545 vs Away 0.556"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Dome/retractable roof \u2014 weather neutral"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 825101,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-18T01:40:00Z",
+    "away_team": "Toronto Blue Jays",
+    "home_team": "Arizona Diamondbacks",
+    "away_id": 141,
+    "home_id": 109,
+    "away_pitcher": "Eric Lauer",
+    "home_pitcher": "Michael Soroka",
+    "away_pitcher_score": 65.1,
+    "home_pitcher_score": 58.4,
+    "away_pitcher_era": "3.18",
+    "home_pitcher_era": "4.52",
+    "away_pitcher_recent": {
+      "recent_score": 87.1,
+      "trend": "improving",
+      "recent_era": "1.23",
+      "recent_whip": "0.68",
+      "recent_k9": "8.6",
+      "avg_ip": "1.5",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 79.0,
+      "trend": "flat",
+      "recent_era": "0.00",
+      "recent_whip": "1.30",
+      "recent_k9": "8.3",
+      "avg_ip": "1.1",
+      "starts": 5
+    },
+    "venue": "Chase Field",
+    "park_factor": 1.03,
+    "home_win_prob": 0.559,
+    "away_win_prob": 0.441,
+    "pick": "Arizona Diamondbacks",
+    "pick_prob": 0.559,
+    "confidence": "LOW",
+    "edge": 0.059,
+    "edge_pct": 5.9,
+    "model_detail": {
+      "v2_home_prob": 0.512,
+      "v3_home_prob": 0.63,
+      "v2_pick_prob": 0.512,
+      "v3_pick_prob": 0.63,
+      "blend": 0.559,
+      "v2_confidence": "LOW",
+      "v3_confidence": "MEDIUM"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -1.7,
+        "desc": "Pitcher: Home 67 vs Away 74"
+      },
+      "offense": {
+        "impact": 0.0,
+        "desc": "Offense: Home 52.0 vs Away 52.0"
+      },
+      "bullpen": {
+        "impact": -0.6,
+        "desc": "Bullpen: Home 61.2 vs Away 66.9"
+      },
+      "home_field": {
+        "impact": 4.0,
+        "desc": "Home record: 43-38"
+      },
+      "true_talent": {
+        "impact": -0.5,
+        "desc": "Pyth: Home 0.503 vs Away 0.546"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Dome/retractable roof \u2014 weather neutral"
+      },
+      "rest": {
+        "impact": 1.0,
+        "desc": "Home: Normal schedule | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 824048,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-18T01:38:00Z",
+    "away_team": "San Diego Padres",
+    "home_team": "Los Angeles Angels",
+    "away_id": 135,
+    "home_id": 108,
+    "away_pitcher": "Matt Waldron",
+    "home_pitcher": "Jos\u00e9 Soriano",
+    "away_pitcher_score": 31.9,
+    "home_pitcher_score": 55.3,
+    "away_pitcher_era": "7.71",
+    "home_pitcher_era": "4.26",
+    "away_pitcher_recent": {
+      "recent_score": 18.1,
+      "trend": "flat",
+      "recent_era": "8.57",
+      "recent_whip": "2.86",
+      "recent_k9": "6.4",
+      "avg_ip": "4.2",
+      "starts": 1
+    },
+    "home_pitcher_recent": {
+      "recent_score": 39.8,
+      "trend": "declining",
+      "recent_era": "6.49",
+      "recent_whip": "1.60",
+      "recent_k9": "10.2",
+      "avg_ip": "3.9",
+      "starts": 5
+    },
+    "venue": "Angel Stadium",
+    "park_factor": 0.97,
+    "home_win_prob": 0.555,
+    "away_win_prob": 0.445,
+    "pick": "Los Angeles Angels",
+    "pick_prob": 0.555,
+    "confidence": "LOW",
+    "edge": 0.055,
+    "edge_pct": 5.5,
+    "model_detail": {
+      "v2_home_prob": 0.543,
+      "v3_home_prob": 0.574,
+      "v2_pick_prob": 0.543,
+      "v3_pick_prob": 0.574,
+      "blend": 0.555,
+      "v2_confidence": "LOW",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 5.5,
+        "desc": "Pitcher: Home 49 vs Away 26"
+      },
+      "offense": {
+        "impact": 0.0,
+        "desc": "Offense: Home 41.9 vs Away 41.7"
+      },
+      "bullpen": {
+        "impact": -1.8,
+        "desc": "Bullpen: Home 55.6 vs Away 73.8"
+      },
+      "home_field": {
+        "impact": 3.5,
+        "desc": "Home record: 39-42"
+      },
+      "true_talent": {
+        "impact": -1.9,
+        "desc": "Pyth: Home 0.402 vs Away 0.556"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 823883,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-17T23:10:00Z",
+    "away_team": "Milwaukee Brewers",
+    "home_team": "Miami Marlins",
+    "away_id": 158,
+    "home_id": 146,
+    "away_pitcher": "TBD",
+    "home_pitcher": "Janson Junk",
+    "away_pitcher_score": 45.0,
+    "home_pitcher_score": 68.3,
+    "away_pitcher_era": "N/A",
+    "home_pitcher_era": "4.17",
+    "away_pitcher_recent": {
+      "recent_score": 50.0,
+      "trend": "unknown",
+      "recent_era": "N/A",
+      "starts": 0
+    },
+    "home_pitcher_recent": {
+      "recent_score": 55.5,
+      "trend": "improving",
+      "recent_era": "4.75",
+      "recent_whip": "1.25",
+      "recent_k9": "6.5",
+      "avg_ip": "5.3",
+      "starts": 5
+    },
+    "venue": "loanDepot park",
+    "park_factor": 0.97,
+    "home_win_prob": 0.545,
+    "away_win_prob": 0.455,
+    "pick": "Miami Marlins",
+    "pick_prob": 0.545,
+    "confidence": "LOW",
+    "edge": 0.045,
+    "edge_pct": 4.5,
+    "model_detail": {
+      "v2_home_prob": 0.542,
+      "v3_home_prob": 0.549,
+      "v2_pick_prob": 0.542,
+      "v3_pick_prob": 0.549,
+      "blend": 0.545,
+      "v2_confidence": "LOW",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 3.9,
+        "desc": "Pitcher: Home 63 vs Away 47"
+      },
+      "offense": {
+        "impact": -1.2,
+        "desc": "Offense: Home 40.6 vs Away 48.0"
+      },
+      "bullpen": {
+        "impact": -1.1,
+        "desc": "Bullpen: Home 61.8 vs Away 72.4"
+      },
+      "home_field": {
+        "impact": 2.5,
+        "desc": "Home record: 38-43"
+      },
+      "true_talent": {
+        "impact": -1.9,
+        "desc": "Pyth: Home 0.446 vs Away 0.608"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Dome/retractable roof \u2014 weather neutral"
+      },
+      "rest": {
+        "impact": 1.0,
+        "desc": "Home: Normal schedule | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 822752,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-17T22:45:00Z",
+    "away_team": "San Francisco Giants",
+    "home_team": "Washington Nationals",
+    "away_id": 137,
+    "home_id": 120,
+    "away_pitcher": "Logan Webb",
+    "home_pitcher": "Zack Littell",
+    "away_pitcher_score": 74.9,
+    "home_pitcher_score": 62.1,
+    "away_pitcher_era": "3.22",
+    "home_pitcher_era": "3.81",
+    "away_pitcher_recent": {
+      "recent_score": 68.0,
+      "trend": "improving",
+      "recent_era": "3.52",
+      "recent_whip": "1.32",
+      "recent_k9": "9.6",
+      "avg_ip": "5.6",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 60.9,
+      "trend": "flat",
+      "recent_era": "5.14",
+      "recent_whip": "1.02",
+      "recent_k9": "7.3",
+      "avg_ip": "4.9",
+      "starts": 5
+    },
+    "venue": "Nationals Park",
+    "park_factor": 1.0,
+    "home_win_prob": 0.462,
+    "away_win_prob": 0.538,
+    "pick": "San Francisco Giants",
+    "pick_prob": 0.538,
+    "confidence": "LOW",
+    "edge": 0.038,
+    "edge_pct": 3.8,
+    "model_detail": {
+      "v2_home_prob": 0.45,
+      "v3_home_prob": 0.479,
+      "v2_pick_prob": 0.55,
+      "v3_pick_prob": 0.521,
+      "blend": 0.538,
+      "v2_confidence": "LOW",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -2.5,
+        "desc": "Pitcher: Home 62 vs Away 72"
+      },
+      "offense": {
+        "impact": -0.6,
+        "desc": "Offense: Home 38.1 vs Away 41.6"
+      },
+      "bullpen": {
+        "impact": -1.4,
+        "desc": "Bullpen: Home 54.2 vs Away 68.3"
+      },
+      "home_field": {
+        "impact": 2.1,
+        "desc": "Home record: 32-49"
+      },
+      "true_talent": {
+        "impact": -1.6,
+        "desc": "Pyth: Home 0.379 vs Away 0.514"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Fatigued (3 games in 3 days) | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 824778,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-17T23:15:00Z",
+    "away_team": "Detroit Tigers",
+    "home_team": "Boston Red Sox",
+    "away_id": 116,
+    "home_id": 111,
+    "away_pitcher": "Casey Mize",
+    "home_pitcher": "Ranger Suarez",
+    "away_pitcher_score": 61.6,
+    "home_pitcher_score": 68.7,
+    "away_pitcher_era": "3.87",
+    "home_pitcher_era": "3.20",
+    "away_pitcher_recent": {
+      "recent_score": 72.7,
+      "trend": "declining",
+      "recent_era": "3.61",
+      "recent_whip": "1.13",
+      "recent_k9": "10.5",
+      "avg_ip": "5.5",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 48.2,
+      "trend": "declining",
+      "recent_era": "4.14",
+      "recent_whip": "1.49",
+      "recent_k9": "9.3",
+      "avg_ip": "5.2",
+      "starts": 5
+    },
+    "venue": "Fenway Park",
+    "park_factor": 1.08,
+    "home_win_prob": 0.537,
+    "away_win_prob": 0.463,
+    "pick": "Boston Red Sox",
+    "pick_prob": 0.537,
+    "confidence": "LOW",
+    "edge": 0.037,
+    "edge_pct": 3.7,
+    "model_detail": {
+      "v2_home_prob": 0.559,
+      "v3_home_prob": 0.504,
+      "v2_pick_prob": 0.559,
+      "v3_pick_prob": 0.504,
+      "blend": 0.537,
+      "v2_confidence": "LOW",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": -1.3,
+        "desc": "Pitcher: Home 60 vs Away 66"
+      },
+      "offense": {
+        "impact": 0.2,
+        "desc": "Offense: Home 47.7 vs Away 46.3"
+      },
+      "bullpen": {
+        "impact": 0.0,
+        "desc": "Bullpen: Home 68.5 vs Away 68.2"
+      },
+      "home_field": {
+        "impact": 4.8,
+        "desc": "Home record: 48-33"
+      },
+      "true_talent": {
+        "impact": 0.3,
+        "desc": "Pyth: Home 0.569 vs Away 0.542"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 1.0,
+        "desc": "Home: Normal schedule | Away: Fatigued (3 games in 3 days)"
+      }
+    }
+  },
+  {
+    "game_id": 823476,
+    "game_date": "2026-04-17",
+    "game_time": "2026-04-17T22:40:00Z",
+    "away_team": "Atlanta Braves",
+    "home_team": "Philadelphia Phillies",
+    "away_id": 144,
+    "home_id": 143,
+    "away_pitcher": "Mart\u00edn P\u00e9rez",
+    "home_pitcher": "Taijuan Walker",
+    "away_pitcher_score": 55.5,
+    "home_pitcher_score": 50.6,
+    "away_pitcher_era": "3.54",
+    "home_pitcher_era": "4.08",
+    "away_pitcher_recent": {
+      "recent_score": 42.5,
+      "trend": "declining",
+      "recent_era": "4.77",
+      "recent_whip": "1.10",
+      "recent_k9": "5.8",
+      "avg_ip": "5.3",
+      "starts": 5
+    },
+    "home_pitcher_recent": {
+      "recent_score": 58.3,
+      "trend": "improving",
+      "recent_era": "5.00",
+      "recent_whip": "1.67",
+      "recent_k9": "5.5",
+      "avg_ip": "3.6",
+      "starts": 5
+    },
+    "venue": "Citizens Bank Park",
+    "park_factor": 1.05,
+    "home_win_prob": 0.534,
+    "away_win_prob": 0.466,
+    "pick": "Philadelphia Phillies",
+    "pick_prob": 0.534,
+    "confidence": "LOW",
+    "edge": 0.034,
+    "edge_pct": 3.4,
+    "model_detail": {
+      "v2_home_prob": 0.62,
+      "v3_home_prob": 0.404,
+      "v2_pick_prob": 0.62,
+      "v3_pick_prob": 0.596,
+      "blend": 0.534,
+      "v2_confidence": "HIGH",
+      "v3_confidence": "LOW"
+    },
+    "factors": {
+      "pitcher_matchup": {
+        "impact": 0.8,
+        "desc": "Pitcher: Home 54 vs Away 50"
+      },
+      "offense": {
+        "impact": 0.9,
+        "desc": "Offense: Home 51.1 vs Away 45.4"
+      },
+      "bullpen": {
+        "impact": 0.6,
+        "desc": "Bullpen: Home 70.5 vs Away 64.4"
+      },
+      "home_field": {
+        "impact": 6.6,
+        "desc": "Home record: 55-26"
+      },
+      "true_talent": {
+        "impact": 1.1,
+        "desc": "Pyth: Home 0.583 vs Away 0.494"
+      },
+      "weather": {
+        "impact": 0.0,
+        "desc": "Normal conditions"
+      },
+      "rest": {
+        "impact": 0.0,
+        "desc": "Home: Normal schedule | Away: Normal schedule"
+      }
+    }
+  }
+]

@@ -1,0 +1,120 @@
+{
+  "date": "2026-04-16",
+  "total_games": 4,
+  "correct": 4,
+  "wrong": 0,
+  "accuracy": 1.0,
+  "avg_brier": 0.2042,
+  "avg_logloss": 0.6011,
+  "by_confidence": {
+    "MEDIUM": {
+      "total": 1,
+      "correct": 1,
+      "pct": 1.0,
+      "avg_brier": 0.1689
+    },
+    "LOW": {
+      "total": 3,
+      "correct": 3,
+      "pct": 1.0,
+      "avg_brier": 0.216
+    }
+  },
+  "calibration": {
+    "0.5": {
+      "n": 2,
+      "avg_predicted": 0.525,
+      "avg_actual": 1.0,
+      "gap": 0.475
+    },
+    "0.6": {
+      "n": 2,
+      "avg_predicted": 0.573,
+      "avg_actual": 1.0,
+      "gap": 0.427
+    }
+  },
+  "baseline_brier": 0.25,
+  "picks": [
+    {
+      "game_id": 824289,
+      "date": "2026-04-16",
+      "matchup": "Kansas City Royals @ Detroit Tigers",
+      "pick": "Detroit Tigers",
+      "pick_prob": 0.589,
+      "home_prob": 0.589,
+      "confidence": "MEDIUM",
+      "edge": 0.089,
+      "actual_winner": "Detroit Tigers",
+      "score": "9-10",
+      "correct": true,
+      "brier": 0.1689,
+      "logloss": 0.5293,
+      "home_win": true,
+      "away_pitcher": "Kris Bubic",
+      "home_pitcher": "Keider Montero",
+      "away_pitcher_score": 67.1,
+      "home_pitcher_score": 50.8
+    },
+    {
+      "game_id": 824614,
+      "date": "2026-04-16",
+      "matchup": "Tampa Bay Rays @ Chicago White Sox",
+      "pick": "Tampa Bay Rays",
+      "pick_prob": 0.557,
+      "home_prob": 0.443,
+      "confidence": "LOW",
+      "edge": 0.057,
+      "actual_winner": "Tampa Bay Rays",
+      "score": "5-3",
+      "correct": true,
+      "brier": 0.1962,
+      "logloss": 0.5852,
+      "home_win": false,
+      "away_pitcher": "Steven Matz",
+      "home_pitcher": "Jordan Leasure",
+      "away_pitcher_score": 67.2,
+      "home_pitcher_score": 55.3
+    },
+    {
+      "game_id": 823313,
+      "date": "2026-04-16",
+      "matchup": "Seattle Mariners @ San Diego Padres",
+      "pick": "San Diego Padres",
+      "pick_prob": 0.542,
+      "home_prob": 0.542,
+      "confidence": "LOW",
+      "edge": 0.042,
+      "actual_winner": "San Diego Padres",
+      "score": "2-5",
+      "correct": true,
+      "brier": 0.2098,
+      "logloss": 0.6125,
+      "home_win": true,
+      "away_pitcher": "Luis Castillo",
+      "home_pitcher": "Walker Buehler",
+      "away_pitcher_score": 64.1,
+      "home_pitcher_score": 42.7
+    },
+    {
+      "game_id": 825023,
+      "date": "2026-04-16",
+      "matchup": "Texas Rangers @ Athletics",
+      "pick": "Texas Rangers",
+      "pick_prob": 0.508,
+      "home_prob": 0.492,
+      "confidence": "LOW",
+      "edge": 0.008,
+      "actual_winner": "Texas Rangers",
+      "score": "9-6",
+      "correct": true,
+      "brier": 0.2421,
+      "logloss": 0.6773,
+      "home_win": false,
+      "away_pitcher": "Jack Leiter",
+      "home_pitcher": "Jacob Lopez",
+      "away_pitcher_score": 55.5,
+      "home_pitcher_score": 56.7
+    }
+  ]
+}
