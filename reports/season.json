@@ -1,48 +1,48 @@
 {
-  "dates_tracked": 20,
-  "total_picks": 32,
-  "correct": 21,
-  "wrong": 11,
-  "accuracy": 0.656,
-  "avg_brier": 0.2134,
-  "avg_logloss": 0.6125,
+  "dates_tracked": 15,
+  "total_picks": 28,
+  "correct": 18,
+  "wrong": 10,
+  "accuracy": 0.643,
+  "avg_brier": 0.2143,
+  "avg_logloss": 0.6134,
   "baseline_brier": 0.25,
-  "brier_skill": 0.1463,
+  "brier_skill": 0.1427,
   "by_confidence": {
     "HIGH": {
-      "total": 32,
-      "correct": 21,
-      "pct": 0.656,
-      "avg_brier": 0.2134,
-      "avg_edge": 0.173
+      "total": 28,
+      "correct": 18,
+      "pct": 0.643,
+      "avg_brier": 0.2143,
+      "avg_edge": 0.179
     },
     "MEDIUM": {
-      "total": 39,
-      "correct": 22,
-      "pct": 0.564,
-      "avg_brier": 0.2481,
-      "avg_edge": 0.104
+      "total": 28,
+      "correct": 14,
+      "pct": 0.5,
+      "avg_brier": 0.2613,
+      "avg_edge": 0.108
     },
     "LOW": {
-      "total": 110,
-      "correct": 53,
-      "pct": 0.482,
-      "avg_brier": 0.2513,
+      "total": 80,
+      "correct": 37,
+      "pct": 0.463,
+      "avg_brier": 0.2529,
       "avg_edge": 0.038
     }
   },
   "calibration": {
     "0.60": {
-      "n": 4,
-      "avg_predicted": 0.619,
+      "n": 2,
+      "avg_predicted": 0.616,
       "avg_actual": 1.0,
-      "gap": 0.381
+      "gap": 0.384
     },
     "0.65": {
-      "n": 19,
+      "n": 17,
       "avg_predicted": 0.645,
-      "avg_actual": 0.526,
-      "gap": -0.118
+      "avg_actual": 0.529,
+      "gap": -0.116
     },
     "0.70": {
       "n": 3,
@@ -63,8 +63,8 @@
       "gap": 0.207
     }
   },
-  "roi_units": 8.09,
-  "roi_pct": 25.3,
+  "roi_units": 6.36,
+  "roi_pct": 22.7,
   "best_wins": [
     {
       "matchup": "Chicago White Sox @ Milwaukee Brewers",
