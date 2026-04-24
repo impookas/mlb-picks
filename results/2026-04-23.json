@@ -1,0 +1,120 @@
+{
+  "date": "2026-04-23",
+  "total_games": 4,
+  "correct": 3,
+  "wrong": 1,
+  "accuracy": 0.75,
+  "avg_brier": 0.2553,
+  "avg_logloss": 0.7048,
+  "by_confidence": {
+    "MEDIUM": {
+      "total": 1,
+      "correct": 0,
+      "pct": 0.0,
+      "avg_brier": 0.3782
+    },
+    "LOW": {
+      "total": 3,
+      "correct": 3,
+      "pct": 1.0,
+      "avg_brier": 0.2144
+    }
+  },
+  "calibration": {
+    "0.5": {
+      "n": 1,
+      "avg_predicted": 0.503,
+      "avg_actual": 1.0,
+      "gap": 0.497
+    },
+    "0.6": {
+      "n": 3,
+      "avg_predicted": 0.575,
+      "avg_actual": 0.667,
+      "gap": 0.092
+    }
+  },
+  "baseline_brier": 0.25,
+  "picks": [
+    {
+      "game_id": 825096,
+      "date": "2026-04-23",
+      "matchup": "Chicago White Sox @ Arizona Diamondbacks",
+      "pick": "Arizona Diamondbacks",
+      "pick_prob": 0.615,
+      "home_prob": 0.615,
+      "confidence": "MEDIUM",
+      "edge": 0.115,
+      "actual_winner": "Chicago White Sox",
+      "score": "4-1",
+      "correct": false,
+      "brier": 0.3782,
+      "logloss": 0.9545,
+      "home_win": false,
+      "away_pitcher": "Davis Martin",
+      "home_pitcher": "Michael Soroka",
+      "away_pitcher_score": 53.4,
+      "home_pitcher_score": 58.4
+    },
+    {
+      "game_id": 824689,
+      "date": "2026-04-23",
+      "matchup": "Philadelphia Phillies @ Chicago Cubs",
+      "pick": "Chicago Cubs",
+      "pick_prob": 0.559,
+      "home_prob": 0.559,
+      "confidence": "LOW",
+      "edge": 0.059,
+      "actual_winner": "Chicago Cubs",
+      "score": "7-8",
+      "correct": true,
+      "brier": 0.1945,
+      "logloss": 0.5816,
+      "home_win": true,
+      "away_pitcher": "Cristopher S\u00e1nchez",
+      "home_pitcher": "Edward Cabrera",
+      "away_pitcher_score": 79.3,
+      "home_pitcher_score": 62.5
+    },
+    {
+      "game_id": 824368,
+      "date": "2026-04-23",
+      "matchup": "San Diego Padres @ Colorado Rockies",
+      "pick": "San Diego Padres",
+      "pick_prob": 0.551,
+      "home_prob": 0.449,
+      "confidence": "LOW",
+      "edge": 0.051,
+      "actual_winner": "San Diego Padres",
+      "score": "10-8",
+      "correct": true,
+      "brier": 0.2016,
+      "logloss": 0.596,
+      "home_win": false,
+      "away_pitcher": "Matt Waldron",
+      "home_pitcher": "Ryan Feltner",
+      "away_pitcher_score": 31.9,
+      "home_pitcher_score": 49.6
+    },
+    {
+      "game_id": 823233,
+      "date": "2026-04-23",
+      "matchup": "Los Angeles Dodgers @ San Francisco Giants",
+      "pick": "Los Angeles Dodgers",
+      "pick_prob": 0.503,
+      "home_prob": 0.497,
+      "confidence": "LOW",
+      "edge": 0.003,
+      "actual_winner": "Los Angeles Dodgers",
+      "score": "3-0",
+      "correct": true,
+      "brier": 0.247,
+      "logloss": 0.6872,
+      "home_win": false,
+      "away_pitcher": "Tyler Glasnow",
+      "home_pitcher": "Logan Webb",
+      "away_pitcher_score": 59.8,
+      "home_pitcher_score": 74.9
+    }
+  ]
+}
