@@ -1,34 +1,34 @@
 {
-  "dates_tracked": 19,
-  "total_picks": 30,
+  "dates_tracked": 21,
+  "total_picks": 31,
   "correct": 18,
-  "wrong": 12,
-  "accuracy": 0.6,
-  "avg_brier": 0.2271,
-  "avg_logloss": 0.64,
+  "wrong": 13,
+  "accuracy": 0.581,
+  "avg_brier": 0.2326,
+  "avg_logloss": 0.6516,
   "baseline_brier": 0.25,
-  "brier_skill": 0.0918,
+  "brier_skill": 0.0695,
   "by_confidence": {
     "HIGH": {
-      "total": 30,
+      "total": 31,
       "correct": 18,
-      "pct": 0.6,
-      "avg_brier": 0.2271,
-      "avg_edge": 0.176
+      "pct": 0.581,
+      "avg_brier": 0.2326,
+      "avg_edge": 0.175
     },
     "MEDIUM": {
-      "total": 36,
-      "correct": 18,
-      "pct": 0.5,
-      "avg_brier": 0.2599,
+      "total": 41,
+      "correct": 20,
+      "pct": 0.488,
+      "avg_brier": 0.2628,
       "avg_edge": 0.106
     },
     "LOW": {
-      "total": 100,
-      "correct": 49,
-      "pct": 0.49,
-      "avg_brier": 0.2508,
-      "avg_edge": 0.04
+      "total": 114,
+      "correct": 55,
+      "pct": 0.482,
+      "avg_brier": 0.2503,
+      "avg_edge": 0.038
     }
   },
   "calibration": {
@@ -39,10 +39,10 @@
       "gap": 0.384
     },
     "0.65": {
-      "n": 19,
+      "n": 20,
       "avg_predicted": 0.644,
-      "avg_actual": 0.474,
-      "gap": -0.171
+      "avg_actual": 0.45,
+      "gap": -0.194
     },
     "0.70": {
       "n": 3,
@@ -63,8 +63,8 @@
       "gap": 0.207
     }
   },
-  "roi_units": 4.36,
-  "roi_pct": 14.5,
+  "roi_units": 3.36,
+  "roi_pct": 10.8,
   "best_wins": [
     {
       "matchup": "Chicago White Sox @ Milwaukee Brewers",
