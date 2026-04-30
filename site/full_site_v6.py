@@ -807,84 +807,149 @@ def build_today():
 
 
 def build_track_record():
-    """Track record page - HIGH confidence picks only."""
-    stats = get_season_stats()
+    """Track record page - ALL picks, full transparency."""
     
-    record = f"{stats.get('correct', 0)}-{stats.get('wrong', 0)}"
-    win_pct = f"{stats.get('accuracy', 0) * 100:.0f}%"
-    brier = f"+{stats.get('brier_skill', 0) * 100:.0f}%"
-    roi = f"+{stats.get('roi_pct', 0):.0f}%"
+    # Load combined track record
+    combined_file = ROOT / "track_record_combined.json"
+    if combined_file.exists():
+        with open(combined_file) as fp:
+            combined = json.load(fp)
+        summary = combined.get('summary', {})
+        days = combined.get('days', {})
+    else:
+        # Fallback to results files
+        total_c = total_t = 0
+        days = {}
+        for f in sorted(RESULTS_DIR.glob("*.json")):
+            data = json.load(open(f))
+            picks = data.get('picks', [])
+            c = sum(1 for p in picks if p.get('correct'))
+            days[data.get('date', f.stem)] = {'total': len(picks), 'correct': c, 'picks': picks}
+            total_c += c; total_t += len(picks)
+        summary = {'total_picks': total_t, 'total_correct': total_c, 
+                   'win_rate': round(total_c/total_t*100,1) if total_t else 0,
+                   'roi_pct': round(((total_c*100)-(total_t-total_c)*110)/(total_t*110)*100,1) if total_t else 0}
+    
+    total_picks = summary.get('total_picks', 0)
+    total_correct = summary.get('total_correct', 0)
+    total_wrong = total_picks - total_correct
+    win_pct = summary.get('win_rate', 0)
+    roi = summary.get('roi_pct', 0)
+    days_count = len(days)
     
     hero = """
 <div class="hero compact">
     <div class="container">
         <h1>Track Record</h1>
-        <p class="subtitle">Full transparency. Every premium pick, every result, every day.</p>
+        <p class="subtitle">Full transparency. Every pick, every result, every day. No cherry-picking.</p>
     </div>
 </div>
 """
     
+    roi_color = "var(--success)" if roi >= 0 else "var(--error)"
     stats_section = f"""
 <div class="stats-section">
     <div class="container">
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value">{record}</div>
-                <div class="stat-label">Premium Record</div>
+                <div class="stat-value">{total_correct}-{total_wrong}</div>
+                <div class="stat-label">Record (W-L)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">{win_pct}</div>
+                <div class="stat-value">{win_pct:.1f}%</div>
                 <div class="stat-label">Win Rate</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">{brier}</div>
-                <div class="stat-label">Brier Skill</div>
+                <div class="stat-value" style="color:{roi_color}">{roi:+.1f}%</div>
+                <div class="stat-label">ROI (at -110)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">{roi}</div>
-                <div class="stat-label">ROI</div>
+                <div class="stat-value">{days_count}</div>
+                <div class="stat-label">Days Tracked</div>
             </div>
         </div>
     </div>
 </div>
 """
     
-    # Build detailed pick history (HIGH picks only)
+    # Build daily summaries + individual picks
     results_files = sorted(RESULTS_DIR.glob("*.json"), reverse=True)
-    picks_html = ""
+    daily_rows = ""
+    pick_rows = ""
     
-    for f in results_files[:30]:  # Last 30 days
-        with open(f) as fp:
-            data = json.load(fp)
-            date = data.get("date", "")
-            
-            # Filter to HIGH confidence picks only
-            high_picks = [p for p in data.get("picks", []) if p.get("confidence") == "HIGH"]
-            
-            for pick in high_picks:
-                result_class = "result-win" if pick.get("correct") else "result-loss"
-                result_icon = "✓" if pick.get("correct") else "✗"
+    for date in sorted(days.keys(), reverse=True):
+        day = days[date]
+        d_total = day.get('total', 0)
+        d_correct = day.get('correct', 0)
+        d_pct = (d_correct / d_total * 100) if d_total else 0
+        day_class = "result-win" if d_pct >= 55 else ("result-loss" if d_pct < 45 else "")
+        
+        daily_rows += f"""
+                <tr class="{day_class}">
+                    <td class="record-cell">{date}</td>
+                    <td class="record-cell">{d_correct}/{d_total}</td>
+                    <td>{d_pct:.0f}%</td>
+                    <td>{day.get('source', 'file').replace('_', ' ').title()}</td>
+                </tr>"""
+        
+        # Individual picks for this day
+        for pick in day.get('picks', []):
+            if isinstance(pick, dict):
+                # From results file
+                correct = pick.get('correct', False)
+                result_class = "result-win" if correct else "result-loss"
+                result_icon = "✓" if correct else "✗"
+                conf = pick.get('confidence', 'N/A')
+                prob = f"{pick.get('pick_prob', 0) * 100:.0f}%" if pick.get('pick_prob') else '—'
+                matchup = pick.get('matchup', '—')
+                pick_team = pick.get('pick', '—')
+                score = pick.get('score', pick.get('actual_winner', '—'))
+                winner = pick.get('actual_winner', '—')
                 
-                picks_html += f"""
+                pick_rows += f"""
                 <tr>
                     <td class="record-cell">{date}</td>
-                    <td>{pick['matchup']}</td>
-                    <td class="record-cell">{pick['pick']}</td>
-                    <td>{pick['pick_prob'] * 100:.0f}%</td>
-                    <td class="{result_class}">{result_icon} {pick.get('actual_winner', 'N/A')}</td>
-                    <td>{pick.get('score', 'N/A')}</td>
-                </tr>
-"""
+                    <td>{matchup}</td>
+                    <td class="record-cell">{pick_team}</td>
+                    <td>{conf}</td>
+                    <td>{prob}</td>
+                    <td class="{result_class}">{result_icon}</td>
+                    <td>{score}</td>
+                </tr>"""
     
-    if not picks_html:
-        picks_html = "<tr><td colspan='6' style='text-align:center; padding: 32px;'>No premium picks yet</td></tr>"
-    
-    history_section = f"""
+    daily_section = f"""
 <div class="container">
     <div class="section">
         <div class="section-header">
-            <h2 class="section-title">Premium Pick History</h2>
-            <p class="section-subtitle">Complete record of all HIGH confidence picks (64%+)</p>
+            <h2 class="section-title">Daily Summary</h2>
+            <p class="section-subtitle">Win/loss record for each day</p>
+        </div>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Record</th>
+                        <th>Win %</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+{daily_rows}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+"""
+    
+    picks_section = f"""
+<div class="container">
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">All Picks Detail</h2>
+            <p class="section-subtitle">Every pick we made — wins, losses, and scores</p>
         </div>
         
         <div class="table-wrapper">
@@ -895,12 +960,13 @@ def build_track_record():
                         <th>Matchup</th>
                         <th>Pick</th>
                         <th>Confidence</th>
+                        <th>Prob</th>
                         <th>Result</th>
                         <th>Score</th>
                     </tr>
                 </thead>
                 <tbody>
-{picks_html}
+{pick_rows if pick_rows else "<tr><td colspan='7' style='text-align:center; padding: 32px;'>No picks data available</td></tr>"}
                 </tbody>
             </table>
         </div>
@@ -908,7 +974,7 @@ def build_track_record():
 </div>
 """
     
-    content = hero + stats_section + history_section
+    content = hero + stats_section + daily_section + picks_section
     return layout(content, "track", "Track Record")
 
 
