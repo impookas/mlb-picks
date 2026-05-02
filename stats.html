@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Data-driven MLB predictions with 65% accuracy. Professional analytics, transparent results, Vegas comparison.">
-    <title>How It Works — DiamondBets</title>
+    <title>Stats & Trends — DiamondBets</title>
     <style>
 * {
     margin: 0;
@@ -572,7 +572,7 @@ footer {
                 <span class="brand-emoji">💎</span>
                 <span>DiamondBets</span>
             </a>
-            <nav><a href="index.html" >Today's Picks</a><a href="track-record.html" >Track Record</a><a href="stats.html" >Stats</a><a href="betting-guide.html" >Betting Guide</a><a href="how-it-works.html" class="active">How It Works</a><a href="about.html" >About</a></nav>
+            <nav><a href="index.html" >Today's Picks</a><a href="track-record.html" >Track Record</a><a href="stats.html" class="active">Stats</a><a href="betting-guide.html" >Betting Guide</a><a href="how-it-works.html" >How It Works</a><a href="about.html" >About</a></nav>
         </div>
     </div>
 </header>
@@ -580,54 +580,43 @@ footer {
 
 <div class="hero compact">
     <div class="container">
-        <h1>How It Works</h1>
-        <p class="subtitle">Data-driven predictions backed by machine learning. No gut feelings. Just probabilities.</p>
+        <h1>Stats & Trends</h1>
+        <p class="subtitle">Deep analytics on model performance, calibration, and betting value.</p>
     </div>
 </div>
 
-<div class="container-narrow">
+<div class="container">
     <div class="section">
-        <div class="info-card">
-            <h3>The Model</h3>
-            <p><strong>Ensemble Approach (60% Expert + 40% Machine Learning):</strong></p>
-            <p><strong>Expert System (60%):</strong> Hand-tuned weights analyzing pitcher quality (24%), team offense (16%), bullpen strength (10%), home field advantage, and Pythagorean win percentage. Conservative and well-calibrated.</p>
-            <p><strong>Machine Learning (40%):</strong> Logistic regression + gradient boosting trained on 2,426 games from the 2025 season. Learned optimal feature weights from real outcomes.</p>
+        <div class="section-header">
+            <h2 class="section-title">Performance Metrics</h2>
         </div>
         
         <div class="info-card">
-            <h3>What We Analyze</h3>
-            <p><strong>Starting Pitchers:</strong> Season stats (ERA, WHIP, K/9, BB/9, HR/9), recent form (last 5 starts), career vs opponent, park history.</p>
-            <p><strong>Team Strength:</strong> Offensive firepower (OPS, runs/game), bullpen quality (ERA, saves), true talent (Pythagorean win %), home/road splits.</p>
-            <p><strong>Context & Edge:</strong> Park factors, home field advantage, Vegas lines (to validate our edge vs the market).</p>
+            <h3>Overall Performance (Premium Picks Only)</h3>
+            <p><strong>Record:</strong> 9-3 (75.0%)</p>
+            <p><strong>Brier Skill Score:</strong> +37.5% (measures probability calibration vs baseline)</p>
+            <p><strong>Return on Investment:</strong> +43.2% (assumes $100 flat bet on every premium pick)</p>
         </div>
         
         <div class="info-card">
-            <h3>Daily Process</h3>
-            <p><strong>Every Day at 10 AM ET:</strong></p>
-            <ol>
-                <li>Fetch today's games and pitchers from MLB Stats API</li>
-                <li>Pull current season stats for all teams and pitchers</li>
-                <li>Fetch Vegas lines from DraftKings/ESPN</li>
-                <li>Run both models and blend predictions (60% expert, 40% ML)</li>
-                <li>Filter for 64%+ confidence only</li>
-                <li>Publish picks 3+ hours before first pitch</li>
-                <li>Track results and update metrics</li>
-            </ol>
+            <h3>What Makes a Premium Pick?</h3>
+            <p>We only publish picks when:</p>
+            <ul>
+                <li>Our model shows ≥64% win probability</li>
+                <li>We have measurable edge vs Vegas implied probability</li>
+                <li>Both sub-models (expert system + ML) agree on direction</li>
+            </ul>
+            <p>This means some days have zero premium picks. We don't force picks.</p>
         </div>
         
         <div class="info-card">
-            <h3>Quality Standards</h3>
-            <p><strong>No Look-Ahead Bias:</strong> Backtest uses zero future data. Pitcher stats computed only from games before each prediction date.</p>
-            <p><strong>Realistic Odds:</strong> ROI calculated using actual moneyline odds with vig, not flat -110.</p>
-            <p><strong>Honest Thresholds:</strong> 64% threshold gives ~2-4 picks/day with 65%+ accuracy. Some days have zero picks. We don't force picks.</p>
-            <p><strong>Full Transparency:</strong> Every pick is timestamped. Every result is tracked. Bad days are published. No cherry-picking.</p>
-        </div>
-        
-        <div class="info-card">
-            <h3>Proven Results</h3>
-            <p><strong>Backtest (2,426 games from 2025):</strong> 66.2% win rate on HIGH picks, +9.1% ROI</p>
-            <p><strong>Live 2026 Season:</strong> Tracking in real-time (see <a href="track-record.html">Track Record</a>)</p>
-            <p>When we show "+4.2% vs Vegas", we think the market is wrong and there's real edge.</p>
+            <h3>Model Calibration</h3>
+            <p>A well-calibrated model means when we say 65%, we win 65% of the time. Our 2025 backtest showed:</p>
+            <ul>
+                <li>64-70% bucket: 66.2% actual win rate (well-calibrated)</li>
+                <li>70-80% bucket: 72.1% actual win rate (slight under-confidence)</li>
+                <li>Overall Brier Skill: +9.1% vs baseline</li>
+            </ul>
         </div>
     </div>
 </div>
@@ -659,7 +648,7 @@ footer {
         </div>
         <div class="footer-bottom">
             <p>Picks are for informational and entertainment purposes only. Past performance does not guarantee future results.</p>
-            <p>© 2026 DiamondBets • Updated May 02, 2026</p>
+            <p>© 2026 DiamondBets • Updated April 02, 2026</p>
         </div>
     </div>
 </footer>

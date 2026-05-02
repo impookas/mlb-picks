@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — DiamondBets</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f1419;
+            --surface: #1a1f29;
+            --surface-hover: #242b38;
+            --border: #2d3748;
+            --text: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+        }
+
+        .btn-small {
+            padding: 4px 12px;
+            font-size: 12px;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--success);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-value.negative {
+            color: var(--error);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: var(--surface-hover);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .prob-high {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .edge-positive {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-high {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        /* Input */
+        .input {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 64px 32px;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        /* Bet list */
+        .bet-item {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bet-item:last-child {
+            border-bottom: none;
+        }
+
+        .bet-info {
+            flex: 1;
+        }
+
+        .bet-result {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .bet-result.win {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .bet-result.loss {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .bet-result.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="brand">
+        <span>💎</span>
+        <span>DiamondBets Dashboard</span>
+    </div>
+    <div class="header-actions">
+        <button class="btn btn-outline" onclick="openSettings()">⚙️ Settings</button>
+        <button class="btn btn-outline" onclick="window.location.href='index.html'">Public Site</button>
+        <button class="btn" onclick="refreshData()">Refresh</button>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Stats Overview -->
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="stat-bankroll">$0</div>
+            <div class="stat-label">Current Bankroll</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-pl">$0</div>
+            <div class="stat-label">Total P/L</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-record">0-0</div>
+            <div class="stat-label">Your Record</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-winrate">0%</div>
+            <div class="stat-label">Win Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-picks">0</div>
+            <div class="stat-label">Today's Picks</div>
+        </div>
+    </div>
+
+    <!-- Today's Picks -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Today's Premium Picks</h2>
+            <span id="last-update" style="font-size: 12px; color: var(--text-muted);">Last updated: -</span>
+        </div>
+        <div class="table-wrapper">
+            <table id="picks-table">
+                <thead>
+                    <tr>
+                        <th>Matchup</th>
+                        <th>Pick</th>
+                        <th>Confidence</th>
+                        <th>Edge</th>
+                        <th>Recommended Bet</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="picks-body">
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <h3>Loading picks...</h3>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bet History -->
+    <div class="card" style="margin-top: 24px;">
+        <div class="card-header">
+            <h2 class="card-title">Recent Bets</h2>
+        </div>
+        <div id="bets-list">
+            <div class="empty-state">
+                <h3>No bets logged</h3>
+                <p>Place your first bet to start tracking</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="modal">
+    <div class="modal-content">
+        <h2 class="modal-title">Bankroll Settings</h2>
+        <form id="settings-form" onsubmit="saveSettings(event)">
+            <div class="form-group">
+                <label class="form-label">Starting Bankroll ($)</label>
+                <input type="number" class="input" id="setting-bankroll" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Kelly Fraction</label>
+                <select class="input" id="setting-kelly">
+                    <option value="0.25">Conservative (1/4 Kelly)</option>
+                    <option value="0.5">Moderate (1/2 Kelly)</option>
+                    <option value="1">Aggressive (Full Kelly)</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button type="submit" class="btn" style="flex: 1;">Save Settings</button>
+                <button type="button" class="btn btn-outline" onclick="closeSettings()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bet Confirmation Modal -->
+<div id="bet-modal" class="modal">
+    <div class="modal-content">
+        <h2 class="modal-title">Confirm Bet</h2>
+        <div style="margin-bottom: 24px;">
+            <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;" id="bet-confirm-team">-</div>
+            <div style="color: var(--text-secondary); margin-bottom: 16px;" id="bet-confirm-matchup">-</div>
+            <div style="background: var(--bg); padding: 16px; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="color: var(--text-muted);">Bet Amount:</span>
+                    <span style="font-weight: 700; font-size: 18px;" id="bet-confirm-amount">$0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="color: var(--text-muted);">Odds:</span>
+                    <span id="bet-confirm-odds">-110</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px;">
+                    <span style="color: var(--text-muted);">To Win:</span>
+                    <span style="font-weight: 700; color: var(--success);" id="bet-confirm-towin">$0</span>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <button class="btn btn-success" style="flex: 1;" onclick="confirmBet()">Place Bet</button>
+            <button class="btn btn-outline" onclick="closeBetModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// State
+let picks = [];
+let bets = JSON.parse(localStorage.getItem('bets') || '[]');
+let settings = JSON.parse(localStorage.getItem('settings') || '{"bankroll": 0, "kelly": 0.25}');
+let currentBankroll = parseFloat(localStorage.getItem('currentBankroll') || settings.bankroll || 0);
+let pendingBet = null;
+
+// Settings
+function openSettings() {
+    document.getElementById('setting-bankroll').value = settings.bankroll || '';
+    document.getElementById('setting-kelly').value = settings.kelly || 0.25;
+    document.getElementById('settings-modal').classList.add('active');
+}
+
+function closeSettings() {
+    document.getElementById('settings-modal').classList.remove('active');
+}
+
+function saveSettings(e) {
+    e.preventDefault();
+    const bankroll = parseFloat(document.getElementById('setting-bankroll').value);
+    const kelly = parseFloat(document.getElementById('setting-kelly').value);
+    
+    settings = { bankroll, kelly };
+    localStorage.setItem('settings', JSON.stringify(settings));
+    
+    // Set initial bankroll if not set
+    if (currentBankroll === 0) {
+        currentBankroll = bankroll;
+        localStorage.setItem('currentBankroll', currentBankroll);
+    }
+    
+    closeSettings();
+    updateStats();
+    renderPicks();
+}
+
+// Load data
+async function loadData() {
+    try {
+        // Get today's date
+        const today = new Date();
+        const dateStr = today.toISOString().split('T')[0];
+        
+        // Try today's picks, fallback to latest
+        let picksResponse;
+        try {
+            picksResponse = await fetch(`picks/${dateStr}.json`);
+            if (!picksResponse.ok) throw new Error('Not found');
+        } catch {
+            picksResponse = await fetch('picks/2026-03-31.json');
+        }
+        
+        const allPicks = await picksResponse.json();
+        picks = allPicks.filter(p => p.confidence === 'HIGH');
+
+        updateStats();
+        renderPicks();
+    } catch (error) {
+        console.error('Error loading data:', error);
+        document.getElementById('picks-body').innerHTML = `
+            <tr><td colspan="6"><div class="empty-state"><h3>Error loading picks</h3></div></td></tr>
+        `;
+    }
+}
+
+function updateStats() {
+    // Calculate P/L and record
+    let totalPL = 0;
+    let wins = 0;
+    let losses = 0;
+    
+    bets.forEach(bet => {
+        if (bet.result === 'win') {
+            totalPL += bet.profit;
+            wins++;
+        } else if (bet.result === 'loss') {
+            totalPL -= bet.amount;
+            losses++;
+        }
+    });
+    
+    const winRate = (wins + losses > 0) ? (wins / (wins + losses) * 100).toFixed(0) : 0;
+    
+    document.getElementById('stat-bankroll').textContent = `$${currentBankroll.toFixed(2)}`;
+    
+    const plEl = document.getElementById('stat-pl');
+    plEl.textContent = `${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}`;
+    plEl.classList.toggle('negative', totalPL < 0);
+    
+    document.getElementById('stat-record').textContent = `${wins}-${losses}`;
+    document.getElementById('stat-winrate').textContent = `${winRate}%`;
+    document.getElementById('stat-picks').textContent = picks.length;
+    document.getElementById('last-update').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+}
+
+function calculateKellyBet(prob, odds) {
+    // Convert American odds to decimal
+    let decimalOdds;
+    if (odds < 0) {
+        decimalOdds = 1 + (100 / Math.abs(odds));
+    } else {
+        decimalOdds = 1 + (odds / 100);
+    }
+    
+    // Kelly formula: f = (bp - q) / b
+    const b = decimalOdds - 1;
+    const q = 1 - prob;
+    const kelly = (b * prob - q) / b;
+    
+    // Apply Kelly fraction from settings
+    const betSize = Math.max(0, kelly * currentBankroll * settings.kelly);
+    
+    return Math.round(betSize * 100) / 100;
+}
+
+function renderPicks() {
+    const tbody = document.getElementById('picks-body');
+    
+    if (settings.bankroll === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="empty-state">
+                        <h3>Configure your bankroll first</h3>
+                        <p><button class="btn" onclick="openSettings()">Open Settings</button></p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    if (picks.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="empty-state">
+                        <h3>No premium picks today</h3>
+                        <p>Check back at 10 AM ET</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = picks.map(pick => {
+        const edge = (pick.edge * 100).toFixed(1);
+        const gameTime = new Date(pick.game_time).toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit' 
+        });
+        
+        // Calculate Kelly bet size (using -110 as default odds for now)
+        const betSize = calculateKellyBet(pick.pick_prob, -110);
+
+        return `
+            <tr>
+                <td>
+                    <div style="font-size: 13px; color: var(--text-muted);">${pick.away_team} @ ${pick.home_team}</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">${gameTime}</div>
+                </td>
+                <td class="team-name">${pick.pick}</td>
+                <td>
+                    <span class="prob-high">${(pick.pick_prob * 100).toFixed(0)}%</span>
+                    <span class="badge badge-high">HIGH</span>
+                </td>
+                <td class="edge-positive">+${edge}%</td>
+                <td style="font-weight: 700; color: var(--success);">$${betSize.toFixed(2)}</td>
+                <td>
+                    <button class="btn btn-small btn-success" 
+                            onclick='openBetModal(${JSON.stringify(pick)}, ${betSize})'>
+                        Place Bet
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function openBetModal(pick, betSize) {
+    pendingBet = {
+        pick: pick.pick,
+        matchup: `${pick.away_team} @ ${pick.home_team}`,
+        amount: betSize,
+        odds: -110, // Default odds
+        prob: pick.pick_prob,
+        gameId: pick.game_id
+    };
+    
+    document.getElementById('bet-confirm-team').textContent = pick.pick;
+    document.getElementById('bet-confirm-matchup').textContent = pendingBet.matchup;
+    document.getElementById('bet-confirm-amount').textContent = `$${betSize.toFixed(2)}`;
+    document.getElementById('bet-confirm-odds').textContent = '-110';
+    
+    // Calculate potential win
+    const toWin = betSize * (100 / 110);
+    document.getElementById('bet-confirm-towin').textContent = `$${toWin.toFixed(2)}`;
+    
+    document.getElementById('bet-modal').classList.add('active');
+}
+
+function closeBetModal() {
+    document.getElementById('bet-modal').classList.remove('active');
+    pendingBet = null;
+}
+
+function confirmBet() {
+    if (!pendingBet) return;
+    
+    const bet = {
+        id: Date.now(),
+        ...pendingBet,
+        timestamp: new Date().toISOString(),
+        result: 'pending'
+    };
+    
+    // Deduct from bankroll
+    currentBankroll -= bet.amount;
+    localStorage.setItem('currentBankroll', currentBankroll);
+    
+    // Log bet
+    bets.push(bet);
+    localStorage.setItem('bets', JSON.stringify(bets));
+    
+    closeBetModal();
+    updateStats();
+    renderBets();
+}
+
+function renderBets() {
+    const container = document.getElementById('bets-list');
+    
+    if (bets.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <h3>No bets logged</h3>
+                <p>Place your first bet to start tracking</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = bets.slice(-10).reverse().map(bet => `
+        <div class="bet-item">
+            <div class="bet-info">
+                <div style="font-weight: 600;">${bet.pick}</div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">
+                    $${bet.amount.toFixed(2)} @ ${bet.odds}
+                </div>
+            </div>
+            <div>
+                <div class="bet-result ${bet.result}">${bet.result.toUpperCase()}</div>
+                ${bet.result !== 'pending' ? `
+                    <div style="font-size: 12px; text-align: right; margin-top: 4px; ${bet.result === 'win' ? 'color: var(--success)' : 'color: var(--error)'}">
+                        ${bet.result === 'win' ? '+' : '-'}$${(bet.result === 'win' ? bet.profit : bet.amount).toFixed(2)}
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Refresh
+function refreshData() {
+    loadData();
+}
+
+// Initialize
+loadData();
+renderBets();
+
+// Check if settings needed
+if (settings.bankroll === 0) {
+    setTimeout(() => openSettings(), 500);
+}
+</script>
+
+</body>
+</html>

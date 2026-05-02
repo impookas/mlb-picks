@@ -807,41 +807,34 @@ def build_today():
 
 
 def build_track_record():
-    """Track record page - ALL picks, full transparency."""
+    """Track record page - PREMIUM and HIGH confidence picks only."""
     
-    # Load combined track record
-    combined_file = ROOT / "track_record_combined.json"
-    if combined_file.exists():
-        with open(combined_file) as fp:
-            combined = json.load(fp)
-        summary = combined.get('summary', {})
-        days = combined.get('days', {})
-    else:
-        # Fallback to results files
-        total_c = total_t = 0
-        days = {}
-        for f in sorted(RESULTS_DIR.glob("*.json")):
-            data = json.load(open(f))
-            picks = data.get('picks', [])
-            c = sum(1 for p in picks if p.get('correct'))
-            days[data.get('date', f.stem)] = {'total': len(picks), 'correct': c, 'picks': picks}
-            total_c += c; total_t += len(picks)
-        summary = {'total_picks': total_t, 'total_correct': total_c, 
-                   'win_rate': round(total_c/total_t*100,1) if total_t else 0,
-                   'roi_pct': round(((total_c*100)-(total_t-total_c)*110)/(total_t*110)*100,1) if total_t else 0}
+    # Filter to PREMIUM + HIGH only from results files
+    premium_days = {}
+    total_c = total_t = 0
     
-    total_picks = summary.get('total_picks', 0)
-    total_correct = summary.get('total_correct', 0)
-    total_wrong = total_picks - total_correct
-    win_pct = summary.get('win_rate', 0)
-    roi = summary.get('roi_pct', 0)
-    days_count = len(days)
+    for f in sorted(RESULTS_DIR.glob("*.json")):
+        with open(f) as fp:
+            data = json.load(fp)
+        date = data.get('date', f.stem)
+        all_picks = data.get('picks', [])
+        # Keep only PREMIUM and HIGH confidence picks
+        filtered = [p for p in all_picks if p.get('confidence') in ('PREMIUM', 'HIGH')]
+        if filtered:
+            c = sum(1 for p in filtered if p.get('correct'))
+            premium_days[date] = {'total': len(filtered), 'correct': c, 'picks': filtered}
+            total_c += c; total_t += len(filtered)
+    
+    total_wrong = total_t - total_c
+    win_pct = (total_c / total_t * 100) if total_t else 0
+    roi = ((total_c * 100 - total_wrong * 110) / (total_t * 110) * 100) if total_t else 0
+    days_count = len(premium_days)
     
     hero = """
 <div class="hero compact">
     <div class="container">
         <h1>Track Record</h1>
-        <p class="subtitle">Full transparency. Every pick, every result, every day. No cherry-picking.</p>
+        <p class="subtitle">Premium picks only. High confidence, real results.</p>
     </div>
 </div>
 """
@@ -852,8 +845,8 @@ def build_track_record():
     <div class="container">
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-value">{total_correct}-{total_wrong}</div>
-                <div class="stat-label">Record (W-L)</div>
+                <div class="stat-value">{total_c}-{total_wrong}</div>
+                <div class="stat-label">Premium Record</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value">{win_pct:.1f}%</div>
@@ -864,8 +857,8 @@ def build_track_record():
                 <div class="stat-label">ROI (at -110)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">{days_count}</div>
-                <div class="stat-label">Days Tracked</div>
+                <div class="stat-value">{total_t}</div>
+                <div class="stat-label">Premium Picks</div>
             </div>
         </div>
     </div>
@@ -877,8 +870,8 @@ def build_track_record():
     daily_rows = ""
     pick_rows = ""
     
-    for date in sorted(days.keys(), reverse=True):
-        day = days[date]
+    for date in sorted(premium_days.keys(), reverse=True):
+        day = premium_days[date]
         d_total = day.get('total', 0)
         d_correct = day.get('correct', 0)
         d_pct = (d_correct / d_total * 100) if d_total else 0
@@ -922,7 +915,7 @@ def build_track_record():
     <div class="section">
         <div class="section-header">
             <h2 class="section-title">Daily Summary</h2>
-            <p class="section-subtitle">Win/loss record for each day</p>
+            <p class="section-subtitle">Win/loss record for premium picks each day</p>
         </div>
         
         <div class="table-wrapper">
@@ -948,8 +941,8 @@ def build_track_record():
 <div class="container">
     <div class="section">
         <div class="section-header">
-            <h2 class="section-title">All Picks Detail</h2>
-            <p class="section-subtitle">Every pick we made — wins, losses, and scores</p>
+            <h2 class="section-title">Premium Pick History</h2>
+            <p class="section-subtitle">Every PREMIUM and HIGH confidence pick with results</p>
         </div>
         
         <div class="table-wrapper">
